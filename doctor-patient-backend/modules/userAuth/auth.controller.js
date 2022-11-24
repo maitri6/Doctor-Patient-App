@@ -2,7 +2,7 @@ const UserModel = require("./user.model");
 const bcrypt = require("bcrypt");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 const { generateJwt } = require("../../helpers/jwt.helper");
-
+const sendEmail = require("../../helpers/mail.helper");
 /**
  * Description: Register user into the application
  * @param {*} req
@@ -62,3 +62,63 @@ exports.login = async(req, res, next) => {
         console.log(error, "error")
     }
 };
+
+exports.forgetPassword = async(req, res, next) => {
+    try {
+        let url = "http://localhost:4200/reset-password/"
+        let email = req.body.email;
+        const getUser = await UserModel.findOne({ email: email });
+        if (!getUser) {
+            return sendResponse(res, true, 404, "User not exists or Please enter valid email.");
+        }
+        var forgetPasswordToken = await generateJwt({ email: getUser.email });
+
+        let subject = "Forget Password";
+        let send = url.concat(forgetPasswordToken);
+        let html = "Hi, click the link to reset you password ".concat(send);
+        await sendEmail(getUser.email, subject, html);
+        const filter = {
+            email: getUser.email
+        }
+        const updateTokenInDB = {
+            $set: {
+                token: forgetPasswordToken
+            }
+        }
+        await UserModel.updateOne(filter, updateTokenInDB);
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.resetPassword = async(req, res) => {
+    try {
+        let inputToken = req.body.token;
+        let newPassword = await bcrypt.hash(req.body.password);
+        const verifyUser = await UserModel.findOne({ token: inputToken });
+        if (!getUser) return sendResponse(res, true, 400, "Email already exists.");
+        const filter_1 = {
+            email: verifyUser.email
+        }
+
+        const updateNewPassword = {
+            $set: {
+                password: newPassword
+            }
+        }
+        let subject = "Reset Password";;
+        let html = "Password Updated successfully......!";
+        await sendEmail(getUser.email, subject, html);
+        await UserModel.updateOne(filter_1, updateNewPassword);
+        return sendResponse(
+            res,
+            true,
+            200,
+            "Password Update Successfully"
+        );
+    } catch (error) {
+        console.log(error)
+    }
+}
