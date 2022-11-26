@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: "login", component:  AuthComponent },
   { path: "register", component:  AuthRegisterComponent },
   { path: "forget-password", component: ForgetPasswordComponent  },
-  { path: "reset-password", component: ResetPasswordComponent  },
+  { path: "reset-password/:token", component: ResetPasswordComponent  },
   { path: "otp-verification", component: OtpVerificationComponent  },
   { path: '**', component: PageNotFoundComponent },
 ];

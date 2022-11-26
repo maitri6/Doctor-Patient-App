@@ -51,8 +51,29 @@ const registerValidation = async (req, res, next) => {
       next(error);
     }
   };
+
+  const forgetValidation = async (req, res, next) => {
+    try {
+      const schema = Joi.object({
+        email: Joi.string().email().required().messages( {"string.empty": "Please add an email.","string.email": "Please add an valid email."})
+      });
+  
+      const { value, error } = schema.validate(req.body);
+  
+      if (error !== undefined) {
+        return sendResponse(res, false, 422, error.details[0].message);
+      }
+  
+      // set the variable in the request for validated data
+      req.validated = value;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
   
   module.exports = {
     registerValidation,
-    loginValidation
+    loginValidation,
+    forgetValidation
 }

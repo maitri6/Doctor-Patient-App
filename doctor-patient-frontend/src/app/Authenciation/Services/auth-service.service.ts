@@ -11,6 +11,9 @@ export class AuthServiceService {
   authPath='auth'
   registerPath='/register'
   loginPath='/login'
+  forgetPasswordPath='/forgetPassword'
+  resetPasswordPath='/resetPassword'
+
   constructor(private http:HttpClient) { }
 
   userRegister(data : any): Observable<any>{
@@ -18,5 +21,12 @@ export class AuthServiceService {
   }
   userLogin(data : any): Observable<any>{
     return this.http.post(this.baseUrl + this.authPath+this.loginPath, data);
+  }
+
+  userForgetPassword(data : any): Observable<any>{
+    return this.http.post(this.baseUrl + this.authPath+this.forgetPasswordPath, data);
+  }
+  userResetPassword(data : any): Observable<any>{
+    return this.http.post(this.baseUrl + this.authPath+this.resetPasswordPath, data);
   }
 }
