@@ -11,5 +11,7 @@ router.post("/register", registerValidation, authController.register);
 router.post("/login", loginValidation, authController.login);
 router.post("/forgetPassword",forgetValidation, authController.forgetPassword);
 router.post("/resetPassword", authController.resetPassword);
+router.post("/sendOtp", authController.sendOtp);
+
 
 module.exports = router;

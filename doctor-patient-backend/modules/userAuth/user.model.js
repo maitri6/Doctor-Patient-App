@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema(
     token: {
       type: String,
     },
+    otp: {
+      type: String,
+    },
     status: {
       type: Boolean,
       default: false,

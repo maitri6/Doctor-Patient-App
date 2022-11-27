@@ -11,11 +11,28 @@ const sendEmail = require("../../helpers/mail.helper");
  */
 exports.register = async (req, res, next) => {
   try {
+    let subject,message,otp;
     const checkUser = await UserModel.findOne({ email: req.body.email });
     if (checkUser)
       return sendResponse(res, true, 400, "Email already exists..");
     req.body.password = await bcrypt.hash(req.body.password, 10);
     let saveUser = await UserModel.create(req.body);
+  
+    otp=await generateOTP()
+    console.log("generated",otp)
+    subject = "Here is your 6 digit OTP ";
+    message = otp;
+    const filter_1 = {
+      _id: saveUser._id,
+    };
+
+    const updateOtp = {
+      $set: {
+        otp: otp,
+      },
+    };
+    await UserModel.updateOne(filter_1, updateOtp);
+    sendEmail(saveUser.email, subject, message);
     return sendResponse(res, true, 200, "OTP sent successfully.", saveUser);
   } catch (error) {
     console.log("error", error);
@@ -30,6 +47,7 @@ exports.register = async (req, res, next) => {
  */
 exports.login = async (req, res, next) => {
   try {
+    let subject,message,otp;
     let email = req.body.email;
     let password = req.body.password;
 
@@ -48,6 +66,20 @@ exports.login = async (req, res, next) => {
         "Something went wrong please try again."
       );
     }
+    otp=await generateOTP()
+    subject = "Here is your 6 digit OTP ";
+    message = otp;
+    const filter_1 = {
+      _id: getUser._id,
+    };
+
+    const updateOtp = {
+      $set: {
+        otp: otp,
+      },
+    };
+    await UserModel.updateOne(filter_1, updateOtp);
+    sendEmail(getUser.email, subject, message);
     return sendResponse(res, true, 200, "OTP sent successfully.", {
       getUser,
       token,
@@ -116,3 +148,59 @@ exports.resetPassword = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.sendOtp = async (req, res) => {
+  try {
+    let subject, message;
+    let getUser = await UserModel.findById(req.body.userId);
+    if (!getUser) return sendResponse(res, true, 400, "User not found.");
+    if(req.body.type === 'resetOtp'){
+      subject = "Here is your 6 digit OTP";
+      otp=await generateOTP()
+      message = otp;
+      sendEmail(getUser.email, subject, message);
+     
+      const filter_1 = {
+        _id: getUser._id,
+      };
+  
+      const updateOtp = {
+        $set: {
+          otp: otp
+        },
+      };
+      await UserModel.updateOne(filter_1, updateOtp);
+      return sendResponse(res, true, 200, "OTP sent successfully");
+    }
+    const checkOtp =await  UserModel.findOne({
+      _id:req.body.userId,
+      otp:req.body.otp
+    })
+    if(!checkOtp)
+    return sendResponse(res, true, 400, "Invalid OTP");
+
+    const filter_1 = {
+      _id: checkOtp._id,
+    };
+
+    const updateOtp = {
+      $set: {
+        status: true,
+      },
+    };
+ 
+    await UserModel.updateOne(filter_1, updateOtp);
+    return sendResponse(res, true, 200, "User verified successfully");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+function generateOTP() {
+  let digits = '0123456789';
+  let OTP = '';
+  for (let i = 0; i < 6; i++ ) {
+      OTP += digits[Math.floor(Math.random() * 10)];
+  }
+  return OTP;
+}
