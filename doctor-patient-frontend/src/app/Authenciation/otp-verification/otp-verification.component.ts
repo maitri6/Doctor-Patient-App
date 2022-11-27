@@ -36,64 +36,54 @@ export class OtpVerificationComponent implements OnInit {
   sendOtpToUser() {
     const userOtpobj = {
       otp: this.OtpForm.value.otp,
-      type:"sendOtp",
       userId:this.id
     };
-    console.log(userOtpobj);
+   
     if(this.OtpForm.value.otp=="")
     this.notifyService.showToastError("OTP cannot be empty");
-  //   this.authService.sendOtp(userOtpobj).subscribe(
-  //     (res: any) => {
-  //       if (res.statusCode == 200) {
-  //         this.router.navigate(['/login]);
-  //         this.notifyService.showToastSuccess(res.statusMessage);
-  //       }
-  //     },
-  //     (err: any) => {
-  //       if (err.error.statusCode == 400) {
-  //         this.router.navigate(['/otp-verification/'+this.id]);
-  //         this.notifyService.showToastError(err.error.statusMessage);
-  //       } else if (err.error.statusCode == 422) {
-  //         this.router.navigate(['/otp-verification/'+this.id]);
-  //         this.notifyService.showToastError(err.error.statusMessage);
-  //       }
-  //       else{
-  //         this.router.navigate(['/login']);
-  //         this.notifyService.showToastError(err.error.statusMessage);
-  //       }
-  //     }
-  //   );
+    else{
+    this.authService.sendOtp(userOtpobj).subscribe(
+      (res: any) => {
+        if (res.statusCode == 200) {
+          this.router.navigate(['/login']);
+          this.notifyService.showToastSuccess(res.statusMessage);
+        }
+      },
+      (err: any) => {
+        if (err.error.statusCode == 400) {
+          this.router.navigate(['/otp-verification/'+this.id]);
+          this.notifyService.showToastError(err.error.statusMessage);
+        } else if (err.error.statusCode == 422) {
+          this.router.navigate(['/otp-verification/'+this.id]);
+          this.notifyService.showToastError(err.error.statusMessage);
+        }
+      }
+    );
   }
-
+  }
 
   resendOtp() {
     const userOtpObj = {
       type:"resendOtp",
       userId:this.id
-    };
-    console.log("resendOtp",userOtpObj);
-   
-  //   this.authService.sendOtp(userOtpObj).subscribe(
-  //     (res: any) => {
-  //       if (res.statusCode == 200) {
-  //         this.router.navigate(['/login]);
-  //         this.notifyService.showToastSuccess(res.statusMessage);
-  //       }
-  //     },
-  //     (err: any) => {
-  //       if (err.error.statusCode == 400) {
-  //         this.router.navigate(['/otp-verification/'+this.id]);
-  //         this.notifyService.showToastError(err.error.statusMessage);
-  //       } else if (err.error.statusCode == 422) {
-  //         this.router.navigate(['/otp-verification/'+this.id]);
-  //         this.notifyService.showToastError(err.error.statusMessage);
-  //       }
-  //       else{
-  //         this.router.navigate(['/login']);
-  //         this.notifyService.showToastError(err.error.statusMessage);
-  //       }
-  //     }
-  //   );
+    }; 
+    this.authService.sendOtp(userOtpObj).subscribe(
+      (res: any) => {
+        if (res.statusCode == 200) {
+          this.router.navigate(['/otp-verification/'+this.id]);
+          this.notifyService.showToastSuccess(res.statusMessage);
+        }
+      },
+      (err: any) => {
+        if (err.error.statusCode == 400) {
+          this.router.navigate(['/otp-verification/'+this.id]);
+          this.notifyService.showToastError(err.error.statusMessage);
+        } else if (err.error.statusCode == 422) {
+          this.router.navigate(['/otp-verification/'+this.id]);
+          this.notifyService.showToastError(err.error.statusMessage);
+        }
+      }
+    );
   }
 
 }

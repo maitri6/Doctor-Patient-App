@@ -154,7 +154,7 @@ exports.sendOtp = async (req, res) => {
     let subject, message;
     let getUser = await UserModel.findById(req.body.userId);
     if (!getUser) return sendResponse(res, true, 400, "User not found.");
-    if(req.body.type === 'resetOtp'){
+    if(req.body.type === 'resendOtp'){
       subject = "Here is your 6 digit OTP";
       otp=await generateOTP()
       message = otp;
