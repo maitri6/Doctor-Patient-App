@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: "register", component:  AuthRegisterComponent },
   { path: "forget-password", component: ForgetPasswordComponent  },
   { path: "reset-password/:token", component: ResetPasswordComponent  },
-  { path: "otp-verification", component: OtpVerificationComponent  },
+  { path: "otp-verification/:id", component: OtpVerificationComponent  },
   { path: '**', component: PageNotFoundComponent },
 ];
 

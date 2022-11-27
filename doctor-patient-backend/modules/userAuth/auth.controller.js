@@ -111,7 +111,7 @@ exports.resetPassword = async (req, res) => {
     let html = "Password updated successfully......!";
     sendEmail(getUser.email, subject, html);
     await UserModel.updateOne(filter_1, updateNewPassword);
-    return sendResponse(res, true, 200, "Password update Successfully");
+    return sendResponse(res, true, 200, "Password update successfully");
   } catch (error) {
     console.log(error);
   }

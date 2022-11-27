@@ -54,7 +54,7 @@ export class AuthRegisterComponent implements OnInit {
       this.authService.userRegister(userRegisterobj).subscribe(
         (res: any) => {
           if (res.statusCode == 200) {
-            this.router.navigate(['/otp-verification']);
+            this.router.navigate(['/otp-verification/'+res.data._id]);
             this.notifyService.showToastSuccess(res.statusMessage);
           }
         },

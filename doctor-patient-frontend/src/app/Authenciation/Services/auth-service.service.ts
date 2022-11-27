@@ -13,6 +13,7 @@ export class AuthServiceService {
   loginPath='/login'
   forgetPasswordPath='/forgetPassword'
   resetPasswordPath='/resetPassword'
+  sendOtpPath='/sendOtp'
 
   constructor(private http:HttpClient) { }
 
@@ -28,5 +29,9 @@ export class AuthServiceService {
   }
   userResetPassword(data : any): Observable<any>{
     return this.http.post(this.baseUrl + this.authPath+this.resetPasswordPath, data);
+  }
+
+  sendOtp(data : any): Observable<any>{
+    return this.http.post(this.baseUrl + this.authPath+this.sendOtpPath, data);
   }
 }
