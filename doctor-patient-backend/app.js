@@ -15,7 +15,8 @@ app.use(cors());
 
 const indexRouter = require("./routes/index");
 //mongoose connection
-mongoose.connect("mongodb+srv://CMS:bk9828064545@cluster0.itloa.mongodb.net/Doctor-Patient?retryWrites=true&w=majority", {
+//mongoose.connect("mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongo-db:27017/node", {
+ mongoose.connect("mongodb://mongo-db:27017/node1", {  
    useNewUrlParser: true,
    useUnifiedTopology: true
 });
@@ -27,11 +28,11 @@ dbConn.on("error", () => {
 });
 
 dbConn.once("open", function () {
-    console.log("Mongodb connected successfully");
+    console.log("Mongodb connected successfully!!");
 });
 
 app.get('/',function(req,res) {
-    res.send("Doctor Patient App Runs")
+    res.send("Doctor Patient App Runs!!")
 });
 
 server.listen(3003,function(){

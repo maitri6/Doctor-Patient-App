@@ -1,0 +1,66 @@
+version: '3'
+services:
+   mongo-db:
+      image: mongo
+      ports: 
+         - 27017:27017
+      restart: always  
+      volumes: 
+         - data:/data/db 
+      env_file:
+         - ./env/mongo.env   
+   client:
+      container_name: angular_app
+      build: 
+         context: ./doctor-patient-frontend
+         dockerfile: Dockerfile
+      
+      ports:
+         - 4200:80
+
+      volumes:
+         - ./doctor-patient-frontend/src:/app/src
+                 
+
+      depends_on:
+         - api  
+         - mongo-db
+      links:
+         - api     
+       
+   
+   api:
+       container_name: node_server
+       build: 
+         context: ./doctor-patient-backend
+         dockerfile: Dockerfile
+
+       env_file:
+          - ./env/backend.env  
+       
+       #environment:
+        # MONGODB_URI: mongodb://mongo-db:27017
+         #DB_NAME : node
+       ports:
+          - 3003:3003   
+       depends_on:
+         
+         - mongo-db
+       links:
+         - mongo-db 
+       volumes:
+       
+         - logs:/app/logs
+         
+        
+
+volumes:
+   data:
+   logs:         
+           
+       
+       
+       
+      
+
+         
