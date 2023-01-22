@@ -6,6 +6,8 @@ import { ForgetPasswordComponent } from './Authenciation/forget-password/forget-
 import { OtpVerificationComponent } from './Authenciation/otp-verification/otp-verification.component';
 import { PageNotFoundComponent } from './Authenciation/page-not-found/page-not-found.component';
 import { ResetPasswordComponent } from './Authenciation/reset-password/reset-password.component';
+import { DoctorInformationComponent } from './Doctor/doctor-information/doctor-information.component';
+
 
 const routes: Routes = [
   { path: "", component:  AuthComponent },
@@ -14,6 +16,7 @@ const routes: Routes = [
   { path: "forget-password", component: ForgetPasswordComponent  },
   { path: "reset-password/:token", component: ResetPasswordComponent  },
   { path: "otp-verification/:id", component: OtpVerificationComponent  },
+  { path: "doctorRegister", component: DoctorInformationComponent  },
   { path: '**', component: PageNotFoundComponent },
 ];
 
