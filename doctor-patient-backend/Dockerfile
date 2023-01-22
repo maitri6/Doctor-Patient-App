@@ -22,4 +22,4 @@ COPY . .
 EXPOSE 3003
 
 
-CMD ["nodemon","app.js"]
+CMD ["node","app.js"]
