@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "forget-password", component: ForgetPasswordComponent  },
   { path: "reset-password/:token", component: ResetPasswordComponent  },
   { path: "otp-verification/:id", component: OtpVerificationComponent  },
-  { path: "doctorRegister", component: DoctorInformationComponent  },
+  { path: "saveDoctorForm", component: DoctorInformationComponent  },
   { path: '**', component: PageNotFoundComponent },
 ];
 

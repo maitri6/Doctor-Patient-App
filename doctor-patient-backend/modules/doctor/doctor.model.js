@@ -10,8 +10,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-  
     specialization: {
+      type: String,
+    },
+    gender: {
       type: String,
     },
     identityProof: {
@@ -21,37 +23,33 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     registrationNumber: {
-      type: String,
+      type: Number,
     },
     registrationCouncil: {
       type: String,
     },
     registrationYear: {
-      type: String,
+      type: Number,
     },
     degree: {
+      type: String,
+    },
+    city: {
       type: String,
     },
     college: {
       type: String,
     },
     year: {
-      type: String,
+      type: Number,
     },
     experience: {
-      type: String,
+      type: Number,
     },
     userId: {
         type: mongoose.Types.ObjectId,
         ref: "user",
-        
       },
-    
-
-    
-
-    
-  
   },
   {
     timestamps: true,

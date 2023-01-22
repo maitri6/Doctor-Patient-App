@@ -20,13 +20,26 @@ export class DoctorInformationComponent implements OnInit {
     
   }
   DoctorForm = new FormGroup({
+     title:new FormControl('', []),
      email: new FormControl('', [Validators.required, Validators.email]),
      name: new FormControl('', [Validators.required]),
-     phone: new FormControl('', [Validators.required]),
+     phoneNumber: new FormControl('', [Validators.required]),
      password: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
     ]),
+    specialization:new FormControl('', []),
+    city:new FormControl('', []),
+    gender:new FormControl('', []),
+    identityProof:new FormControl('', []),
+    identityProofValue:new FormControl('', []),
+    registrationNumber:new FormControl('', []),
+    registrationCouncil:new FormControl('', []),
+    registrationYear:new FormControl('', []),
+    degree:new FormControl('', []),
+    year:new FormControl('', []),
+    experience:new FormControl('', []),
+    college:new FormControl('', []),
   });
 
   get f() {
@@ -34,33 +47,25 @@ export class DoctorInformationComponent implements OnInit {
   }
 
   saveForm() {
-    const saveDoctorForm = {
-      name: this.DoctorForm.value.name,
-      email: this.DoctorForm.value.email,
-      phoneNumber: this.DoctorForm.value.phone,
-      password: this.DoctorForm.value.password,
-    };
-
-      this.doctorService.saveForm(saveDoctorForm).subscribe(
+      this.doctorService.saveForm(this.DoctorForm.value).subscribe(
         (res: any) => {
-          console.log(res)
-          // if (res.statusCode == 200) {
-          //   this.router.navigate(['/otp-verification/'+res.data._id]);
-          //   this.notifyService.showToastSuccess(res.statusMessage);
-          // }
+          if (res.statusCode == 200) {
+            this.router.navigate(['/login']);
+            this.notifyService.showToastSuccess(res.statusMessage);
+          }
         },
         (err: any) => {
-          // if (err.error.statusCode == 400) {
-          //   this.router.navigate(['/register']);
-          //   this.notifyService.showToastError(err.error.statusMessage);
-          // } else if (err.error.statusCode == 422) {
-          //   this.router.navigate(['/register']);
-          //   this.notifyService.showToastError(err.error.statusMessage);
-          // }
-          // else{
-          //   this.router.navigate(['/login']);
-          //   this.notifyService.showToastError(err.error.statusMessage);
-          // }
+          if (err.error.statusCode == 400) {
+            this.router.navigate(['/saveDoctorForm']);
+            this.notifyService.showToastError(err.error.statusMessage);
+          } else if (err.error.statusCode == 422) {
+            this.router.navigate(['/saveDoctorForm']);
+            this.notifyService.showToastError(err.error.statusMessage);
+          }
+          else{
+            this.router.navigate(['/saveDoctorForm']);
+            this.notifyService.showToastError(err.error.statusMessage);
+          }
         }
       );
   }
