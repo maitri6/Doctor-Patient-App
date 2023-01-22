@@ -14,9 +14,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
 const indexRouter = require("./routes/index");
+//"mongodb+srv://CMS:bk9828064545@cluster0.itloa.mongodb.net/Doctor-Patient?retryWrites=true&w=majority",
 //mongoose connection
+//mongodb://mongo-db:27017/node
 //mongoose.connect("mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongo-db:27017/node", {
- mongoose.connect("mongodb://mongo-db:27017/node", {  
+ mongoose.connect("mongodb+srv://CMS:bk9828064545@cluster0.itloa.mongodb.net/Doctor-Patient?retryWrites=true&w=majority", {  
    useNewUrlParser: true,
    useUnifiedTopology: true
 });
