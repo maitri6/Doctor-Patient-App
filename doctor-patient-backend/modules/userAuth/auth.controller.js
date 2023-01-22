@@ -19,7 +19,6 @@ exports.register = async (req, res, next) => {
     let saveUser = await UserModel.create(req.body);
   
     otp=await generateOTP()
-    console.log("generated",otp)
     subject = "Here is your 6 digit OTP ";
     message = otp;
     const filter_1 = {
@@ -35,7 +34,6 @@ exports.register = async (req, res, next) => {
     sendEmail(saveUser.email, subject, message);
     return sendResponse(res, true, 200, "OTP sent successfully.", saveUser);
   } catch (error) {
-    console.log("error", error);
   }
 };
 
@@ -85,7 +83,6 @@ exports.login = async (req, res, next) => {
       token,
     });
   } catch (error) {
-    console.log(error, "error");
   }
 };
 
@@ -119,7 +116,6 @@ exports.forgetPassword = async (req, res, next) => {
     await UserModel.updateOne(filter, updateTokenInDB);
     return sendResponse(res, true, 200, "Email sent successfully.");
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -145,7 +141,6 @@ exports.resetPassword = async (req, res) => {
     await UserModel.updateOne(filter_1, updateNewPassword);
     return sendResponse(res, true, 200, "Password update successfully");
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -192,7 +187,6 @@ exports.sendOtp = async (req, res) => {
     await UserModel.updateOne(filter_1, updateOtp);
     return sendResponse(res, true, 200, "User verified successfully");
   } catch (error) {
-    console.log(error);
   }
 };
 

@@ -54,7 +54,6 @@ export class ResetPasswordComponent implements OnInit {
     else{
       this.authService.userResetPassword(userResetObj).subscribe(
         (res: any) => {
-          console.log("res",res)
           if (res.statusCode == 200) {
             this.router.navigate(['/login']);
             this.notifyService.showToastSuccess(res.statusMessage);
