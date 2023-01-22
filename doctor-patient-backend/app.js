@@ -16,7 +16,7 @@ app.use(cors());
 const indexRouter = require("./routes/index");
 //mongoose connection
 //mongoose.connect("mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongo-db:27017/node", {
- mongoose.connect("mongodb://mongo-db:27017/node1", {  
+ mongoose.connect("mongodb://mongo-db:27017/node", {  
    useNewUrlParser: true,
    useUnifiedTopology: true
 });
