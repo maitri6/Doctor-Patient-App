@@ -1,3 +1,4 @@
+<form [formGroup]="DoctorForm">
 <section class="h-100 bg-dark">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -11,59 +12,70 @@
               </div>
               <div class="col-xl-6">
                 <div class="card-body p-md-5 text-black">
-                  <h2 class="mb-5 text-uppercase">Doctor registration form</h2>
+                  <h2 class="mb-5 text-uppercase">Doctor Registration Form</h2>
                   
                   <h5>Basic Details</h5>
+               
                   <div class="row">
-                    <div class="col-md-12 mb-4">
+                    <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1m" class="form-control form-control-lg" />
                         <label class="form-label" for="form3Example1m">Name</label>
+                        <input type="text" id="form3Example1m" class="form-control form-control-lg" formControlName="name"/>
+                     
                       </div>
                     </div>
-                    <!-- <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input type="text" id="form3Example1n" class="form-control form-control-lg" />
-                        <label class="form-label" for="form3Example1n">Last name</label>
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                          <label class="form-label" for="form3Example1n1">Mobile Number</label>
+                          <input type="text" id="form3Example1n1" class="form-control form-control-lg" formControlName="phoneNumber"/>
+                        </div>
                       </div>
-                    </div> -->
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3Example1m">Email</label>
+                        <input type="text" id="form3Example1m" class="form-control form-control-lg" formControlName="email"/>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                          <label class="form-label" for="form3Example1n1">Set Password</label>
+                          <input type="text" id="form3Example1n1" class="form-control form-control-lg" formControlName="password"/>
+                        </div>
+                      </div>
                   </div>
   
                   <div class="row">
-                    <div class="col-md-12 mb-4">
+                    <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" />
                         <label class="form-label" for="form3Example1m1">Title</label>
+                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" formControlName="title"/>
                       </div>
                     </div>
-                    <!-- <div class="col-md-6 mb-4">
+                    <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" />
-                        <label class="form-label" for="form3Example1n1">Father's name</label>
+                        <label class="form-label" for="form3Example1n1">Specialization</label>
+                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" formControlName="specialization"/>
                       </div>
-                    </div> -->
+                    </div>
                   </div>
 
                   <div class="row">
                     <div class="col-md-12 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" />
                         <label class="form-label" for="form3Example1m1">City</label>
+                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" formControlName="city"/>
                       </div>
                     </div>
-                    <!-- <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" />
-                        <label class="form-label" for="form3Example1n1">Father's name</label>
-                      </div>
-                    </div> -->
                   </div>
 
                   <div class="row">
                     <div class="col-md-12 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" />
                         <label class="form-label" for="form3Example1m1">Experience</label>
+                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" formControlName="experience"/>
                       </div>
                     </div>
                   </div>
@@ -104,8 +116,8 @@
                     </div>  
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" />
-                        <label class="form-label" for="form3Example1n1">Identity Value</label>
+                        <label class="form-label" for="form3Example1n1">Identity Proof Value</label>
+                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" formControlName="identityProofValue"/>
                       </div>
                     </div>
   
@@ -114,14 +126,14 @@
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" />
                         <label class="form-label" for="form3Example1m1">Registration Number</label>
+                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" formControlName="registrationNumber"/>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" />
                         <label class="form-label" for="form3Example1n1">Registration Council</label>
+                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" formControlName="registrationCouncil"/>
                       </div>
                     </div>
                   </div>
@@ -129,14 +141,14 @@
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" />
                         <label class="form-label" for="form3Example1m1">Registration Year </label>
+                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" formControlName="registrationYear"/>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" />
                         <label class="form-label" for="form3Example1n1">Degree</label>
+                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" formControlName="degree"/>
                       </div>
                     </div>
                   </div>
@@ -144,21 +156,21 @@
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" />
                         <label class="form-label" for="form3Example1m1">College</label>
+                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" formControlName="college"/>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" />
                         <label class="form-label" for="form3Example1n1">Year</label>
+                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" formControlName="year"/>
                       </div>
                     </div>
                   </div>
   
                   <div class="d-flex justify-content-end pt-3">
-                    <button type="button" class="btn btn-light btn-lg">Reset all</button>
-                    <button type="button" class="btn btn-warning btn-lg ms-2">Submit form</button>
+                    <!-- <button type="button" class="btn btn-light btn-lg">Reset all</button> -->
+                    <button type="button" class="btn btn-warning btn-lg ms-2" (click)="saveForm()">Submit form</button>
                   </div>
   
                 </div>
@@ -169,3 +181,4 @@
       </div>
     </div>
   </section>
+  </form>
