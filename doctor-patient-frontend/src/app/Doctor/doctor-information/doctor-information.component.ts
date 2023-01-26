@@ -17,11 +17,12 @@ export class DoctorInformationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+    this.getAllCities();
   }
-  // City Names
+  type:any;
+  City:any;
+  // IdentityProof Names
   IdentityProof: string[]  = ['Aadhar Card','Passport','PAN Card','Election Comission Card','Driving License','Ration card','Voter Card']
-  // Gender:string[] =['Male','Female','Other']
   DoctorForm = new FormGroup({
      title:new FormControl('', []),
      email: new FormControl('', [Validators.required, Validators.email]),
@@ -50,19 +51,25 @@ export class DoctorInformationComponent implements OnInit {
   }
 
   changeProof(e:any) {
-    // console.log(e.value, this.DoctorForm.value.identityProof)
-   
-    // this.DoctorForm.identityProof.setValue(e.target.value, {
-    //   onlySelf: true
-    // })
   }
 
-    // Getter method to access formcontrols
-    // get identityProof() {
-    //   return this.DoctorForm.get('identityProof');
-    // }
-  
-
+  getAllCities() {
+  //  this.type='city';
+    this.doctorService.getAllData().subscribe(
+      (res: any) => {
+        console.log(res);
+         this.City=res.data;
+         
+      },
+      (err: any) => {
+        if (err.error.statusCode == 500) {
+          this.router.navigate(['/saveDoctorForm']);
+          this.notifyService.showToastError(err.error.statusMessage);
+        } 
+      }
+      ); 
+      console.log("city",this.City)
+  }
   saveForm() {
     console.log(this.DoctorForm.value)
       this.doctorService.saveForm(this.DoctorForm.value).subscribe(

@@ -38,6 +38,7 @@ exports.doctorForm = async (req, res, next) => {
         res,
         true,
         200,
+        "Cities fetched successfully",
         city
       );
     }

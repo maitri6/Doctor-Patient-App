@@ -62,13 +62,16 @@
                     </div>
                   </div>
 
+
                   <div class="row">
                     <div class="col-md-12 mb-4">
-                      <div class="form-outline">
-                        <label class="form-label" for="form3Example1m1">City</label>
-                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" formControlName="city"/>
-                      </div>
-                    </div>
+                        <h6 class="">Select City </h6>
+                      <select class="select"  formControlName="city" >
+                        <option value="">Select City </option>
+                        <option *ngFor="let city of City" [ngValue]="city.name">{{city.name}}</option>
+                      </select>
+  
+                    </div>  
                   </div>
 
                   <div class="row">
@@ -99,7 +102,7 @@
                     </div>
   
                   </div>
-                  <!-- (change)="changeProof($event)" -->
+  
                   <div class="row">
                     <div class="col-md-6 mb-4">
                         <h6 class="">Select Identify Proof: </h6>
