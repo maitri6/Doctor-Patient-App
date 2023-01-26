@@ -42,7 +42,7 @@
                     <div class="col-md-6 mb-4">
                         <div class="form-outline">
                           <label class="form-label" for="form3Example1n1">Set Password</label>
-                          <input type="text" id="form3Example1n1" class="form-control form-control-lg" formControlName="password"/>
+                          <input type="password" id="form3Example1n1" class="form-control form-control-lg" formControlName="password"/>
                         </div>
                       </div>
                   </div>
@@ -75,42 +75,37 @@
                     <div class="col-md-12 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="form3Example1m1">Experience</label>
-                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" formControlName="experience"/>
+                        <input type="number" id="form3Example1m1" class="form-control form-control-lg" formControlName="experience"/>
                       </div>
                     </div>
                   </div>
   
-                  <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+                  <div class="d-md-flex justify-content-start align-items-center mb-4 py-2" >
                     <h6 class="mb-0 me-4">Gender: </h6>
                     <div class="form-check form-check-inline mb-0 me-4">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
-                        value="option1" />
-                      <label class="form-check-label" for="femaleGender">Female</label>
-                    </div>
-                    <div class="form-check form-check-inline mb-0 me-4">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
-                        value="option2" />
+                      <input class="form-check-input" type="radio" name="gender" id="maleGender"
+                        value="male" formControlName="gender"/>
                       <label class="form-check-label" for="maleGender">Male</label>
                     </div>
+                    <div class="form-check form-check-inline mb-0 me-4" >
+                      <input class="form-check-input" type="radio" name="gender" id="femaleGender"
+                        value="female" formControlName="gender"/>
+                      <label class="form-check-label" for="femaleGender">Female</label>
+                    </div>
                     <div class="form-check form-check-inline mb-0">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
-                        value="option3" />
+                      <input class="form-check-input" type="radio" name="gender" id="otherGender"
+                        value="other" formControlName="gender"/>
                       <label class="form-check-label" for="otherGender">Other</label>
                     </div>
   
                   </div>
-  
+                  <!-- (change)="changeProof($event)" -->
                   <div class="row">
                     <div class="col-md-6 mb-4">
                         <h6 class="">Select Identify Proof: </h6>
-                      <select class="select">
-                        <option value="1">Aadhar Card</option>
-                        <option value="2">Passport</option>
-                        <option value="3">PAN Card</option>
-                        <option value="4">Election Comission Card</option>
-                        <option value="3">Driving License</option>
-                        <option value="4">Ration card</option>
-                        <option value="4">Voter Card</option>
+                      <select class="select"  formControlName="identityProof" >
+                        <option value="">Select Identify Proof: </option>
+                        <option *ngFor="let proof of IdentityProof" [ngValue]="proof">{{proof}}</option>
                       </select>
   
                     </div>  
@@ -127,7 +122,7 @@
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="form3Example1m1">Registration Number</label>
-                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" formControlName="registrationNumber"/>
+                        <input type="number" id="form3Example1m1" class="form-control form-control-lg" formControlName="registrationNumber"/>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
