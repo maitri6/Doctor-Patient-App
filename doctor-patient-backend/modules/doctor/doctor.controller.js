@@ -1,5 +1,8 @@
 const DoctorModel = require("../doctor/doctor.model");
 const UserModel = require("../userAuth/user.model");
+//const City = require('country-state-city').default;
+let {City} =require('country-state-city');
+
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 
 exports.doctorForm = async (req, res, next) => {
@@ -20,5 +23,26 @@ exports.doctorForm = async (req, res, next) => {
     catch (error) {
       console.log("error",error);
     }
+  
+  
+  };
+
+
+  exports.getAllCities = async (req, res, next) => {
+    try{
+      let city = await City.getCitiesOfCountry("IN");
+      //console.log(City.getAllCities());
+     
+      return sendResponse(
+        res,
+        true,
+        200,
+        city
+      );
+    }
+    catch (error) {
+      console.log("error",error);
+    }
+  
   
   };
