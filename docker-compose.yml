@@ -39,7 +39,8 @@ services:
          # - ./env/backend.env  
        
        environment:
-        MONGODB_URI: mongodb://mongo-db:27017
+        #MONGODB_URI: mongodb://mongo-db:27017
+        MONGODB_URI: mongodb+srv://CMS:bk9828064545@cluster0.itloa.mongodb.net/Doctor-Patient?retryWrites=true&w=majority
         DB_NAME : node
        ports:
           - 3003:3003   
