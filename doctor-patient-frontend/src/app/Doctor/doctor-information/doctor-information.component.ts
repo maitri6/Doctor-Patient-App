@@ -17,8 +17,12 @@ export class DoctorInformationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+    this.getAllCities();
   }
+  type:any;
+  City:any;
+  // IdentityProof Names
+  IdentityProof: string[]  = ['Aadhar Card','Passport','PAN Card','Election Comission Card','Driving License','Ration card','Voter Card']
   DoctorForm = new FormGroup({
      title:new FormControl('', []),
      email: new FormControl('', [Validators.required, Validators.email]),
@@ -46,7 +50,28 @@ export class DoctorInformationComponent implements OnInit {
     return this.DoctorForm.controls;
   }
 
+  changeProof(e:any) {
+  }
+
+  getAllCities() {
+  //  this.type='city';
+    this.doctorService.getAllData().subscribe(
+      (res: any) => {
+        console.log(res);
+         this.City=res.data;
+         
+      },
+      (err: any) => {
+        if (err.error.statusCode == 500) {
+          this.router.navigate(['/saveDoctorForm']);
+          this.notifyService.showToastError(err.error.statusMessage);
+        } 
+      }
+      ); 
+      console.log("city",this.City)
+  }
   saveForm() {
+    console.log(this.DoctorForm.value)
       this.doctorService.saveForm(this.DoctorForm.value).subscribe(
         (res: any) => {
           if (res.statusCode == 200) {
