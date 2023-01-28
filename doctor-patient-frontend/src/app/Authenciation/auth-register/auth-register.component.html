@@ -27,7 +27,7 @@
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
-                        <input type="email" id="form3Example3c" class="form-control" formControlName="email" placeholder="Enter Valid Email"/>
+                        <input type="email" id="form3Example3c" class="form-control" formControlName="email" placeholder="Enter valid email"/>
                         <label class="form-label" for="form3Example3c">Patient Email</label>
                         <div *ngIf="f.email.touched && f.email.invalid">
                           <small *ngIf="f.email.errors?.['required']">This field is required</small>
@@ -73,7 +73,8 @@
                       <button type="submit" class="btn btn-primary btn-lg" (click)="userRegister()">Register</button>
                     </div>
                       <div>
-                        <p class=" text-center secondary-text-font">Are you a doctor,Please click here<a class="ms-2 text-body" href="">Register</a></p>
+                        
+                        <p class=" text-center secondary-text-font">Are you a doctor,Please click here<a class="ms-2 text-body" routerLink="/saveDoctorForm">Register</a></p>
                       </div>
                       <div>
                         <p class="text-muted text-center secondary-text-font">Already have an account? <a class="ms-2 text-body" href="/login">Sign In</a></p>

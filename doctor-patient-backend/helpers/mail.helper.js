@@ -1,79 +1,26 @@
-const sendMail = require("../utils/mail.util");
-const ejs = require("ejs");
-const { APP_NAME } = require("../config/app.config");
-const logger = require("../utils/winston.util");
-const path = require("path");
+const nodemailer = require("nodemailer");
 
-const welcomeEmail = async (params) => {
-  try {
-    const templateStr = await ejs.renderFile(
-      path.join(
-        __dirname,
-        "..",
-        "views",
-        "email-templates",
-        "welcome-email.ejs"
-      ),
-      {
-        username: params.name,
-        appname: APP_NAME,
-      }
-    );
+const sendEmail = async(email, subject, html) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            service: "Gmail",
+            port: 587,
+            secure: true,
+            auth: {
+                user: "DoctorPatient6@gmail.com",
+                pass: "sscwzfndzvwvwshc",
+            },
+        });
 
-    return sendMail(params.email, "Welcome Email", templateStr);
-  } catch (error) {
-    logger.error("Internal server error in Welcome Email function");
-    return false;
-  }
+        await transporter.sendMail({
+            from: "DoctorPatient6@gmail.com",
+            to: email,
+            subject: subject,
+            html: html,
+        });
+    } catch (error) {
+    }
 };
 
-const invitationEmail = async (params) => {
-  try {
-    const templateStr = await ejs.renderFile(
-      path.join(
-        __dirname,
-        "..",
-        "views",
-        "email-templates",
-        "invitation-email.ejs"
-      ),
-      {
-        appname: APP_NAME,
-      }
-    );
-
-    return sendMail(params.email, "Invtitaion Email", templateStr);
-  } catch (error) {
-    logger.error("Internal server error in Welcome Email function");
-    return false;
-  }
-};
-
-const memberInvitationEmail = async (params) => {
-  try {
-    const templateStr = await ejs.renderFile(
-      path.join(
-        __dirname,
-        "..",
-        "views",
-        "email-templates",
-        "invite-members.ejs"
-      ),
-      {
-        appname: APP_NAME,
-        teamName: params.team
-      }
-    );
-
-    return sendMail(params.email, "Invtitaion Email", templateStr);
-  } catch (error) {
-    logger.error("Internal server error in Welcome Email function");
-    return false;
-  }
-};
-
-module.exports = {
-  welcomeEmail,
-  invitationEmail,
-  memberInvitationEmail
-};
+module.exports = sendEmail;
