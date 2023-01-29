@@ -24,4 +24,8 @@ export class DoctorServiceService {
     params = params.append('type', 'year');
     return this.http.get(this.baseUrl + this.doctorPath+'/getAllCities',{ params: params });
   }
+
+  getAllProofs(): Observable<any>{
+    return this.http.get(this.baseUrl + this.doctorPath+'/getAllIdentityProofs');
+  }
 }

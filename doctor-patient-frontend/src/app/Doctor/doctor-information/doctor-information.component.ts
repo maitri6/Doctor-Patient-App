@@ -19,12 +19,12 @@ export class DoctorInformationComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCities();
     this.getAllYear();
+    this.getAllIdentityProofs();
   }
   type:any;
   City:any;
   Year:any;
-  // IdentityProof Names
-  IdentityProof: string[]  = ['Aadhar Card','Passport','PAN Card','Election Comission Card','Driving License','Ration card','Voter Card']
+  IdentityProof:any
   DoctorForm = new FormGroup({
      title:new FormControl('', []),
      email: new FormControl('', [Validators.required, Validators.email]),
@@ -71,6 +71,21 @@ export class DoctorInformationComponent implements OnInit {
       this.doctorService.getAllYears().subscribe(
         (res: any) => {
            this.Year=res.data;
+           
+        },
+        (err: any) => {
+          if (err.error.statusCode == 500) {
+            this.router.navigate(['/saveDoctorForm']);
+            this.notifyService.showToastError(err.error.statusMessage);
+          } 
+        }
+        ); 
+    }
+
+    getAllIdentityProofs() {
+      this.doctorService.getAllProofs().subscribe(
+        (res: any) => {
+           this.IdentityProof=res.data;
            
         },
         (err: any) => {

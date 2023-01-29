@@ -108,7 +108,7 @@
                         <h6 class="">Select Identify Proof: </h6>
                       <select class="select"  formControlName="identityProof" >
                         <option value="">Select Identify Proof: </option>
-                        <option *ngFor="let proof of IdentityProof" [ngValue]="proof">{{proof}}</option>
+                        <option *ngFor="let proof of IdentityProof" [ngValue]="proof.key">{{proof.name}}</option>
                       </select>
   
                     </div>  
