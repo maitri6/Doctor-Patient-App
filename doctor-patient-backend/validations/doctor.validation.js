@@ -8,7 +8,7 @@ const DoctorModel = require("../modules/doctor/doctor.model");
 
 const doctorValidation = async (req, res, next) => {
     try {
-      const schema = Joi.object({
+      const schema = Joi.object.keys({
         title:Joi.string().required(),
         name:Joi.string().required(),
         //email: Joi.string().email().required().messages( {"string.empty": "Please add an email.","string.email": "Please add an valid email."}),
@@ -18,8 +18,16 @@ const doctorValidation = async (req, res, next) => {
         //     "string.pattern.base": "Invalid phone number."
 
         //   }),
+        specialization: Joi.string().required(), 
+        gender: Joi.string().required(), 
+        identityProof: Joi.string().required(), 
+        identityProofValue: Joi.string().required(), 
         registrationNumber: Joi.number().required(), 
+        registrationCouncil: Joi.string().required(), 
         registrationYear: Joi.number().required(), 
+        degree: Joi.string().required(), 
+       // city: Joi.string().required(), 
+        college: Joi.string().required(), 
         year: Joi.number().required(),
         experience: Joi.number().required(),
       }).options({ allowUnknown: true });

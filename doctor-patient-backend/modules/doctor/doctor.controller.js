@@ -13,6 +13,8 @@ exports.doctorForm = async (req, res, next) => {
       if(checkEmail)
          return sendResponse(res, true, 400, "You have already registered with this email..");
          req.body.password = await bcrypt.hash(req.body.password, 10);
+         req.body.isApproved=false;
+         req.body.role="doctor";
       let saveUser = await UserModel.create(req.body);
       let saveDoctor = await DoctorModel.create({...req.body,userId:saveUser._id});
       return sendResponse(
@@ -30,8 +32,9 @@ exports.doctorForm = async (req, res, next) => {
   };
 
 
-  exports.getAllCities = async (req, res, next) => {
+  exports.getCityAndYear = async (req, res, next) => {
     try{
+      if(req.query.type=="city"){
       let city = await City.getCitiesOfCountry("IN");
       //console.log(City.getAllCities());
      
@@ -42,6 +45,29 @@ exports.doctorForm = async (req, res, next) => {
         "Cities fetched successfully",
         city
       );
+      }
+      else if(req.query.type=="year"){
+        let year = Array.from(Array(new Date().getFullYear() - 1949), (_, i) => (i + 1950).toString())
+        console.log(year)
+
+        return sendResponse(
+          res,
+          true,
+          200,
+          "Years fetched successfully",
+          year
+        );
+      }
+      else{
+        return sendResponse(
+          res,
+          false,
+          400,
+          "Please enter the valid type",
+          
+        );
+
+      }
     }
     catch (error) {
       console.log("error",error);

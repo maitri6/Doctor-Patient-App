@@ -13,6 +13,8 @@ const server=http.createServer(app);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
+
+
 const indexRouter = require("./routes/index");
 //"mongodb+srv://CMS:bk9828064545@cluster0.itloa.mongodb.net/Doctor-Patient?retryWrites=true&w=majority",
 //mongoose connection
