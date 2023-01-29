@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,14 @@ export class DoctorServiceService {
     return this.http.post(this.baseUrl + this.doctorPath+'/saveDoctorDetails', data);
   }
 
-  getAllData(): Observable<any>{
-    return this.http.get(this.baseUrl + this.doctorPath+'/getAllCities');
+  getAllCities(): Observable<any>{
+    let params = new HttpParams();
+    params = params.append('type', 'city');
+    return this.http.get(this.baseUrl + this.doctorPath+'/getAllCities',{ params: params });
+  }
+  getAllYears(): Observable<any>{
+    let params = new HttpParams();
+    params = params.append('type', 'year');
+    return this.http.get(this.baseUrl + this.doctorPath+'/getAllCities',{ params: params });
   }
 }

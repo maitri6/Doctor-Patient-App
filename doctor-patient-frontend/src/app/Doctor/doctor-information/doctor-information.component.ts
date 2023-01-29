@@ -18,9 +18,11 @@ export class DoctorInformationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCities();
+    this.getAllYear();
   }
   type:any;
   City:any;
+  Year:any;
   // IdentityProof Names
   IdentityProof: string[]  = ['Aadhar Card','Passport','PAN Card','Election Comission Card','Driving License','Ration card','Voter Card']
   DoctorForm = new FormGroup({
@@ -49,15 +51,10 @@ export class DoctorInformationComponent implements OnInit {
   get f() {
     return this.DoctorForm.controls;
   }
-
-  changeProof(e:any) {
-  }
-
+  
   getAllCities() {
-  //  this.type='city';
-    this.doctorService.getAllData().subscribe(
+    this.doctorService.getAllCities().subscribe(
       (res: any) => {
-        console.log(res);
          this.City=res.data;
          
       },
@@ -68,10 +65,23 @@ export class DoctorInformationComponent implements OnInit {
         } 
       }
       ); 
-      console.log("city",this.City)
   }
+
+  getAllYear() {
+      this.doctorService.getAllYears().subscribe(
+        (res: any) => {
+           this.Year=res.data;
+           
+        },
+        (err: any) => {
+          if (err.error.statusCode == 500) {
+            this.router.navigate(['/saveDoctorForm']);
+            this.notifyService.showToastError(err.error.statusMessage);
+          } 
+        }
+        ); 
+    }
   saveForm() {
-    console.log(this.DoctorForm.value)
       this.doctorService.saveForm(this.DoctorForm.value).subscribe(
         (res: any) => {
           if (res.statusCode == 200) {
