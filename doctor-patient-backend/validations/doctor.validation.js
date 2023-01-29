@@ -8,7 +8,7 @@ const DoctorModel = require("../modules/doctor/doctor.model");
 
 const doctorValidation = async (req, res, next) => {
     try {
-      const schema = Joi.object.keys({
+      const schema = Joi.object({
         title:Joi.string().required(),
         name:Joi.string().required(),
         //email: Joi.string().email().required().messages( {"string.empty": "Please add an email.","string.email": "Please add an valid email."}),
