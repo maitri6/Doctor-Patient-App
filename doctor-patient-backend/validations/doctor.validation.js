@@ -21,7 +21,7 @@ const doctorValidation = async (req, res, next) => {
         specialization: Joi.string().required(), 
         gender: Joi.string().required(), 
         identityProof: Joi.string().required(), 
-        identityProofValue: Joi.string().required(), 
+        //identityProofValue: Joi.required(),
         registrationNumber: Joi.number().required(), 
         registrationCouncil: Joi.string().required(), 
         registrationYear: Joi.number().required(), 
@@ -30,10 +30,17 @@ const doctorValidation = async (req, res, next) => {
         college: Joi.string().required(), 
         year: Joi.number().required(),
         experience: Joi.number().required(),
+
+       
+    
       }).options({ allowUnknown: true });
+      if (req.body.identityProof=="Aadhar Card"){
+        req.body.identityProofValue=Joi.number().max(12).required();
+      }
   
       const { value, error } = schema.validate(req.body);
-  
+
+      
       if (error !== undefined) {
         return sendResponse(res, false, 422, error.details[0].message);
       }
