@@ -54,6 +54,9 @@ exports.login = async (req, res, next) => {
 
     if (getUser && !(await bcrypt.compare(password, getUser.password)))
       return sendResponse(res, true, 400, "Invalid password.");
+    
+
+      
 
     let token = await generateJwt({ userId: getUser._id });
     if (token === undefined) {

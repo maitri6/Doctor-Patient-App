@@ -1,6 +1,6 @@
 const DoctorModel = require("../doctor/doctor.model");
 const UserModel = require("../userAuth/user.model");
-const {IDENTITY_PROOF}=require('../../config/constant')
+const {IDENTITY_PROOF}=require('../../config/constant');
 
 //const City = require('country-state-city').default;
 let { City } = require("country-state-city");
@@ -49,7 +49,7 @@ exports.getCityAndYear = async (req, res, next) => {
       let year = Array.from(Array(new Date().getFullYear() - 1949), (_, i) =>
         (i + 1950).toString()
       );
-      console.log(year);
+      //console.log(year);
 
       return sendResponse(res, true, 200, "Years fetched successfully", year);
     } else {

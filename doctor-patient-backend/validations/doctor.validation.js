@@ -34,7 +34,7 @@ const doctorValidation = async (req, res, next) => {
        
     
       }).options({ allowUnknown: true });
-      if (req.body.identityProof=="Aadhar Card"){
+      if (req.body.identityProof=="aadharCard"){
         req.body.identityProofValue=Joi.number().max(12).required();
       }
   
