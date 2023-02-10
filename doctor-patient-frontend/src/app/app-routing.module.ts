@@ -7,7 +7,8 @@ import { OtpVerificationComponent } from './Authenciation/otp-verification/otp-v
 import { PageNotFoundComponent } from './Authenciation/page-not-found/page-not-found.component';
 import { ResetPasswordComponent } from './Authenciation/reset-password/reset-password.component';
 import { DoctorInformationComponent } from './Doctor/doctor-information/doctor-information.component';
-
+import { DoctorListComponent } from './AdminPanel/doctor-list/doctor-list.component';
+import { PatientListComponent } from './AdminPanel/patient-list/patient-list.component';
 
 const routes: Routes = [
   { path: "", component:  AuthComponent },
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: "reset-password/:token", component: ResetPasswordComponent  },
   { path: "otp-verification/:id", component: OtpVerificationComponent  },
   { path: "saveDoctorForm", component: DoctorInformationComponent  },
+  { path: "admin/doctorList", component: DoctorListComponent  },
+  { path: "admin/patientList", component: PatientListComponent  },
   { path: '**', component: PageNotFoundComponent },
 ];
 

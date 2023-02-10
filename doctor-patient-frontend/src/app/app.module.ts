@@ -15,6 +15,9 @@ import { ResetPasswordComponent } from './Authenciation/reset-password/reset-pas
 import { DoctorInformationComponent } from './Doctor/doctor-information/doctor-information.component';
 import { PageNotFoundComponent } from './Authenciation/page-not-found/page-not-found.component';
 import { OtpVerificationComponent } from './Authenciation/otp-verification/otp-verification.component';
+import { SidebarComponent } from './AdminPanel/sidebar/sidebar.component';
+import { DoctorListComponent } from './AdminPanel/doctor-list/doctor-list.component';
+import { PatientListComponent } from './AdminPanel/patient-list/patient-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +27,10 @@ import { OtpVerificationComponent } from './Authenciation/otp-verification/otp-v
     ResetPasswordComponent,
     DoctorInformationComponent,
     PageNotFoundComponent,
-    OtpVerificationComponent
+    OtpVerificationComponent,
+    SidebarComponent,
+    DoctorListComponent,
+    PatientListComponent
   ],
   imports: [
     BrowserModule,

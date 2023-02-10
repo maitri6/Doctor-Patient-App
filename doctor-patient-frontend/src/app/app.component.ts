@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'doctor-patient-frontend';
+  isLoggedIn :any= true;
+  isLoggedInsss:any= localStorage.getItem('isLogged')
+  loadData(){
+    console.log("runs")
+  }
+
+  ngOnInit(): void {
+    this.loadData()
+  }
 }

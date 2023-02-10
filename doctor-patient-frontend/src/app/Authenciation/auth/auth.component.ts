@@ -37,8 +37,10 @@ export class AuthComponent implements OnInit {
       if (res.statusCode == 200) {
         this.router.navigate(['/otp-verification/'+res.data.getUser._id]);
         this.notifyService.showToastSuccess(res.statusMessage);
+        localStorage.setItem('isLogged',JSON.stringify(true))
+        localStorage.setItem('token', res.data.token);
       }
-      localStorage.setItem('token', res.data.token);
+    
      },(err : any) => {
       if (err.error.statusCode == 404) {
         this.router.navigate(['/login']);
