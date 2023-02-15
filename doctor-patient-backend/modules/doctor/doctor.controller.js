@@ -1,6 +1,7 @@
 const DoctorModel = require("../doctor/doctor.model");
 const UserModel = require("../userAuth/user.model");
-const {IDENTITY_PROOF}=require('../../config/constant');
+const { IDENTITY_PROOF } = require('../../config/constant');
+const Joi = require("joi");
 
 //const City = require('country-state-city').default;
 let { City } = require("country-state-city");
@@ -10,6 +11,7 @@ const { sendResponse } = require("../../helpers/requestHandler.helper");
 
 exports.doctorForm = async (req, res, next) => {
   try {
+
     const checkEmail = await UserModel.findOne({
       email: req.body.email,
     }).lean();
@@ -24,6 +26,8 @@ exports.doctorForm = async (req, res, next) => {
     req.body.isApproved = false;
     req.body.role = "doctor";
     let saveUser = await UserModel.create(req.body);
+
+
     let saveDoctor = await DoctorModel.create({
       ...req.body,
       userId: saveUser._id,
@@ -35,21 +39,18 @@ exports.doctorForm = async (req, res, next) => {
       "Form submitted successfully",
       saveDoctor
     );
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.getCityAndYear = async (req, res, next) => {
   try {
     if (req.query.type == "city") {
       let city = await City.getCitiesOfCountry("IN");
-      //console.log(City.getAllCities());
-
       return sendResponse(res, true, 200, "Cities fetched successfully", city);
     } else if (req.query.type == "year") {
       let year = Array.from(Array(new Date().getFullYear() - 1949), (_, i) =>
         (i + 1950).toString()
       );
-      //console.log(year);
 
       return sendResponse(res, true, 200, "Years fetched successfully", year);
     } else {
@@ -62,7 +63,7 @@ exports.getCityAndYear = async (req, res, next) => {
 
 
 exports.getAllIdentityProofs = async (req, res, next) => {
-  try{
+  try {
     return sendResponse(
       res,
       true,

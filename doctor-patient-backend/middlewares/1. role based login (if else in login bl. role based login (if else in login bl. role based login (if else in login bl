@@ -1,0 +1,21 @@
+1. role based login (if else in login block)
+
+2. identityProof validation
+
+3. getuser api (to get login user(userId=req.user.id))
+
+4. change password (user id aayegi req.user.id , old password from body(first match) new password from body)
+
+5. user data and doctor data for admin approval.(baad me)
+
+
+admin panel same as doctor
+
+update id (req userid status accept is approve )
+
+
+
+
+change password
+
+1. check the old password , enter the new password with hash
