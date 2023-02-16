@@ -3,7 +3,6 @@ const UserModel = require("../userAuth/user.model");
 const { IDENTITY_PROOF } = require('../../config/constant');
 const Joi = require("joi");
 
-//const City = require('country-state-city').default;
 let { City } = require("country-state-city");
 
 const bcrypt = require("bcrypt");

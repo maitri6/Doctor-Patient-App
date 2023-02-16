@@ -50,22 +50,13 @@ exports.login = async (req, res, next) => {
   try {
 
     let subject, message, otp;
-    let email = req.body.email;
     let password = req.body.password;
 
-
-
-    const getUser = await UserModel.findOne({ email: email });
-
-
-    console.log(getUser.role);
-    console.log(getUser.isApproved);
-    console.log(getUser);
-
-    if (getUser.role == "patient" && getUser.isApproved == true) {
-
-      if (!getUser) return sendResponse(res, true, 400, "Email already exists.");
-
+    const getUser = await UserModel.findOne({ email: req.body.email });
+    if (!getUser) return sendResponse(res, true, 400, "User not found.");
+    if(getUser.role == "doctor" && !(getUser.isApproved)){
+      return sendResponse(res, true, 400, "Please wait for admin's approval.");
+    }
       if (getUser && !(await bcrypt.compare(password, getUser.password)))
         return sendResponse(res, true, 400, "Invalid password.");
 
@@ -95,10 +86,7 @@ exports.login = async (req, res, next) => {
       return sendResponse(res, true, 200, "OTP sent successfully.", {
         getUser,
         token,
-      });
-    } else {
-      return sendResponse(res, true, 400, "Please wait for admin's approval.");
-    }
+      }); 
 
   } catch (error) {
   }
@@ -108,8 +96,7 @@ exports.login = async (req, res, next) => {
 exports.forgetPassword = async (req, res, next) => {
   try {
     let url = "http://localhost:4200/reset-password/";
-    let email = req.body.email;
-    const getUser = await UserModel.findOne({ email: email });
+    const getUser = await UserModel.findOne({ email: req.body.email });
     if (!getUser) {
       return sendResponse(
         res,
@@ -248,24 +235,12 @@ exports.changePassword = async (req, res, next) => {
   try {
 
     let oldPassword = req.body.oldPassword;
-    let newPassword = req.body.newPassword;
     let getUser = await UserModel.findById(req.user.userId);
 
     if (getUser && await bcrypt.compare(oldPassword, getUser.password)) {
       let newPassword = await bcrypt.hash(req.body.newPassword, 10);
       console.log(newPassword);
-
-      const filter_1 = {
-        _id: getUser._id,
-      };
-
-      const update1 = {
-        $set: {
-          password: newPassword,
-        },
-      };
-
-      await UserModel.updateOne(filter_1, update1);
+      await UserModel.updateOne({_id: getUser._id}, { $set: {password: newPassword}});
     }
     else {
       return sendResponse(

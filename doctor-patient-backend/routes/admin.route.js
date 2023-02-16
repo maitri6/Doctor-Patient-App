@@ -9,6 +9,9 @@ const adminController = require("../modules/admin/admin.controller");
 
 
 router.post("/updateStatus",adminController.updateStatus);
+router.post("/getAllDoctors",adminController.getAllDoctors);
+
+
 
 
 module.exports = router;

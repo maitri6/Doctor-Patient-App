@@ -1,52 +1,54 @@
 const DoctorModel = require("../doctor/doctor.model");
 const UserModel = require("../userAuth/user.model");
-const AdminModel = require("../admin/admin.model");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
-const { IDENTITY_PROOF } = require('../../config/constant');
 
 exports.updateStatus = async (req, res, next) => {
   try {
     let getUser = await UserModel.findById(req.body.userId);
-    console.log(req.body.isApproved);
-
-    console.log("hii");
-    if (getUser && !(getUser.isApproved)) {
-      console.log("inside");
-      const filter_1 = {
-        _id: getUser._id,
-      };
-
-      const update1 = {
-        $set: {
-          isApproved: true,
-        },
-      };
-
-      await UserModel.updateOne(filter_1, update1);
+    if(!getUser){
+      return sendResponse(
+        res,
+        false,
+        400,
+        "User not found."
+      );
     }
-    else if (getUser.isApproved) {
-      console.log("else");
-      const filter_2 = {
-        _id: getUser._id,
-      };
-
-      const update2 = {
-        $set: {
-          isApproved: false,
-        },
-      };
-      await UserModel.updateOne(filter_2, update2);
-    }
-    console.log(req.body.isApproved);
-
+    await UserModel.updateOne({_id:getUser._id}, {$set: {isApproved: req.body.status}}) 
     return sendResponse(
       res,
-      false,
-      400,
-      "Something went wrong please try again."
+      true,
+      200,
+      "User Status Updated Successfully."
     );
-
   } catch (error) {
     console.log("error", error);
   }
 };
+
+
+
+
+exports.getAllDoctors = async (req, res, next) => {
+  try {
+    let getDoctors = await DoctorModel.find({ role: "doctor" })
+      .lean()
+      .populate({
+        path: "userId",
+       // select: ["email"]
+      })
+      //.select(["city"]);
+      //.then(users => {
+        return sendResponse(
+          res,
+          true,
+          200,
+          "User fetched Successfully ", getDoctors
+        );
+      //});
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
+
+
