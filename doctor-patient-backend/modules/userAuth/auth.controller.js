@@ -241,15 +241,19 @@ exports.changePassword = async (req, res, next) => {
       let newPassword = await bcrypt.hash(req.body.newPassword, 10);
       console.log(newPassword);
       await UserModel.updateOne({_id: getUser._id}, { $set: {password: newPassword}});
+      return sendResponse(
+        res,
+        false,
+        200,
+        "Password Updated Successfully "
+      );
     }
-    else {
       return sendResponse(
         res,
         false,
         400,
         "User Not found "
-      );
-    }
+      ); 
   } catch (error) {
     console.log("error", error);
   }
