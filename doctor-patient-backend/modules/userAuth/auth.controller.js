@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 const { generateJwt } = require("../../helpers/jwt.helper");
 const sendEmail = require("../../helpers/mail.helper");
+const user = require("./user.model");
 /**
  * Description: Register user into the application
  * @param {*} req
@@ -11,14 +12,16 @@ const sendEmail = require("../../helpers/mail.helper");
  */
 exports.register = async (req, res, next) => {
   try {
-    let subject,message,otp;
+    let subject, message, otp;
     const checkUser = await UserModel.findOne({ email: req.body.email });
     if (checkUser)
       return sendResponse(res, true, 400, "Email already exists..");
     req.body.password = await bcrypt.hash(req.body.password, 10);
     let saveUser = await UserModel.create(req.body);
-  
-    otp=await generateOTP()
+
+
+
+    otp = await generateOTP()
     subject = "Here is your 6 digit OTP ";
     message = otp;
     const filter_1 = {
@@ -39,58 +42,61 @@ exports.register = async (req, res, next) => {
 
 /**
  * Description: Login user into the application
- * @param { email, password } req
+ * @param { email, password, role } req
  * @param {*} res
  * @param {*} next
  */
 exports.login = async (req, res, next) => {
   try {
-    let subject,message,otp;
-    let email = req.body.email;
+
+    let subject, message, otp;
     let password = req.body.password;
 
-    const getUser = await UserModel.findOne({ email: email });
-    if (!getUser) return sendResponse(res, true, 400, "Email already exists.");
-
-    if (getUser && !(await bcrypt.compare(password, getUser.password)))
-      return sendResponse(res, true, 400, "Invalid password.");
-
-    let token = await generateJwt({ userId: getUser._id });
-    if (token === undefined) {
-      return sendResponse(
-        res,
-        false,
-        400,
-        "Something went wrong please try again."
-      );
+    const getUser = await UserModel.findOne({ email: req.body.email });
+    if (!getUser) return sendResponse(res, true, 400, "User not found.");
+    if(getUser.role == "doctor" && !(getUser.isApproved)){
+      return sendResponse(res, true, 400, "Please wait for admin's approval.");
     }
-    otp=await generateOTP()
-    subject = "Here is your 6 digit OTP ";
-    message = otp;
-    const filter_1 = {
-      _id: getUser._id,
-    };
+      if (getUser && !(await bcrypt.compare(password, getUser.password)))
+        return sendResponse(res, true, 400, "Invalid password.");
 
-    const updateOtp = {
-      $set: {
-        otp: otp,
-      },
-    };
-    await UserModel.updateOne(filter_1, updateOtp);
-    sendEmail(getUser.email, subject, message);
-    return sendResponse(res, true, 200, "OTP sent successfully.", {
-      getUser,
-      token,
-    });
+      let token = await generateJwt({ userId: getUser._id });
+      if (token === undefined) {
+        return sendResponse(
+          res,
+          false,
+          400,
+          "Something went wrong please try again."
+        );
+      }
+      otp = await generateOTP()
+      subject = "Here is your 6 digit OTP ";
+      message = otp;
+      const filter_1 = {
+        _id: getUser._id,
+      };
+
+      const updateOtp = {
+        $set: {
+          otp: otp,
+        },
+      };
+      await UserModel.updateOne(filter_1, updateOtp);
+      sendEmail(getUser.email, subject, message);
+      return sendResponse(res, true, 200, "OTP sent successfully.", {
+        getUser,
+        token,
+      }); 
+
   } catch (error) {
   }
+
 };
 
 exports.forgetPassword = async (req, res, next) => {
   try {
     let url = "http://localhost:4200/reset-password/";
-    let email = req.body.email;
-    const getUser = await UserModel.findOne({ email: email });
+    const getUser = await UserModel.findOne({ email: req.body.email });
     if (!getUser) {
       return sendResponse(
         res,
@@ -149,16 +155,16 @@ exports.sendOtp = async (req, res) => {
     let subject, message;
     let getUser = await UserModel.findById(req.body.userId);
     if (!getUser) return sendResponse(res, true, 400, "User not found.");
-    if(req.body.type === 'resendOtp'){
+    if (req.body.type === 'resendOtp') {
       subject = "Here is your 6 digit OTP";
-      otp=await generateOTP()
+      otp = await generateOTP()
       message = otp;
       sendEmail(getUser.email, subject, message);
-     
+
       const filter_1 = {
         _id: getUser._id,
       };
-  
+
       const updateOtp = {
         $set: {
           otp: otp
@@ -167,12 +173,12 @@ exports.sendOtp = async (req, res) => {
       await UserModel.updateOne(filter_1, updateOtp);
       return sendResponse(res, true, 200, "OTP sent successfully");
     }
-    const checkOtp =await  UserModel.findOne({
-      _id:req.body.userId,
-      otp:req.body.otp
+    const checkOtp = await UserModel.findOne({
+      _id: req.body.userId,
+      otp: req.body.otp
     })
-    if(!checkOtp)
-    return sendResponse(res, true, 400, "Invalid OTP");
+    if (!checkOtp)
+      return sendResponse(res, true, 400, "Invalid OTP");
 
     const filter_1 = {
       _id: checkOtp._id,
@@ -183,7 +189,7 @@ exports.sendOtp = async (req, res) => {
         status: true,
       },
     };
- 
+
     await UserModel.updateOne(filter_1, updateOtp);
     return sendResponse(res, true, 200, "User verified successfully");
   } catch (error) {
@@ -193,8 +199,59 @@ exports.sendOtp = async (req, res) => {
 function generateOTP() {
   let digits = '0123456789';
   let OTP = '';
-  for (let i = 0; i < 6; i++ ) {
-      OTP += digits[Math.floor(Math.random() * 10)];
+  for (let i = 0; i < 6; i++) {
+    OTP += digits[Math.floor(Math.random() * 10)];
   }
   return OTP;
 }
+
+
+exports.getUserById = async (req, res, next) => {
+  try {
+
+    let getUser = await UserModel.findById(req.user.userId);
+    if (!getUser) {
+      return sendResponse(
+        res,
+        false,
+        400,
+        "User Not found "
+      );
+
+    }
+    return sendResponse(
+      res,
+      true,
+      200,
+      "User fetched Successfully ", getUser
+    );
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
+
+exports.changePassword = async (req, res, next) => {
+  try {
+
+    let oldPassword = req.body.oldPassword;
+    let getUser = await UserModel.findById(req.user.userId);
+
+    if (getUser && await bcrypt.compare(oldPassword, getUser.password)) {
+      let newPassword = await bcrypt.hash(req.body.newPassword, 10);
+      console.log(newPassword);
+      await UserModel.updateOne({_id: getUser._id}, { $set: {password: newPassword}});
+    }
+    else {
+      return sendResponse(
+        res,
+        false,
+        400,
+        "User Not found "
+      );
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
