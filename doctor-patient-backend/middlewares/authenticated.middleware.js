@@ -12,7 +12,6 @@ const authenticated = async (req, res, next) => {
 
     const token = req.headers.authorization.split(" ");
     req.user = await verifyToken(token[1].trim());
-    console.log(req.user);
     next();
   } catch (error) {
     next(error);
