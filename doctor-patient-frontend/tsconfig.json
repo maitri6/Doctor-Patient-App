@@ -1,3 +1,25 @@
+// {
+//   "compileOnSave": false,
+//   "compilerOptions": {
+//     "outDir": "./dist/out-tsc",
+//     "baseUrl": "src",
+//     "sourceMap": true,
+//     "declaration": false,
+//     "module": "es2020",
+//     "moduleResolution": "node",
+//     "emitDecoratorMetadata": true,
+//     "experimentalDecorators": true,
+//     "target": "ES2022",
+//     "lib": [
+//       "es2020",
+//       "dom"
+//     ],
+//     "typeRoots": [
+//       "node_modules/@types"
+//     ],
+//     "useDefineForClassFields": false
+//   }
+// }
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
@@ -5,7 +27,7 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -16,13 +38,12 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2022",
+    "target": "es2020",
     "module": "es2020",
     "lib": [
       "es2020",
       "dom"
-    ],
-    "useDefineForClassFields": false
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
