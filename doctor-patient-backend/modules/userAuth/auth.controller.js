@@ -243,19 +243,17 @@ exports.changePassword = async (req, res, next) => {
       await UserModel.updateOne({_id: getUser._id}, { $set: {password: newPassword}});
       return sendResponse(
         res,
-        true,
+        false,
         200,
-        "Password changed successfully"
+        "Password Updated Successfully "
       );
     }
-    else {
       return sendResponse(
         res,
         false,
         400,
         "User Not found "
-      );
-    }
+      ); 
   } catch (error) {
     console.log("error", error);
   }
