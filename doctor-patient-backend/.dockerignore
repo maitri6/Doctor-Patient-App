@@ -2,3 +2,6 @@ node_modules
 npm-debug.log
 .gitignore
 env
+ANGULAR_LOGS.PNG
+MONGO_DB.PNG
+NODE_LOGS.PNG
