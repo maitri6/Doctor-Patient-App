@@ -1,6 +1,7 @@
 const DoctorModel = require("../doctor/doctor.model");
 const UserModel = require("../userAuth/user.model");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
+const sendEmail = require("../../helpers/mail.helper");
 
 exports.updateStatus = async (req, res, next) => {
   try {
@@ -14,18 +15,25 @@ exports.updateStatus = async (req, res, next) => {
       );
     }
     await UserModel.updateOne({_id:getUser._id}, {$set: {isApproved: req.body.status}}) 
+    if(req.body.status==true){
+      let subject = "Got approved from admin";
+      let html = "Hi,You got approval from admin. Please visit login page to continue.";
+      console.log(getUser.email);
+      sendEmail(getUser.email, subject, html);
+  
+      return sendResponse(res, true, 200, "Email sent successfully.");
+    }
     return sendResponse(
       res,
-      true,
+      false,
       200,
-      "User Status Updated Successfully."
+      "Status got updated successfully."
     );
+ 
   } catch (error) {
     console.log("error", error);
   }
 };
-
-
 
 
 exports.getAllDoctors = async (req, res, next) => {
@@ -45,6 +53,7 @@ exports.getAllDoctors = async (req, res, next) => {
           "User fetched Successfully ", getDoctors
         );
       //});
+      
   } catch (error) {
     console.log("error", error);
   }
