@@ -17,49 +17,14 @@ export class UserProfileComponent {
   ) {}
 
  async ngOnInit() {
-  // this.getUserData= await this.GetUserProfile();
-  this.getUserData= this.authService.getSingleUser().subscribe(
-    (res: any) => {
-      if (res.statusCode == 200) {
-        console.log("data",res.data)
-      return res.data
-      }
-    },
-    (err: any) => {
-      if (err.error.statusCode == 400) {
-        return err;
-      } else if (err.error.statusCode == 422) {
-      }
-      else{
-      }
-    }
-  );
-  console.log("init",this.getUserData)
-    // Create the form group with form controls for each field
-    this.profileForm = this.formBuilder.group({
+  this.authService.getSingleUser().subscribe(response => {
+    this.getUserData = response.data;
+    this.UpdateProfile = this.formBuilder.group({
       name: [this.getUserData.name, Validators.required],
       phoneNumber: [this.getUserData.phoneNumber, [Validators.required]],
     });
+  });    
   }
-
-  async  GetUserProfile() {
-      this.authService.getSingleUser().subscribe(
-        (res: any) => {
-          if (res.statusCode == 200) {
-            console.log("data",res.data)
-          return res.data
-          }
-        },
-        (err: any) => {
-          if (err.error.statusCode == 400) {
-            return err;
-          } else if (err.error.statusCode == 422) {
-          }
-          else{
-          }
-        }
-      );
-    }
 
     UpdateProfile = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -75,6 +40,7 @@ export class UserProfileComponent {
       name: this.UpdateProfile.value.name,
       phoneNumber: this.UpdateProfile.value.phoneNumber,
     };
+    console.log("obj",userUpdateProfileObj);
 
       this.authService.editProfile(userUpdateProfileObj).subscribe(
         (res: any) => {
