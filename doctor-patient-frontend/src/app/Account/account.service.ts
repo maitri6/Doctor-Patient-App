@@ -15,6 +15,8 @@ export class AccountService {
   resetPasswordPath='/resetPassword'
   sendOtpPath='/sendOtp'
   changePasswordPath='/changePassword'
+  getUserById='/getUserById'
+  updateProfile='/updateProfile'
 
   constructor(private http:HttpClient) { }
   token =localStorage.getItem('token')
@@ -44,5 +46,11 @@ export class AccountService {
   }
   changePassword(data : any): Observable<any>{
     return this.http.post(this.baseUrl + this.authPath+this.changePasswordPath,data,this.httpOptions);
+  }
+  getSingleUser(): Observable<any>{
+    return this.http.get(this.baseUrl + this.authPath+this.getUserById,this.httpOptions);
+  }
+  editProfile(data : any): Observable<any>{
+    return this.http.post(this.baseUrl + this.authPath+this.updateProfile,data,this.httpOptions);
   }
 }

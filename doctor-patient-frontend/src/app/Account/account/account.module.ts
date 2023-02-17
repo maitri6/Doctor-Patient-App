@@ -8,12 +8,13 @@ import { AuthRegisterComponent } from './auth-register/auth-register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 // import { SweetAlert2Module } from 'ngx-sweetalert2';
 
 @NgModule({
   declarations: [
     AuthRegisterComponent, 
-    AuthComponent
+    AuthComponent, UserProfileComponent
   ],
   imports: [
     CommonModule,

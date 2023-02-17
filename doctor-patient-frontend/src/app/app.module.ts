@@ -31,7 +31,7 @@ import { ResetPasswordComponent } from './Account/account/reset-password/reset-p
     OtpVerificationComponent,
     PageNotFoundComponent,
     ResetPasswordComponent,
-     ChangePasswordComponent
+    ChangePasswordComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

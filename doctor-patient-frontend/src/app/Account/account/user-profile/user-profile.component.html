@@ -1,0 +1,21 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <!-- <div class="row"> -->
+            <!--  [(ngModel)]="getUserData.name"  [(ngModel)]="getUserData.phoneNumber"-->
+            <form class="form" [formGroup]="UpdateProfile">
+                <div >
+                    <label for="name">Name</label>
+                    <input type="text"  class="form-control" id="name" formControlName="name">
+                </div>
+                <div >
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text"  class="form-control" id="inputPasswordNew" formControlName="phoneNumber" >
+                </div>
+                <div >
+                    <button type="submit"  class="btn btn-success float-right" (click)="UpdateUserProfile()">Update</button>
+                </div>
+            </form>
+<!-- </div> -->
+    </div>
+  </div>
+  
