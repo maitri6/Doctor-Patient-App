@@ -18,22 +18,10 @@ exports.register = async (req, res, next) => {
       return sendResponse(res, true, 400, "Email already exists..");
     req.body.password = await bcrypt.hash(req.body.password, 10);
     let saveUser = await UserModel.create(req.body);
-
-
-
     otp = await generateOTP()
     subject = "Here is your 6 digit OTP ";
     message = otp;
-    const filter_1 = {
-      _id: saveUser._id,
-    };
-
-    const updateOtp = {
-      $set: {
-        otp: otp,
-      },
-    };
-    await UserModel.updateOne(filter_1, updateOtp);
+    await UserModel.updateOne({ _id: saveUser._id }, { $set: { otp: otp, } });
     sendEmail(saveUser.email, subject, message);
     return sendResponse(res, true, 200, "OTP sent successfully.", saveUser);
   } catch (error) {
@@ -54,39 +42,30 @@ exports.login = async (req, res, next) => {
 
     const getUser = await UserModel.findOne({ email: req.body.email });
     if (!getUser) return sendResponse(res, true, 400, "User not found.");
-    if(getUser.role == "doctor" && !(getUser.isApproved)){
+    if (getUser.role == "doctor" && !(getUser.isApproved)) {
       return sendResponse(res, true, 400, "Please wait for admin's approval.");
     }
-      if (getUser && !(await bcrypt.compare(password, getUser.password)))
-        return sendResponse(res, true, 400, "Invalid password.");
+    if (getUser && !(await bcrypt.compare(password, getUser.password)))
+      return sendResponse(res, true, 400, "Invalid password.");
 
-      let token = await generateJwt({ userId: getUser._id });
-      if (token === undefined) {
-        return sendResponse(
-          res,
-          false,
-          400,
-          "Something went wrong please try again."
-        );
-      }
-      otp = await generateOTP()
-      subject = "Here is your 6 digit OTP ";
-      message = otp;
-      const filter_1 = {
-        _id: getUser._id,
-      };
-
-      const updateOtp = {
-        $set: {
-          otp: otp,
-        },
-      };
-      await UserModel.updateOne(filter_1, updateOtp);
-      sendEmail(getUser.email, subject, message);
-      return sendResponse(res, true, 200, "OTP sent successfully.", {
-        getUser,
-        token,
-      }); 
+    let token = await generateJwt({ userId: getUser._id });
+    if (token === undefined) {
+      return sendResponse(
+        res,
+        false,
+        400,
+        "Something went wrong please try again."
+      );
+    }
+    otp = await generateOTP()
+    subject = "Here is your 6 digit OTP ";
+    message = otp;
+    await UserModel.updateOne({ _id: getUser._id }, { $set: { otp: otp } });
+    sendEmail(getUser.email, subject, message);
+    return sendResponse(res, true, 200, "OTP sent successfully.", {
+      getUser,
+      token,
+    });
 
   } catch (error) {
   }
@@ -111,15 +90,7 @@ exports.forgetPassword = async (req, res, next) => {
     let send = url.concat(forgetPasswordToken);
     let html = "Hi, click the link to reset you password ".concat(send);
     sendEmail(getUser.email, subject, html);
-    const filter = {
-      email: getUser.email,
-    };
-    const updateTokenInDB = {
-      $set: {
-        token: forgetPasswordToken,
-      },
-    };
-    await UserModel.updateOne(filter, updateTokenInDB);
+    await UserModel.updateOne({ email: getUser.email }, { $set: { token: forgetPasswordToken, } });
     return sendResponse(res, true, 200, "Email sent successfully.");
   } catch (error) {
   }
@@ -131,21 +102,12 @@ exports.resetPassword = async (req, res) => {
     let newPassword = await bcrypt.hash(req.body.password, 10);
     const getUser = await UserModel.findOne({ token: inputToken });
     if (!getUser) return sendResponse(res, true, 400, "Invalid token.");
-    const filter_1 = {
-      email: getUser.email,
-    };
 
-    const updateNewPassword = {
-      $set: {
-        password: newPassword,
-        token: "",
-      },
-    };
     let subject = "Reset Password";
     let html = "Password updated successfully......!";
     sendEmail(getUser.email, subject, html);
-    await UserModel.updateOne(filter_1, updateNewPassword);
-    return sendResponse(res, true, 200, "Password update successfully");
+    await UserModel.updateOne({ femail: getUser.email }, { $set: { password: newPassword, token: "" } });
+    return sendResponse(res, true, 200, "Password updated successfully");
   } catch (error) {
   }
 };
@@ -160,17 +122,7 @@ exports.sendOtp = async (req, res) => {
       otp = await generateOTP()
       message = otp;
       sendEmail(getUser.email, subject, message);
-
-      const filter_1 = {
-        _id: getUser._id,
-      };
-
-      const updateOtp = {
-        $set: {
-          otp: otp
-        },
-      };
-      await UserModel.updateOne(filter_1, updateOtp);
+      await UserModel.updateOne({ i_id: getUser._id }, { $set: { otp: otp } });
       return sendResponse(res, true, 200, "OTP sent successfully");
     }
     const checkOtp = await UserModel.findOne({
@@ -179,18 +131,7 @@ exports.sendOtp = async (req, res) => {
     })
     if (!checkOtp)
       return sendResponse(res, true, 400, "Invalid OTP");
-
-    const filter_1 = {
-      _id: checkOtp._id,
-    };
-
-    const updateOtp = {
-      $set: {
-        status: true,
-      },
-    };
-
-    await UserModel.updateOne(filter_1, updateOtp);
+    await UserModel.updateOne({ _id: checkOtp._id }, { $set: { status: true } });
     return sendResponse(res, true, 200, "User verified successfully");
   } catch (error) {
   }
@@ -237,25 +178,64 @@ exports.changePassword = async (req, res, next) => {
     let oldPassword = req.body.oldPassword;
     let getUser = await UserModel.findById(req.user.userId);
 
-    if (getUser && await bcrypt.compare(oldPassword, getUser.password)) {
-      let newPassword = await bcrypt.hash(req.body.newPassword, 10);
-      console.log(newPassword);
-      await UserModel.updateOne({_id: getUser._id}, { $set: {password: newPassword}});
-      return sendResponse(
-        res,
-        false,
-        200,
-        "Password Updated Successfully "
-      );
-    }
+    if (!getUser) {
       return sendResponse(
         res,
         false,
         400,
         "User Not found "
-      ); 
+      );
+    }
+    if (!(await bcrypt.compare(oldPassword, getUser.password))) {
+      return sendResponse(
+        res,
+        false,
+        400,
+        "Invalid Password"
+      );
+    }
+    let newPassword = await bcrypt.hash(req.body.newPassword, 10);
+    console.log(newPassword);
+
+    await UserModel.updateOne({ _id: getUser._id }, { $set: { password: newPassword } });
+
+    let subject = "Password Changed";
+    let html = "Hi,Your password has been changed successfully";
+    sendEmail(getUser.email, subject, html);
+
+    return sendResponse(res, true, 200, "Email sent successfully.");
+
   } catch (error) {
     console.log("error", error);
   }
 };
 
+
+
+exports.updateProfile = async (req, res, next) => {
+  try {
+
+    let getUser = await UserModel.findById(req.user.userId);
+    if (!getUser) {
+      return sendResponse(
+        res,
+        false,
+        400,
+        "User Not found "
+      );
+    }
+    let newName = req.body.newName;
+    let newPhoneNo = req.body.newPhoneNo;
+    await UserModel.updateOne({ _id: getUser._id }, { $set: { name: newName } });
+    await UserModel.updateOne({ _id: getUser._id }, { $set: { phoneNumber: newPhoneNo } });
+
+    return sendResponse(
+      res,
+      true,
+      200,
+      "User Profile Updated Successfully"
+    );
+  } catch (error) {
+    console.log("error", error);
+  }
+};
