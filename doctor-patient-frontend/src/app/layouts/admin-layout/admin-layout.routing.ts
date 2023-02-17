@@ -9,7 +9,7 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 // import { ChangePasswordComponent } from 'src/app/change-password/change-password.component';
- import { ChangePasswordComponent } from '../../change-password/change-password.component';
+ import { ChangePasswordComponent } from '../../Account/account/change-password/change-password.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },

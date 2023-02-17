@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from '../Account/account.service';
+import { AccountService } from '../../account.service';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',

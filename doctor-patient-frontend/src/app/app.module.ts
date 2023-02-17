@@ -10,8 +10,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { ForgetPasswordComponent } from './Account/account/forget-password/forget-password.component';
 import { OtpVerificationComponent } from './Account/account/otp-verification/otp-verification.component';
 import { PageNotFoundComponent } from './Account/account/page-not-found/page-not-found.component';
- import { ResetPasswordComponent } from './Account/account/reset-password/reset-password.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ResetPasswordComponent } from './Account/account/reset-password/reset-password.component';
+ import { ChangePasswordComponent } from './Account/account/change-password/change-password.component';
 
 @NgModule({
   imports: [
@@ -31,7 +31,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     OtpVerificationComponent,
     PageNotFoundComponent,
     ResetPasswordComponent,
-    ChangePasswordComponent
+     ChangePasswordComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
