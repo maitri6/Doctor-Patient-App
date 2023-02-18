@@ -7,7 +7,10 @@ const UserModel = require("../modules/userAuth/user.model");
 const updateStatusValidation = async (req, res, next) => {
     try {
       const schema = Joi.object({
-        userId:Joi.string().required().max(24).messages( {"string.empty": "UserId field cannot be empty."}),
+        userId:Joi.string()
+        .required()
+        .max(24)
+        .messages( {"string.empty": "UserId field cannot be empty."}),
         status:Joi.required().messages( {"string.empty": "Status field cannot be empty."})
     
       }).options({ allowUnknown: true });

@@ -9,9 +9,15 @@ const doctorValidation = async (req, res, next) => {
 
     const schema = Joi.object({
       title: Joi.string().required(),
-      name: Joi.string().required().messages( {"string.empty": "Name field cannot be empty."}).pattern(/^[a-zA-Z\\s]*$/),
+      name: Joi.string().
+      required()
+      .messages( {"string.empty": "Name field cannot be empty."})
+      .pattern(/^[a-zA-Z\\s]*$/),
 
-      phoneNumber: Joi.string().required().pattern(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).messages({
+      phoneNumber: Joi.string()
+      .required()
+      .pattern(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/)
+      .messages({
         "string.pattern.base": "Invalid phone number."
       }),
       specialization: Joi.string().required(),
