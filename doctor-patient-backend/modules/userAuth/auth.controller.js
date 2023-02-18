@@ -176,6 +176,7 @@ exports.changePassword = async (req, res, next) => {
   try {
 
     let oldPassword = req.body.oldPassword;
+    let newPassword = req.body.newPassword;
     let getUser = await UserModel.findById(req.user.userId);
 
     if (!getUser) {
@@ -191,10 +192,18 @@ exports.changePassword = async (req, res, next) => {
         res,
         false,
         400,
-        "Invalid Password"
+        "Invalid current Password"
       );
     }
-    let newPassword = await bcrypt.hash(req.body.newPassword, 10);
+    if(oldPassword == newPassword ){
+      return sendResponse(
+        res,
+        false,
+        400,
+        "Your new password must be different from old password."
+      );
+    }
+    newPassword = await bcrypt.hash(req.body.newPassword, 10);
     console.log(newPassword);
 
     await UserModel.updateOne({ _id: getUser._id }, { $set: { password: newPassword } });
@@ -224,10 +233,9 @@ exports.updateProfile = async (req, res, next) => {
         "User Not found "
       );
     }
-    let newName = req.body.newName;
-    let newPhoneNo = req.body.newPhoneNo;
-    await UserModel.updateOne({ _id: getUser._id }, { $set: { name: newName } });
-    await UserModel.updateOne({ _id: getUser._id }, { $set: { phoneNumber: newPhoneNo } });
+  
+    await UserModel.updateOne({ _id: getUser._id }, { $set: { ...req.body } });
+  
 
     return sendResponse(
       res,

@@ -4,9 +4,6 @@ const { uniqueEmail } = require("./rules");
 const { uniquePhone } = require("./rules");
 const { IDENTITY_PROOF } = require('../config/constant');
 
-const DoctorModel = require("../modules/doctor/doctor.model");
-
-
 const doctorValidation = async (req, res, next) => {
   try {
 
