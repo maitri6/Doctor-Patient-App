@@ -15,9 +15,11 @@ export class AccountService {
   resetPasswordPath='/resetPassword'
   sendOtpPath='/sendOtp'
   changePasswordPath='/changePassword'
+  getUserById='/getUserById'
+  updateProfile='/updateProfile'
 
   constructor(private http:HttpClient) { }
-     token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2U4ZjIwMTNmYmFiNTNjYTNjZDY3NTgiLCJpYXQiOjE2NzY1NjM1MzksImV4cCI6MTY3OTE1NTUzOX0.oshyPAAUwM8IuHPGNsSZkxV56rc4m4NbQy4GIx9uWt0';
+  token =localStorage.getItem('token')
      httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -44,5 +46,11 @@ export class AccountService {
   }
   changePassword(data : any): Observable<any>{
     return this.http.post(this.baseUrl + this.authPath+this.changePasswordPath,data,this.httpOptions);
+  }
+  getSingleUser(): Observable<any>{
+    return this.http.get(this.baseUrl + this.authPath+this.getUserById,this.httpOptions);
+  }
+  editProfile(data : any): Observable<any>{
+    return this.http.post(this.baseUrl + this.authPath+this.updateProfile,data,this.httpOptions);
   }
 }

@@ -233,9 +233,7 @@ exports.updateProfile = async (req, res, next) => {
         "User Not found "
       );
     }
-  
     await UserModel.updateOne({ _id: getUser._id }, { $set: { ...req.body } });
-  
 
     return sendResponse(
       res,
