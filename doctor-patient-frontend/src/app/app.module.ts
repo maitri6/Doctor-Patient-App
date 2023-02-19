@@ -1,5 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -22,6 +23,7 @@ import { DoctorInformationComponent } from './doctor/doctor-information/doctor-i
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    ToastrModule.forRoot(),
   
   ],
   declarations: [
@@ -31,7 +33,7 @@ import { DoctorInformationComponent } from './doctor/doctor-information/doctor-i
     OtpVerificationComponent,
     PageNotFoundComponent,
     ResetPasswordComponent,
-    ChangePasswordComponent,
+     ChangePasswordComponent,
     DoctorInformationComponent
   ],
   providers: [],
