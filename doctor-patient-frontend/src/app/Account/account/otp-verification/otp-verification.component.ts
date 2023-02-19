@@ -52,7 +52,7 @@ export class OtpVerificationComponent implements OnInit {
       (res: any) => {
         if (res.statusCode == 200) {
           this.router.navigate(['/dashboard']);
-          localStorage.setItem('isLogged',JSON.stringify(true))
+          // localStorage.setItem('isLogged',JSON.stringify(true))
           this.childMethod();
           // this.notifyService.showToastSuccess(res.statusMessage);
         }

@@ -14,7 +14,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AuthRegisterComponent, 
-    AuthComponent, UserProfileComponent
+    AuthComponent,
+    // UserProfileComponent, 
   ],
   imports: [
     CommonModule,

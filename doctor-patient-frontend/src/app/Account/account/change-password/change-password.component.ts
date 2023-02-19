@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../../account.service';
+ import { NotificationsComponent } from '../../../notifications/notifications.component';
+
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
@@ -10,7 +12,8 @@ import { AccountService } from '../../account.service';
 export class ChangePasswordComponent {
   constructor(
    private authService: AccountService,
-   private router: Router
+   private router: Router,
+    private notifyService:NotificationsComponent,
  ) {}
   ChangePassword = new FormGroup({
     oldPassword: new FormControl('', [Validators.required]),
@@ -30,6 +33,7 @@ export class ChangePasswordComponent {
       this.authService.changePassword(userChangePasswordObj).subscribe(
         (res: any) => {
           if (res.statusCode == 200) {
+             this.notifyService.showNotification();
              this.router.navigate(['/dashboard']);
           }
         },

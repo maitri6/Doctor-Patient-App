@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl,FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../../account.service';
+// import { NotificationsComponent } from '../../../notifications/notifications.component';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -9,14 +10,18 @@ import { AccountService } from '../../account.service';
 })
 export class UserProfileComponent {
   getUserData:any
+  token:string
   profileForm: FormGroup;
   constructor(
     private authService: AccountService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    //  private notifyService:NotificationsComponent
   ) {}
 
  async ngOnInit() {
+  
+  this.token=localStorage.getItem('token')
   this.authService.getSingleUser().subscribe(response => {
     this.getUserData = response.data;
     this.UpdateProfile = this.formBuilder.group({
@@ -45,7 +50,9 @@ export class UserProfileComponent {
       this.authService.editProfile(userUpdateProfileObj).subscribe(
         (res: any) => {
           if (res.statusCode == 200) {
+            // this.notifyService.showNotification();
              this.router.navigate(['/dashboard']);
+                 
           }
         },
         (err: any) => {
