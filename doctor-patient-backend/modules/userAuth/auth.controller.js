@@ -109,7 +109,7 @@ exports.resetPassword = async (req, res) => {
     let subject = "Reset Password";
     let html = "Password updated successfully......!";
     sendEmail(getUser.email, subject, html);
-    await UserModel.updateOne({ femail: getUser.email }, { $set: { password: newPassword, token: "" } });
+    await UserModel.updateOne({ email: getUser.email }, { $set: { password: newPassword, token: "" } });
     return sendResponse(res, true, 200, "Password updated successfully");
   } catch (error) {
     console.log("error", error);
