@@ -1,60 +1,63 @@
 const mongoose = require("mongoose");
-const userSchema = new mongoose.Schema(
-  {
+const userSchema = new mongoose.Schema({
     title: {
-      type: String,
-      default: "",
-      trim: true,  
+        type: String,
+        default: "",
+        trim: true,
     },
     name: {
-      type: String,
-      trim: true,
+        type: String,
+        trim: true,
     },
     specialization: {
-      type: String,
+        type: String,
     },
     gender: {
-      type: String,
+        type: String,
     },
     identityProof: {
-      type: String,
+        type: String,
     },
     identityProofValue: {
-      type: String,
+        type: String,
     },
     registrationNumber: {
-      type: Number,
+        type: Number,
     },
     registrationCouncil: {
-      type: String,
+        type: String,
     },
     registrationYear: {
-      type: Number,
+        type: Number,
     },
     degree: {
-      type: String,
+        type: String,
     },
     city: {
-      type: String,
+        type: String,
     },
     college: {
-      type: String,
+        type: String,
     },
     year: {
-      type: Number,
+        type: Number,
     },
     experience: {
-      type: Number,
+        type: Number,
+    },
+    personalDocs: {
+        type: String
+    },
+    degreeCertificate: {
+        type: String
     },
     userId: {
         type: mongoose.Types.ObjectId,
         ref: "user",
-      },
-  },
-  {
+    },
+}, {
     timestamps: true,
-  }
-);
+});
 
 const doctor = mongoose.model("doctor", userSchema);
 module.exports = doctor;
