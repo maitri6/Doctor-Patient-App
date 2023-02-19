@@ -4,17 +4,20 @@ const { uniqueEmail } = require("./rules");
 const { uniquePhone } = require("./rules");
 const { IDENTITY_PROOF } = require('../config/constant');
 
-const DoctorModel = require("../modules/doctor/doctor.model");
-
-
 const doctorValidation = async (req, res, next) => {
   try {
 
     const schema = Joi.object({
       title: Joi.string().required(),
-      name: Joi.string().required().messages( {"string.empty": "Name field cannot be empty."}).pattern(/^[a-zA-Z\\s]*$/),
+      name: Joi.string().
+      required()
+      .messages( {"string.empty": "Name field cannot be empty."})
+      .pattern(/^[a-zA-Z\\s]*$/),
 
-      phoneNumber: Joi.string().required().pattern(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).messages({
+      phoneNumber: Joi.string()
+      .required()
+      .pattern(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/)
+      .messages({
         "string.pattern.base": "Invalid phone number."
       }),
       specialization: Joi.string().required(),
@@ -57,24 +60,28 @@ const doctorValidation = async (req, res, next) => {
 // function to validate identity proof values
 
 function validate(data) {
-  var regex1 = /^[2-9]{1}[0-9]{3}\s[0-9]{4}\s[0-9]{4}$/;
-  var regex2 = /[A-Z]{5}[0-9]{4}[A-Z]{1}/;
-  var regex3 = /^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$/;
-  var regex4 = /^[A-Z]{3}[0-9]{7}$/;
-  var regex5 = /^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/;
+ // var aadharCardRegex = /^[2-9]{1}[0-9]{3}[0-9]{4}\s[0-9]\s{4}$/;
+  var aadharCardRegex = /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/;
+  var panCardRegex = /[A-Z]{5}[0-9]{4}[A-Z]{1}/;
+  var passportRegex = /^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$/;
+  var voterCardRegex = /^[A-Z]{3}[0-9]{7}$/;
+  var drivingLicenseRegex = /^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/;
+  let aadhar=data.identityProofValue;
   if (data.identityProof == "aadharCard") {
-    if (regex1.test(data.identityProofValue) == true) {
-
+    if (aadharCardRegex.test(data.identityProofValue) == true) {
+      //  aadhar = this.value.split("-").join("");
+      // if (aadhar.length > 0) {
+      // aadhar = aadhar.match(new RegExp('.{1,4}', 'g')).join("-");
       console.log("aadhar");
       return true;
-    }
+   }
     else {
       console.log("false");
       return false;
     }
   }
   else if (data.identityProof == "panCard") {
-    if (regex2.test(data.identityProofValue) == true) {
+    if (panCardRegex.test(data.identityProofValue) == true) {
 
       console.log("pan");
       return true;
@@ -85,7 +92,7 @@ function validate(data) {
     }
   }
   else if (data.identityProof == "passport") {
-    if (regex3.test(data.identityProofValue) == true) {
+    if (passportRegex.test(data.identityProofValue) == true) {
 
       console.log("password");
       return true;
@@ -96,7 +103,7 @@ function validate(data) {
     }
   }
   else if (data.identityProof == "voterCard") {
-    if (regex4.test(data.identityProofValue) == true) {
+    if (voterCardRegex.test(data.identityProofValue) == true) {
 
       console.log("voter");
       return true;
@@ -107,7 +114,7 @@ function validate(data) {
     }
   }
   else if (data.identityProof == "drivingLicense") {
-    if (regex5.test(data.identityProofValue) == true) {
+    if (drivingLicenseRegex.test(data.identityProofValue) == true) {
 
       console.log("driving");
       return true;
@@ -122,3 +129,12 @@ function validate(data) {
 module.exports = {
   doctorValidation
 }
+
+
+// document.querySelector('.creditCardText').addEventListener('input', function(e) {
+//   var foo = this.value.split("-").join("");
+//   if (foo.length > 0) {
+//     foo = foo.match(new RegExp('.{1,4}', 'g')).join("-");
+//   }
+//   this.value = foo;
+// });

@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 const { generateJwt } = require("../../helpers/jwt.helper");
 const sendEmail = require("../../helpers/mail.helper");
-const user = require("./user.model");
+
 /**
  * Description: Register user into the application
  * @param {*} req
@@ -40,7 +40,8 @@ exports.login = async (req, res, next) => {
     let subject, message, otp;
     let password = req.body.password;
 
-    const getUser = await UserModel.findOne({ email: req.body.email });
+    const getUser = await UserModel.find({ email: req.body.email });
+    //const getUser = await UserModel.findOne({ email: req.body.email });
     if (!getUser) return sendResponse(res, true, 400, "User not found.");
     if (getUser.role == "doctor" && !(getUser.isApproved)) {
       return sendResponse(res, true, 400, "Please wait for admin's approval.");
@@ -68,6 +69,7 @@ exports.login = async (req, res, next) => {
     });
 
   } catch (error) {
+    console.log("error", error);
   }
 
 };
@@ -93,6 +95,7 @@ exports.forgetPassword = async (req, res, next) => {
     await UserModel.updateOne({ email: getUser.email }, { $set: { token: forgetPasswordToken, } });
     return sendResponse(res, true, 200, "Email sent successfully.");
   } catch (error) {
+    console.log("error", error);
   }
 };
 
@@ -106,9 +109,10 @@ exports.resetPassword = async (req, res) => {
     let subject = "Reset Password";
     let html = "Password updated successfully......!";
     sendEmail(getUser.email, subject, html);
-    await UserModel.updateOne({ femail: getUser.email }, { $set: { password: newPassword, token: "" } });
+    await UserModel.updateOne({ email: getUser.email }, { $set: { password: newPassword, token: "" } });
     return sendResponse(res, true, 200, "Password updated successfully");
   } catch (error) {
+    console.log("error", error);
   }
 };
 
@@ -134,6 +138,7 @@ exports.sendOtp = async (req, res) => {
     await UserModel.updateOne({ _id: checkOtp._id }, { $set: { status: true } });
     return sendResponse(res, true, 200, "User verified successfully");
   } catch (error) {
+    console.log("error", error);
   }
 };
 
@@ -176,6 +181,7 @@ exports.changePassword = async (req, res, next) => {
   try {
 
     let oldPassword = req.body.oldPassword;
+    let newPassword = req.body.newPassword;
     let getUser = await UserModel.findById(req.user.userId);
 
     if (!getUser) {
@@ -191,10 +197,18 @@ exports.changePassword = async (req, res, next) => {
         res,
         false,
         400,
-        "Invalid Password"
+        "Invalid current Password"
       );
     }
-    let newPassword = await bcrypt.hash(req.body.newPassword, 10);
+    if(oldPassword == newPassword ){
+      return sendResponse(
+        res,
+        false,
+        400,
+        "Your new password must be different from old password."
+      );
+    }
+    newPassword = await bcrypt.hash(req.body.newPassword, 10);
     console.log(newPassword);
 
     await UserModel.updateOne({ _id: getUser._id }, { $set: { password: newPassword } });

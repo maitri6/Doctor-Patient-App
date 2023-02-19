@@ -42,31 +42,30 @@ const registerValidation = async (req, res, next) => {
   }
 };
 
-const loginValidation = async (req, res, next) => {
-  try {
-    const schema = Joi.object({
-      email: Joi.string()
+  const loginValidation = async (req, res, next) => {
+    try {
+      const schema = Joi.object({
+        email: Joi.string()
         .email()
         .required()
-        .messages({
-          "string.empty": "Please add an email.",
-          "string.email": "Please add an valid email.",
-        }),
-      password: Joi.string().required(),
-    });
-
-    const { value, error } = schema.validate(req.body);
-
-    if (error !== undefined) {
-      return sendResponse(res, false, 422, error.details[0].message);
+        .messages( {"string.empty": "Please add an email.","string.email": "Please add an valid email."}),
+        password: Joi.string().required()
+        //.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)
+      });
+  
+      const { value, error } = schema.validate(req.body);
+  
+      if (error !== undefined) {
+        return sendResponse(res, false, 422, error.details[0].message);
+      }
+  
+      // set the variable in the request for validated data
+      req.validated = value;
+      next();
+    } catch (error) {
+      next(error);
     }
 
-    // set the variable in the request for validated data
-    req.validated = value;
-    next();
-  } catch (error) {
-    next(error);
-  }
 };
 
 const forgetValidation = async (req, res, next) => {
