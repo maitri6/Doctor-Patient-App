@@ -2,6 +2,7 @@ const { verifyToken } = require("../helpers/jwt.helper");
 
 const authenticated = async (req, res, next) => {
   try {
+    console.log("Authenticated",req.headers.authorization)
     if (!req.headers.authorization) {
       return res.status(401).json({
         status: false,
@@ -12,7 +13,6 @@ const authenticated = async (req, res, next) => {
 
     const token = req.headers.authorization.split(" ");
     req.user = await verifyToken(token[1].trim());
-
     next();
   } catch (error) {
     next(error);

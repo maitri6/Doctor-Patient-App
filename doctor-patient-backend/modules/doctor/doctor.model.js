@@ -54,8 +54,14 @@ const userSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Types.ObjectId,
         ref: "user",
+<<<<<<< HEAD
     },
 }, {
+=======
+      }, 
+  },
+  {
+>>>>>>> 7b80f66c1f0a077af7e6f4d72b22921e50a6a823
     timestamps: true,
 });
 

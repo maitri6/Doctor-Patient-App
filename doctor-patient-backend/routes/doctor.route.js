@@ -8,6 +8,7 @@ const doctorController = require("../modules/doctor/doctor.controller");
 
 
 router.post("/saveDoctorDetails",  doctorValidation,doctorController.doctorForm);
-router.get("/getAllCities",doctorController.getAllCities);
+router.get("/getAllCities",doctorController.getCityAndYear);
+router.get("/getAllIdentityProofs",doctorController.getAllIdentityProofs);
 
 module.exports = router;

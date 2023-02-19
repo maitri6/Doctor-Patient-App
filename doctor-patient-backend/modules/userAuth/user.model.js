@@ -28,6 +28,14 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    role:{
+      type: String,
+      default: "patient"
+    },
+    isApproved: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

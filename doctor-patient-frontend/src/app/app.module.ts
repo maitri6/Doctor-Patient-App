@@ -1,38 +1,38 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
-
-import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app.routing';
+import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
-import { AuthComponent } from './Authenciation/auth/auth.component';
-import { AuthRegisterComponent } from './Authenciation/auth-register/auth-register.component';
-import { ForgetPasswordComponent } from './Authenciation/forget-password/forget-password.component';
-import { ResetPasswordComponent } from './Authenciation/reset-password/reset-password.component';
-import { DoctorInformationComponent } from './Doctor/doctor-information/doctor-information.component';
-import { PageNotFoundComponent } from './Authenciation/page-not-found/page-not-found.component';
-import { OtpVerificationComponent } from './Authenciation/otp-verification/otp-verification.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { ForgetPasswordComponent } from './Account/account/forget-password/forget-password.component';
+import { OtpVerificationComponent } from './Account/account/otp-verification/otp-verification.component';
+import { PageNotFoundComponent } from './Account/account/page-not-found/page-not-found.component';
+import { ResetPasswordComponent } from './Account/account/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './Account/account/change-password/change-password.component';
+import { DoctorInformationComponent } from './doctor/doctor-information/doctor-information.component';
 @NgModule({
+  imports: [
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ComponentsModule,
+    RouterModule,
+    AppRoutingModule,
+  
+  ],
   declarations: [
     AppComponent,
-    AuthComponent,
-    AuthRegisterComponent,
+    AdminLayoutComponent,
     ForgetPasswordComponent,
-    ResetPasswordComponent,
-    DoctorInformationComponent,
+    OtpVerificationComponent,
     PageNotFoundComponent,
-    OtpVerificationComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    ResetPasswordComponent,
+    ChangePasswordComponent,
+    DoctorInformationComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
