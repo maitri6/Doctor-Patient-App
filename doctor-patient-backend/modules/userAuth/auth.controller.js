@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 const { generateJwt } = require("../../helpers/jwt.helper");
 const sendEmail = require("../../helpers/mail.helper");
-const user = require("./user.model");
+
 /**
  * Description: Register user into the application
  * @param {*} req
@@ -40,7 +40,8 @@ exports.login = async (req, res, next) => {
     let subject, message, otp;
     let password = req.body.password;
 
-    const getUser = await UserModel.findOne({ email: req.body.email });
+    const getUser = await UserModel.find({ email: req.body.email });
+    //const getUser = await UserModel.findOne({ email: req.body.email });
     if (!getUser) return sendResponse(res, true, 400, "User not found.");
     if (getUser.role == "doctor" && !(getUser.isApproved)) {
       return sendResponse(res, true, 400, "Please wait for admin's approval.");
@@ -68,6 +69,7 @@ exports.login = async (req, res, next) => {
     });
 
   } catch (error) {
+    console.log("error", error);
   }
 
 };
@@ -93,6 +95,7 @@ exports.forgetPassword = async (req, res, next) => {
     await UserModel.updateOne({ email: getUser.email }, { $set: { token: forgetPasswordToken, } });
     return sendResponse(res, true, 200, "Email sent successfully.");
   } catch (error) {
+    console.log("error", error);
   }
 };
 
@@ -109,6 +112,7 @@ exports.resetPassword = async (req, res) => {
     await UserModel.updateOne({ femail: getUser.email }, { $set: { password: newPassword, token: "" } });
     return sendResponse(res, true, 200, "Password updated successfully");
   } catch (error) {
+    console.log("error", error);
   }
 };
 
@@ -134,6 +138,7 @@ exports.sendOtp = async (req, res) => {
     await UserModel.updateOne({ _id: checkOtp._id }, { $set: { status: true } });
     return sendResponse(res, true, 200, "User verified successfully");
   } catch (error) {
+    console.log("error", error);
   }
 };
 

@@ -49,7 +49,8 @@ const registerValidation = async (req, res, next) => {
         .email()
         .required()
         .messages( {"string.empty": "Please add an email.","string.email": "Please add an valid email."}),
-       // password: Joi.string().required().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)
+        password: Joi.string().required()
+        //.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)
       });
   
       const { value, error } = schema.validate(req.body);
