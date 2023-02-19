@@ -9,14 +9,14 @@ export class AccountService {
 
   baseUrl = environment.apiBaseUrl;
   authPath='auth'
-  registerPath='/register'
-  loginPath='/login'
-  forgetPasswordPath='/forgetPassword'
-  resetPasswordPath='/resetPassword'
-  sendOtpPath='/sendOtp'
-  changePasswordPath='/changePassword'
-  getUserById='/getUserById'
-  updateProfile='/updateProfile'
+  // registerPath='/register'
+  // loginPath='/login'
+  // forgetPasswordPath='/forgetPassword'
+  // resetPasswordPath='/resetPassword'
+  // sendOtpPath='/sendOtp'
+  // changePasswordPath='/changePassword'
+  // getUserById='/getUserById'
+  // updateProfile='/updateProfile'
 
   constructor(private http:HttpClient) { }
   token =localStorage.getItem('token')
@@ -28,29 +28,30 @@ export class AccountService {
     };
 
   userRegister(data : any): Observable<any>{
-    return this.http.post(this.baseUrl + this.authPath+this.registerPath, data);
+    return this.http.post(this.baseUrl + this.authPath+'/register', data);
   }
   userLogin(data : any): Observable<any>{
-    return this.http.post(this.baseUrl + this.authPath+this.loginPath, data);
+    return this.http.post(this.baseUrl + this.authPath+'/login', data);
   }
 
   userForgetPassword(data : any): Observable<any>{
-    return this.http.post(this.baseUrl + this.authPath+this.forgetPasswordPath, data);
+    return this.http.post(this.baseUrl + this.authPath+'/forgetPassword', data);
   }
   userResetPassword(data : any): Observable<any>{
-    return this.http.post(this.baseUrl + this.authPath+this.resetPasswordPath, data);
+    return this.http.post(this.baseUrl + this.authPath+'/resetPassword', data);
   }
 
   sendOtp(data : any): Observable<any>{
-    return this.http.post(this.baseUrl + this.authPath+this.sendOtpPath, data);
+    return this.http.post(this.baseUrl + this.authPath+'/sendOtp', data);
   }
   changePassword(data : any): Observable<any>{
-    return this.http.post(this.baseUrl + this.authPath+this.changePasswordPath,data,this.httpOptions);
+    return this.http.post(this.baseUrl + this.authPath+'/changePassword',data,this.httpOptions);
   }
   getSingleUser(): Observable<any>{
-    return this.http.get(this.baseUrl + this.authPath+this.getUserById,this.httpOptions);
+    // console.log("angular token",this.token)
+    return this.http.get(this.baseUrl + this.authPath+'/getUserById',this.httpOptions);
   }
   editProfile(data : any): Observable<any>{
-    return this.http.post(this.baseUrl + this.authPath+this.updateProfile,data,this.httpOptions);
+    return this.http.post(this.baseUrl + this.authPath+'/updateProfile',data,this.httpOptions);
   }
 }

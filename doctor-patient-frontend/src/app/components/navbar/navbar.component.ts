@@ -34,6 +34,11 @@ export class NavbarComponent implements OnInit {
      });
     }
 
+    logout() {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
+      }
+
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const body = document.getElementsByTagName('body')[0];

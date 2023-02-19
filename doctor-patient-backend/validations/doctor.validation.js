@@ -41,10 +41,10 @@ const doctorValidation = async (req, res, next) => {
     }
 
     //function call
-    let result = await validate(req.body);
-    if (!result) {
-      return sendResponse(res, false, 422, "Please enter validate identity proof number");
-    }
+    // let result = await validate(req.body);
+    // if (!result) {
+    //   return sendResponse(res, false, 422, "Please enter validate identity proof number");
+    // }
 
     // set the variable in the request for validated data
     req.validated = value;

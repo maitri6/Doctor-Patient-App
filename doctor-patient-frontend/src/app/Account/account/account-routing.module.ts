@@ -5,8 +5,8 @@ import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   // { path: "", component:  AuthRegisterComponent },
-  { path: "register", component:  AuthRegisterComponent },
-  { path: "login", component:  AuthComponent },
+  // { path: "register", component:  AuthRegisterComponent },
+  // { path: "login", component:  AuthComponent },
 ];
 
 @NgModule({

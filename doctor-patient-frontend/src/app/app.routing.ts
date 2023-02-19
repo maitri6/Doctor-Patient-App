@@ -9,7 +9,7 @@ import { ForgetPasswordComponent } from './Account/account/forget-password/forge
 import { OtpVerificationComponent } from './Account/account/otp-verification/otp-verification.component';
 import { PageNotFoundComponent } from './Account/account/page-not-found/page-not-found.component';
  import { ResetPasswordComponent } from './Account/account/reset-password/reset-password.component';
-//  import { D } ;
+import { DoctorInformationComponent } from './doctor/doctor-information/doctor-information.component';
 
 const routes: Routes =[
   { path: "", component:  AuthComponent },
@@ -18,7 +18,7 @@ const routes: Routes =[
   { path: "forget-password", component: ForgetPasswordComponent  },
   { path: "reset-password/:token", component: ResetPasswordComponent  },
   { path: "otp-verification/:id", component: OtpVerificationComponent  },
-  // { path: "saveDoctorForm", component: DoctorInformationComponent  },
+   { path: "saveDoctorForm", component: DoctorInformationComponent  },
   {
     path: '',
     component: AdminLayoutComponent,

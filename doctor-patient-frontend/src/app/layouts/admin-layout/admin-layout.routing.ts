@@ -6,6 +6,7 @@ import { TableListComponent } from '../../table-list/table-list.component';
 import { TypographyComponent } from '../../typography/typography.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { ChangePasswordComponent } from '../../Account/account/change-password/change-password.component';
+// import { LogoutComponent } from '../../Account/account/logout/logout.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -14,4 +15,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'changePassword', component: ChangePasswordComponent },
     { path: 'editProfile',    component:UserProfileComponent  },   
+    // { path: 'logout',         component:LogoutComponent },  
 ];
