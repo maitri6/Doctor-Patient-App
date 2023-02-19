@@ -38,15 +38,15 @@ exports.login = async (req, res, next) => {
   try {
 
     let subject, message, otp;
-    let password = req.body.password;
+   
 
-    const getUser = await UserModel.find({ email: req.body.email });
-    //const getUser = await UserModel.findOne({ email: req.body.email });
+    const getUser = await UserModel.findOne({ email: req.body.email });
     if (!getUser) return sendResponse(res, true, 400, "User not found.");
     if (getUser.role == "doctor" && !(getUser.isApproved)) {
       return sendResponse(res, true, 400, "Please wait for admin's approval.");
     }
-    if (getUser && !(await bcrypt.compare(password, getUser.password)))
+        console.log(req.body.password,getUser.password,getUser)
+    if (!(await bcrypt.compare(req.body.password, getUser.password)))
       return sendResponse(res, true, 400, "Invalid password.");
 
     let token = await generateJwt({ userId: getUser._id });
