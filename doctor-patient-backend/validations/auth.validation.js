@@ -1,7 +1,5 @@
 const Joi = require("joi");
 const { sendResponse } = require("../helpers/requestHandler.helper");
-const { uniqueEmail } = require("./rules");
-const { uniquePhone } = require("./rules");
 
 const UserModel = require("../modules/userAuth/user.model");
 
@@ -26,6 +24,10 @@ const registerValidation = async (req, res, next) => {
         .messages({
           "string.pattern.base": "Invalid phone number.",
         }),
+      height: Joi.string().required(),
+      weight: Joi.string().required(),
+      bloodGroup: Joi.string().required().pattern(/^[A-Z]/),
+      disease: Joi.string().required() 
     }).options({ allowUnknown: true });
 
     const { value, error } = schema.validate(req.body);
@@ -42,29 +44,29 @@ const registerValidation = async (req, res, next) => {
   }
 };
 
-  const loginValidation = async (req, res, next) => {
-    try {
-      const schema = Joi.object({
-        email: Joi.string()
+const loginValidation = async (req, res, next) => {
+  try {
+    const schema = Joi.object({
+      email: Joi.string()
         .email()
         .required()
-        .messages( {"string.empty": "Please add an email.","string.email": "Please add an valid email."}),
-        password: Joi.string().required()
-        //.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)
-      });
-  
-      const { value, error } = schema.validate(req.body);
-  
-      if (error !== undefined) {
-        return sendResponse(res, false, 422, error.details[0].message);
-      }
-  
-      // set the variable in the request for validated data
-      req.validated = value;
-      next();
-    } catch (error) {
-      next(error);
+        .messages({ "string.empty": "Please add an email.", "string.email": "Please add an valid email." }),
+      password: Joi.string().required()
+      //.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)
+    });
+
+    const { value, error } = schema.validate(req.body);
+
+    if (error !== undefined) {
+      return sendResponse(res, false, 422, error.details[0].message);
     }
+
+    // set the variable in the request for validated data
+    req.validated = value;
+    next();
+  } catch (error) {
+    next(error);
+  }
 
 };
 
@@ -123,7 +125,7 @@ const updateProfileValidation = async (req, res, next) => {
       name: Joi.string()
         .required()
         .messages({ "string.empty": "Name field cannot be empty." }),
-        // .pattern(/^[a-zA-Z\\s]*$/),
+      // .pattern(/^[a-zA-Z\\s]*$/),
       phoneNumber: Joi.string()
         .required()
         .pattern(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/)

@@ -21,6 +21,10 @@ exports.doctorForm = async (req, res, next) => {
         400,
         "You have already registered with this email.."
       );
+    let title = req.body.title;
+    title = ['Dr','Mr','Ms','Mrs'] ;
+    for (var i in title)
+    console.log(title[i]);
     req.body.password = await bcrypt.hash(req.body.password, 10);
     req.body.isApproved = false;
     req.body.role = "doctor";
