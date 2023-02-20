@@ -37,6 +37,10 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     let subject, message, otp;
+<<<<<<< HEAD
+  
+=======
+>>>>>>> b0a6379004789373703498a0f1f66d60a79121b6
     const getUser = await UserModel.findOne({ email: req.body.email });
     if (!getUser) return sendResponse(res, true, 400, "User not found.");
     if (getUser.role == "doctor" && !(getUser.isApproved)) {
