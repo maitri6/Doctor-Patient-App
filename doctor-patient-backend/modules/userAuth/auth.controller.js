@@ -36,9 +36,7 @@ exports.register = async (req, res, next) => {
  */
 exports.login = async (req, res, next) => {
   try {
-
     let subject, message, otp;
-  
     const getUser = await UserModel.findOne({ email: req.body.email });
     if (!getUser) return sendResponse(res, true, 400, "User not found.");
     if (getUser.role == "doctor" && !(getUser.isApproved)) {
@@ -48,7 +46,12 @@ exports.login = async (req, res, next) => {
     if (!(await bcrypt.compare(req.body.password, getUser.password)))
       return sendResponse(res, true, 400, "Invalid password.");
 
-    let token = await generateJwt({ userId: getUser._id });
+    let token = await generateJwt({ 
+      userId: getUser._id,
+      email:getUser.email, 
+      role:getUser.role, 
+      phoneNumber:getUser.phoneNumber
+     });
     if (token === undefined) {
       return sendResponse(
         res,
@@ -85,7 +88,12 @@ exports.forgetPassword = async (req, res, next) => {
         "User not exists or Please enter valid email."
       );
     }
-    var forgetPasswordToken = await generateJwt({ email: getUser.email });
+    var forgetPasswordToken = await generateJwt({ 
+      userId: getUser._id,
+      email:getUser.email, 
+      role:getUser.role, 
+      phoneNumber:getUser.phoneNumber
+    });
 
     let subject = "Forget Password";
     let send = url.concat(forgetPasswordToken);
@@ -216,7 +224,7 @@ exports.changePassword = async (req, res, next) => {
     let html = "Hi,Your password has been changed successfully";
     sendEmail(getUser.email, subject, html);
 
-    return sendResponse(res, true, 200, "Email sent successfully.");
+    return sendResponse(res, true, 200, "Password changed successfully.");
 
   } catch (error) {
     console.log("error", error);

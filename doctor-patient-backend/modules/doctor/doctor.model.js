@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema(
     title: {
       type: Array,
       default: "",
-      trim: true,  
+      trim: true,
     },
     name: {
       type: String,
@@ -46,10 +46,16 @@ const userSchema = new mongoose.Schema(
     experience: {
       type: Number,
     },
+    personalDocs: {
+      type: String,
+    },
+    degreeCertificate: {
+      type: String,
+    },
     userId: {
-        type: mongoose.Types.ObjectId,
-        ref: "user",
-      }, 
+      type: mongoose.Types.ObjectId,
+      ref: "user",
+    },
   },
   {
     timestamps: true,

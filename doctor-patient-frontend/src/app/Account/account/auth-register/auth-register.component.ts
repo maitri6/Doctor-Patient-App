@@ -59,7 +59,7 @@ export class AuthRegisterComponent implements OnInit {
           
           if (res.statusCode == 200) {
             // Swal({title:"Good job!", text:"You clicked the button!", type:"success"});
-             this.router.navigate(['/otp-verification/'+res.data._id]);
+              this.router.navigate(['/otp-verification/'+res.data._id]);
                 // this.router.navigate(['/login/']);
          
             // this.notifyService.showToastSuccess(res.statusMessage);

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NotficationServiceService } from '../../../Notification/notfication-service.service';
 import { AccountService } from '../../account.service';
- import { NotificationsComponent } from '../../../notifications/notifications.component';
 
 @Component({
   selector: 'app-change-password',
@@ -13,7 +13,7 @@ export class ChangePasswordComponent {
   constructor(
    private authService: AccountService,
    private router: Router,
-    private notifyService:NotificationsComponent,
+    private notifyService:NotficationServiceService,
  ) {}
   ChangePassword = new FormGroup({
     oldPassword: new FormControl('', [Validators.required]),
@@ -33,22 +33,21 @@ export class ChangePasswordComponent {
       this.authService.changePassword(userChangePasswordObj).subscribe(
         (res: any) => {
           if (res.statusCode == 200) {
-             this.notifyService.showNotification();
+             this.notifyService.showToastSuccess(res.statusMessage);
              this.router.navigate(['/dashboard']);
           }
         },
         (err: any) => {
           if (err.error.statusCode == 400) {
             this.router.navigate(['/changePassword']);
-            // this.notifyService.showToastError(err.error.statusMessage);
+             this.notifyService.showToastError(err.error.statusMessage);
           } else if (err.error.statusCode == 422) {
             this.router.navigate(['/changePassword']);
-            // this.notifyService.showToastError(err.error.statusMessage);
+             this.notifyService.showToastError(err.error.statusMessage);
           }
           else{
-            // Swal({title:"Good job!", text:"Something !", type:"success"});
             this.router.navigate(['/changePassword']);
-            // this.notifyService.showToastError(err.error.statusMessage);
+             this.notifyService.showToastError(err.error.statusMessage);
           }
         }
       );
