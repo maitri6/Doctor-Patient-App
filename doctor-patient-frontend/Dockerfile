@@ -1,4 +1,4 @@
-FROM node:14-alpine as build-step
+FROM alpine:3.11 as build-step
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ COPY  ./ /app
 
 
 # Bundle app source
-
+#RUN npm i -g node@6.11.1 && npm i -g npm@3.10.9
 
 RUN npm i
 
@@ -26,7 +26,7 @@ FROM nginx:latest
 
 WORKDIR /usr/share/nginx/html
 
-COPY --from=build-step /app/dist/doctor-patient-frontend /usr/share/nginx/html
+COPY --from=build-step /app/dist/doctor-patient-frontend .
 
 COPY /nginx.conf /etc/nginx/conf.d/default.conf
 
