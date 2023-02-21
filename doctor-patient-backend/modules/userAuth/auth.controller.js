@@ -1,4 +1,5 @@
 const UserModel = require("./user.model");
+const DoctorModel = require("../doctor/doctor.model");
 const bcrypt = require("bcrypt");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 const { generateJwt } = require("../../helpers/jwt.helper");
@@ -24,8 +25,7 @@ exports.register = async (req, res, next) => {
     await UserModel.updateOne({ _id: saveUser._id }, { $set: { otp: otp, } });
     sendEmail(saveUser.email, subject, message);
     return sendResponse(res, true, 200, "OTP sent successfully.", saveUser);
-  } catch (error) {
-  }
+  } catch (error) { }
 };
 
 /**
@@ -37,25 +37,20 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     let subject, message, otp;
-<<<<<<< HEAD
-  
-=======
->>>>>>> b0a6379004789373703498a0f1f66d60a79121b6
     const getUser = await UserModel.findOne({ email: req.body.email });
     if (!getUser) return sendResponse(res, true, 400, "User not found.");
     if (getUser.role == "doctor" && !(getUser.isApproved)) {
       return sendResponse(res, true, 400, "Please wait for admin's approval.");
     }
-        console.log(req.body.password,getUser.password,getUser)
     if (!(await bcrypt.compare(req.body.password, getUser.password)))
       return sendResponse(res, true, 400, "Invalid password.");
 
-    let token = await generateJwt({ 
+    let token = await generateJwt({
       userId: getUser._id,
-      email:getUser.email, 
-      role:getUser.role, 
-      phoneNumber:getUser.phoneNumber
-     });
+      email: getUser.email,
+      role: getUser.role,
+      phoneNumber: getUser.phoneNumber
+    });
     if (token === undefined) {
       return sendResponse(
         res,
@@ -74,10 +69,7 @@ exports.login = async (req, res, next) => {
       token,
     });
 
-  } catch (error) {
-    console.log("error", error);
-  }
-
+  } catch (error) { }
 };
 
 exports.forgetPassword = async (req, res, next) => {
@@ -92,11 +84,11 @@ exports.forgetPassword = async (req, res, next) => {
         "User not exists or Please enter valid email."
       );
     }
-    var forgetPasswordToken = await generateJwt({ 
+    var forgetPasswordToken = await generateJwt({
       userId: getUser._id,
-      email:getUser.email, 
-      role:getUser.role, 
-      phoneNumber:getUser.phoneNumber
+      email: getUser.email,
+      role: getUser.role,
+      phoneNumber: getUser.phoneNumber
     });
 
     let subject = "Forget Password";
@@ -105,9 +97,7 @@ exports.forgetPassword = async (req, res, next) => {
     sendEmail(getUser.email, subject, html);
     await UserModel.updateOne({ email: getUser.email }, { $set: { token: forgetPasswordToken, } });
     return sendResponse(res, true, 200, "Email sent successfully.");
-  } catch (error) {
-    console.log("error", error);
-  }
+  } catch (error) { }
 };
 
 exports.resetPassword = async (req, res) => {
@@ -122,9 +112,7 @@ exports.resetPassword = async (req, res) => {
     sendEmail(getUser.email, subject, html);
     await UserModel.updateOne({ email: getUser.email }, { $set: { password: newPassword, token: "" } });
     return sendResponse(res, true, 200, "Password updated successfully");
-  } catch (error) {
-    console.log("error", error);
-  }
+  } catch (error) { }
 };
 
 exports.sendOtp = async (req, res) => {
@@ -148,9 +136,7 @@ exports.sendOtp = async (req, res) => {
       return sendResponse(res, true, 400, "Invalid OTP");
     await UserModel.updateOne({ _id: checkOtp._id }, { $set: { status: true } });
     return sendResponse(res, true, 200, "User verified successfully");
-  } catch (error) {
-    console.log("error", error);
-  }
+  } catch (error) {}
 };
 
 function generateOTP() {
@@ -165,14 +151,14 @@ function generateOTP() {
 
 exports.getUserById = async (req, res, next) => {
   try {
-console.log(req.user.userId)
+    console.log(req.user.userId)
     let getUser = await UserModel.findById(req.user.userId);
     if (!getUser) {
       return sendResponse(
         res,
         false,
         400,
-        "User Not found "
+        "User not found "
       );
 
     }
@@ -180,11 +166,9 @@ console.log(req.user.userId)
       res,
       true,
       200,
-      "User fetched Successfully ", getUser
+      "User fetched successfully ", getUser
     );
-  } catch (error) {
-    console.log("error", error);
-  }
+  } catch (error) { }
 };
 
 
@@ -200,7 +184,7 @@ exports.changePassword = async (req, res, next) => {
         res,
         false,
         400,
-        "User Not found "
+        "User not found "
       );
     }
     if (!(await bcrypt.compare(oldPassword, getUser.password))) {
@@ -208,10 +192,10 @@ exports.changePassword = async (req, res, next) => {
         res,
         false,
         400,
-        "Invalid current Password"
+        "Invalid current password"
       );
     }
-    if(oldPassword == newPassword ){
+    if (oldPassword == newPassword) {
       return sendResponse(
         res,
         false,
@@ -230,9 +214,7 @@ exports.changePassword = async (req, res, next) => {
 
     return sendResponse(res, true, 200, "Password changed successfully.");
 
-  } catch (error) {
-    console.log("error", error);
-  }
+  } catch (error) { }
 };
 
 
@@ -246,7 +228,7 @@ exports.updateProfile = async (req, res, next) => {
         res,
         false,
         400,
-        "User Not found "
+        "User not found "
       );
     }
     await UserModel.updateOne({ _id: getUser._id }, { $set: { ...req.body } });
@@ -255,9 +237,24 @@ exports.updateProfile = async (req, res, next) => {
       res,
       true,
       200,
-      "User Profile Updated Successfully"
+      "User profile updated successfully"
     );
-  } catch (error) {
-    console.log("error", error);
-  }
+  } catch (error) { }
+};
+
+
+exports.getAllApprovedDoctors = async (req, res, next) => {
+  try {
+      let getDoctors = await UserModel.find({ isApproved: true,role:"doctor"})
+          .lean()
+          .populate({
+            path: "_id",
+          })
+          return sendResponse(
+            res,
+            true,
+            200,
+            "List of doctors",getDoctors
+          ); 
+  } catch (error) {}
 };

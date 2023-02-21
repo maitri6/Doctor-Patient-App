@@ -1,7 +1,7 @@
 const DoctorModel = require("../doctor/doctor.model");
 const UserModel = require("../userAuth/user.model");
 const { IDENTITY_PROOF } = require('../../config/constant');
-const Joi = require("joi");
+const { TITLES } = require('../../config/constant');
 
 let { City } = require("country-state-city");
 
@@ -21,10 +21,6 @@ exports.doctorForm = async (req, res, next) => {
         400,
         "You have already registered with this email.."
       );
-    let title = req.body.title;
-    title = ['Dr','Mr','Ms','Mrs'] ;
-    for (var i in title)
-    console.log(title[i]);
     req.body.password = await bcrypt.hash(req.body.password, 10);
     req.body.isApproved = false;
     req.body.role = "doctor";
@@ -59,9 +55,7 @@ exports.getCityAndYear = async (req, res, next) => {
     } else {
       return sendResponse(res, false, 400, "Please enter the valid type");
     }
-  } catch (error) {
-    console.log("error", error);
-  }
+  } catch (error) { }
 };
 
 
@@ -74,7 +68,19 @@ exports.getAllIdentityProofs = async (req, res, next) => {
       "Identity Proofs fetched successfully",
       IDENTITY_PROOF
     );
-  } catch (error) {
-    console.log("error", error);
-  }
+  } catch (error) {}
+};
+
+
+
+exports.getAllTitles = async (req, res, next) => {
+  try {
+    return sendResponse(
+      res,
+      true,
+      200,
+      "Identity Proofs fetched successfully",
+      TITLES
+    );
+  } catch (error) {}
 };

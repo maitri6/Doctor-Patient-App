@@ -8,7 +8,16 @@ const IDENTITY_PROOF=[
 {name:"Voter Card",key:"voterCard"},
 ];
 
+const TITLES=[
+{name:"Dr",key:"Dr"},
+{name:"Mr",key:"Mr"},
+{name:"Mrs",key:"Mrs"},
+{name:"Ms",key:"Ms"},
+]
+
 module.exports ={
-    IDENTITY_PROOF
+    IDENTITY_PROOF,
+    TITLES
+
 }
  

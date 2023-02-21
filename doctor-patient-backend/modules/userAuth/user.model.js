@@ -30,9 +30,6 @@ const userSchema = new mongoose.Schema(
     weight: {
       type: String,
     },
-    disease: {
-      type: String,
-    },
     bloodGroup: {
       type: String,
     },
