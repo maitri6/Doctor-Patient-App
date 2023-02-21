@@ -10,8 +10,9 @@ declare interface RouteInfo {
 //token role =admin patient //
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '', },
-    { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
-    // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
+    { path: '/adminList', title: 'Admins List',  icon:'content_paste', class: '' },
+    { path: '/doctorList', title: 'Doctors List',  icon:'content_paste', class: '' },
+    { path: '/patientList', title: 'Patients List',  icon:'content_paste', class: '' },
 ];
 
 @Component({

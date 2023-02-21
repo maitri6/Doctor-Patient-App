@@ -5,11 +5,17 @@ import { UserProfileComponent } from '../../Account/account/user-profile/user-pr
 import { TableListComponent } from '../../table-list/table-list.component';
 import { TypographyComponent } from '../../typography/typography.component';
 import { ChangePasswordComponent } from '../../Account/account/change-password/change-password.component';
+import { AdminListComponent } from '../../admin/admin-list/admin-list.component';
+import { DoctorListComponent } from '../../admin/doctor-list/doctor-list.component';
+import { PatientListComponent } from '../../admin/patient-list/patient-list.component'; 
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'changePassword', component: ChangePasswordComponent },
-    { path: 'editProfile',    component:UserProfileComponent  },  
+    { path: 'editProfile',    component:UserProfileComponent  }, 
+    { path: 'doctorList',    component:DoctorListComponent  },  
+    { path: 'adminList',    component:AdminListComponent  },  
+    { path: 'patientList',    component:PatientListComponent  },   
 ];

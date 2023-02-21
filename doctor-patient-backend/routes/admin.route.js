@@ -12,7 +12,7 @@ router.post("/updateStatus",updateStatusValidation,adminController.updateStatus)
 //router.post("/getAllDoctors",adminController.getAllDoctors);
 //router.post("/getAllPatients",adminController.getAllPatients);
 router.post("/addAdmin",adminController.addAdmin);
-router.post("/getAllDetails",adminController.getAllDetails);
+router.get("/getAllDetails",adminController.getAllDetails);
 
 
 
