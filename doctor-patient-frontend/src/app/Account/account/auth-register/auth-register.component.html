@@ -14,7 +14,7 @@
                   <form class="mx-1 mx-md-4" [formGroup]="RegisterForm">
   
                     <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <!-- <i class="fas fa-user fa-lg me-3 fa-fw"></i> -->
                       <div class="form-outline flex-fill mb-0">
                         <input type="text" id="form3Example1c" class="form-control" formControlName="name" placeholder="Enter Patient Name" />
                         <label class="form-label" for="form3Example1c">Patient Name</label>
@@ -25,7 +25,7 @@
                     </div>
   
                     <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                      <!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> -->
                       <div class="form-outline flex-fill mb-0">
                         <input type="email" id="form3Example3c" class="form-control" formControlName="email" placeholder="Enter valid email"/>
                         <label class="form-label" for="form3Example3c">Patient Email</label>
@@ -37,9 +37,9 @@
                     </div>
 
                     <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <!-- <i class="fas fa-user fa-lg me-3 fa-fw"></i> -->
                         <div class="form-outline flex-fill mb-0">
-                          <input type="text" id="form3Example1c" class="form-control" formControlName="phone"  placeholder="Enter Phone Number" />
+                          <input type="text" id="form3Example1c" class="form-control" formControlName="phone"  placeholder="Enter 10 Digit Phone Number" />
                           <label class="form-label" for="form3Example1c">Phone Number</label>
                           <div *ngIf="f.phone.touched && f.phone.invalid">
                             <small *ngIf="f.phone.errors?.['required']">This field is required</small>
@@ -49,9 +49,9 @@
 
                       
                     <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <!-- <i class="fas fa-user fa-lg me-3 fa-fw"></i> -->
                       <div class="form-outline flex-fill mb-0">
-                        <input type="text" id="form3Example1c" class="form-control" formControlName="height"  placeholder="Enter Height" />
+                        <input type="number" id="form3Example1c" class="form-control" formControlName="height"  placeholder="Enter Height" />
                         <label class="form-label" for="form3Example1c">Height</label>
                         <!-- <div *ngIf="f.phone.touched && f.phone.invalid">
                           <small *ngIf="f.phone.errors?.['required']">This field is required</small>
@@ -61,9 +61,9 @@
 
                     
                     <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <!-- <i class="fas fa-user fa-lg me-3 fa-fw"></i> -->
                       <div class="form-outline flex-fill mb-0">
-                        <input type="text" id="form3Example1c" class="form-control" formControlName="weight"  placeholder="Enter Weight" />
+                        <input type="number" id="form3Example1c" class="form-control" formControlName="weight"  placeholder="Enter Weight" />
                         <label class="form-label" for="form3Example1c">Weight</label>
                         <!-- <div *ngIf="f.phone.touched && f.phone.invalid">
                           <small *ngIf="f.phone.errors?.['required']">This field is required</small>
@@ -73,18 +73,19 @@
 
                     
                     <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
-                        <input type="text" id="form3Example1c" class="form-control" formControlName="bloodGroup"  placeholder="Enter Blood Group" />
-                        <label class="form-label" for="form3Example1c">Blood Group</label>
-                        <!-- <div *ngIf="f.phone.touched && f.phone.invalid">
-                          <small *ngIf="f.phone.errors?.['required']">This field is required</small>
-                         </div> -->
+                        <label class="form-label" for="form3Example1c">Blood Group</label> 
+                        <br>
+                        <select class="select"  formControlName="bloodGroup" >
+                          <option value="">Select Blood Group </option>
+                          <option *ngFor="let blood of BloodGroup" [ngValue]="blood.key">{{blood.name}}</option>
+                        </select>
                       </div>
                     </div>
+                     
   
                     <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                      <!-- <i class="fas fa-lock fa-lg me-3 fa-fw"></i> -->
                       <div class="form-outline flex-fill mb-0">
                         <input type="password" id="form3Example4c" class="form-control" formControlName="password" placeholder="Enter Password" />
                         <label class="form-label" for="form3Example4c">Password</label>
@@ -95,7 +96,7 @@
                     </div>
   
                     <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                      <!-- <i class="fas fa-key fa-lg me-3 fa-fw"></i> -->
                       <div class="form-outline flex-fill mb-0">
                         <input type="password" id="form3Example4cd" class="form-control" formControlName="confirm_password" placeholder="Enter confirm Password" />
                         <label class="form-label" for="form3Example4cd">Repeat your password</label>
