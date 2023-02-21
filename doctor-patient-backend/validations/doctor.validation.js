@@ -1,8 +1,5 @@
 const Joi = require("joi");
 const { sendResponse } = require("../helpers/requestHandler.helper");
-const { uniqueEmail } = require("./rules");
-const { uniquePhone } = require("./rules");
-const { IDENTITY_PROOF } = require('../config/constant');
 
 const doctorValidation = async (req, res, next) => {
   try {
@@ -34,21 +31,16 @@ const doctorValidation = async (req, res, next) => {
       experience: Joi.number().required(),
 
     }).options({ allowUnknown: true });
-
-
     const { value, error } = schema.validate(req.body);
-
-
     if (error !== undefined) {
       return sendResponse(res, false, 422, error.details[0].message);
     }
 
     //function call
-    // let result = await validate(req.body);
-    // if (!result) {
-    //   return sendResponse(res, false, 422, "Please enter validate identity proof number");
-    // }
-
+    let result = await validate(req.body);
+    if (!result) {
+      return sendResponse(res, false, 422, "Please enter validate identity proof number");
+    }
     // set the variable in the request for validated data
     req.validated = value;
     next();
@@ -60,81 +52,34 @@ const doctorValidation = async (req, res, next) => {
 // function to validate identity proof values
 
 function validate(data) {
- // var aadharCardRegex = /^[2-9]{1}[0-9]{3}[0-9]{4}\s[0-9]\s{4}$/;
   var aadharCardRegex = /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/;
   var panCardRegex = /[A-Z]{5}[0-9]{4}[A-Z]{1}/;
   var passportRegex = /^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$/;
   var voterCardRegex = /^[A-Z]{3}[0-9]{7}$/;
   var drivingLicenseRegex = /^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/;
-  let aadhar=data.identityProofValue;
-  if (data.identityProof == "aadharCard") {
-    if (aadharCardRegex.test(data.identityProofValue) == true) {
-      //  aadhar = this.value.split("-").join("");
-      // if (aadhar.length > 0) {
-      // aadhar = aadhar.match(new RegExp('.{1,4}', 'g')).join("-");
-      console.log("aadhar");
+  if (data.identityProof == "aadharCard")
+    if (aadharCardRegex.test(data.identityProofValue) == true) 
       return true;
-   }
-    else {
-      console.log("false");
-      return false;
-    }
-  }
-  else if (data.identityProof == "panCard") {
-    if (panCardRegex.test(data.identityProofValue) == true) {
-
-      console.log("pan");
+  else if (data.identityProof == "panCard") 
+    if (panCardRegex.test(data.identityProofValue) == true) 
       return true;
-    }
-    else {
-      console.log("false");
-      return false;
-    }
-  }
-  else if (data.identityProof == "passport") {
-    if (passportRegex.test(data.identityProofValue) == true) {
-
-      console.log("password");
+  else if (data.identityProof == "passport") 
+    if (passportRegex.test(data.identityProofValue) == true) 
       return true;
-    }
-    else {
-      console.log("false");
-      return false;
-    }
-  }
-  else if (data.identityProof == "voterCard") {
-    if (voterCardRegex.test(data.identityProofValue) == true) {
-
-      console.log("voter");
+  else if (data.identityProof == "voterCard") 
+    if (voterCardRegex.test(data.identityProofValue) == true) 
       return true;
-    }
-    else {
-      console.log("false");
-      return false;
-    }
-  }
-  else if (data.identityProof == "drivingLicense") {
-    if (drivingLicenseRegex.test(data.identityProofValue) == true) {
-
-      console.log("driving");
-      return true;
-    }
-    else {
-      console.log("false");
-      return false;
-    }
-  }
+  else if (data.identityProof == "drivingLicense") 
+    if (drivingLicenseRegex.test(data.identityProofValue) == true) 
+      return true; 
 }
+
+// function validateSpeciality(data){
+//   if(data.degree=="md")
+//     return data.specialization.
+// }
+
 
 module.exports = {
   doctorValidation
 }
-
-
-// document.querySelector('.creditCardText').addEventListener('input', function(e) {
-//   var foo = this.value.split("-").join("");
-//   if (foo.length > 0) {
-//     foo = foo.match(new RegExp('.{1,4}', 'g')).join("-");
-//   }
-//   this.value = foo;
-// });

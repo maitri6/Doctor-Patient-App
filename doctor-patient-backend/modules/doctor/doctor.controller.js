@@ -1,7 +1,10 @@
 const DoctorModel = require("../doctor/doctor.model");
 const UserModel = require("../userAuth/user.model");
 const { IDENTITY_PROOF } = require('../../config/constant');
-const Joi = require("joi");
+const { TITLES } = require('../../config/constant');
+const { DEGREE } = require('../../config/constant');
+const { SPECIALITY } = require('../../config/constant');
+const { BLOOD_GROUP } = require('../../config/constant');
 
 let { City } = require("country-state-city");
 
@@ -55,22 +58,57 @@ exports.getCityAndYear = async (req, res, next) => {
     } else {
       return sendResponse(res, false, 400, "Please enter the valid type");
     }
-  } catch (error) {
-    console.log("error", error);
-  }
+  } catch (error) { }
 };
 
 
-exports.getAllIdentityProofs = async (req, res, next) => {
+exports.getDoctorAndPatientDetails = async (req, res, next) => {
   try {
-    return sendResponse(
-      res,
-      true,
-      200,
-      "Identity Proofs fetched successfully",
-      IDENTITY_PROOF
-    );
+    if(req.query.type == "identityProof"){
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Identity Proofs fetched successfully",
+        IDENTITY_PROOF
+      );
+    }else if(req.query.type == "degree"){
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Degree fetched successfully",
+        DEGREE
+      );
+    }
+    else if(req.query.type == "speciality"){
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Speciality fetched successfully",
+         SPECIALITY
+      );
+    } 
+    else if(req.query.type == "title"){
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Titles fetched successfully",
+        TITLES
+      );
+    }
+    else if(req.query.type == "bloodGroup"){
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Blood group fetched successfully",
+        BLOOD_GROUP
+      );
+    }
   } catch (error) {
-    console.log("error", error);
+    console.log(error);
   }
 };
