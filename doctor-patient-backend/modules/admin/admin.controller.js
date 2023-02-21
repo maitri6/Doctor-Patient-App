@@ -99,7 +99,7 @@ exports.getAllDetails = async (req, res, next) => {
     } else if (req.query.type == "doctor") {
       let getAllDetails = await DoctorModel.find({ role: "doctor" })
         .lean()
-        .select(["title", "specialization", "gender", "degree", "experience"])
+        .select(["title", "specialization", "gender", "degree", "experience","college"])
         .sort({ createdAt: -1 })
         .populate({
           path: "userId",
