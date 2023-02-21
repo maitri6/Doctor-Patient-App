@@ -26,6 +26,9 @@ export class AuthRegisterComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     name: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required]),
+    height: new FormControl('', [Validators.required]),
+    weight: new FormControl('', [Validators.required]),
+    bloodGroup: new FormControl('', [Validators.required]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
@@ -45,6 +48,9 @@ export class AuthRegisterComponent implements OnInit {
       name: this.RegisterForm.value.name,
       email: this.RegisterForm.value.email,
       phoneNumber: this.RegisterForm.value.phone,
+      height: this.RegisterForm.value.height,
+      weight: this.RegisterForm.value.weight,
+      bloodGroup: this.RegisterForm.value.bloodGroup,
       password: this.RegisterForm.value.password,
       confirm_password: this.RegisterForm.value.confirm_password,
     };
