@@ -1,5 +1,5 @@
 const UserModel = require("./user.model");
-const DoctorModel = require("../doctor/doctor.model");
+const { BLOOD_GROUP } = require('../../config/constant');
 const bcrypt = require("bcrypt");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 const { generateJwt } = require("../../helpers/jwt.helper");

@@ -1,4 +1,4 @@
-FROM alpine:3.6 as build-step
+FROM alpine:3.11 as build-step
 
 WORKDIR /app
 

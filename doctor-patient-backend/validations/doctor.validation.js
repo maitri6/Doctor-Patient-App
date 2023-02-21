@@ -57,7 +57,6 @@ function validate(data) {
   var passportRegex = /^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$/;
   var voterCardRegex = /^[A-Z]{3}[0-9]{7}$/;
   var drivingLicenseRegex = /^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/;
-  let aadhar=data.identityProofValue;
   if (data.identityProof == "aadharCard")
     if (aadharCardRegex.test(data.identityProofValue) == true) 
       return true;
@@ -74,6 +73,12 @@ function validate(data) {
     if (drivingLicenseRegex.test(data.identityProofValue) == true) 
       return true; 
 }
+
+// function validateSpeciality(data){
+//   if(data.degree=="md")
+//     return data.specialization.
+// }
+
 
 module.exports = {
   doctorValidation

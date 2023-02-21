@@ -34,69 +34,121 @@ exports.updateStatus = async (req, res, next) => {
 };
 
 
-exports.getAllAdmins = async (req, res, next) => {
-  try {
-      let getAdmins = await UserModel.find({ role: "admin" })
-        .lean()
-        .populate({
-          path: "_id",
-          // select: ["email"]
-        })
-      //.select(["city"]);
-      //.then(users => {
-      return sendResponse(
-        res,
-        true,
-        200,
-        "User fetched successfully ", getAdmins
-      );
-    } catch (error) { }
-  };
+// exports.getAllAdmins = async (req, res, next) => {
+//   try {
+//       let getAdmins = await UserModel.find({ role: "admin" })
+//         .lean()
+//         .populate({
+//           path: "_id",
+//           // select: ["email"]
+//         })
+//       //.select(["city"]);
+//       //.then(users => {
+//       return sendResponse(
+//         res,
+//         true,
+//         200,
+//         "User fetched successfully ", getAdmins
+//       );
+//     } catch (error) { }
+//   };
 
 
-exports.getAllDoctors = async (req, res, next) => {
-  try {
-      let getDoctors = await DoctorModel.find({ role: "doctor" })
-        .lean()
-        .populate({
-          path: "userId",
-          // select: ["email"]
-        })
-      //.select(["city"]);
-      //.then(users => {
-      return sendResponse(
-        res,
-        true,
-        200,
-        "User fetched successfully ", getDoctors
-      );
-    } catch (error) { }
-  };
+// exports.getAllDoctors = async (req, res, next) => {
+//   try {
+//       let getDoctors = await DoctorModel.find({ role: "doctor" })
+//         .lean()
+//         .populate({
+//           path: "userId",
+//           // select: ["email"]
+//         })
+//       //.select(["city"]);
+//       //.then(users => {
+//       return sendResponse(
+//         res,
+//         true,
+//         200,
+//         "User fetched successfully ", getDoctors
+//       );
+//     } catch (error) { }
+//   };
 
 
-  exports.getAllPatients = async (req, res, next) => {
-    try {
-        let getPatients = await UserModel.find({ role: "patient" })
-          .lean()
-          .populate({
-            path: "_id",
-            // select: ["email"]
-          })
-        //.select(["city"]);
-        //.then(users => {
-        return sendResponse(
-          res,
-          true,
-          200,
-          "User fetched successfully ", getPatients
-        );
-      } catch (error) { }
-    };
+//   exports.getAllPatients = async (req, res, next) => {
+//     try {
+//         let getPatients = await UserModel.find({ role: "patient" })
+//           .lean()
+//           .populate({
+//             path: "_id",
+//             // select: ["email"]
+//           })
+//         //.select(["city"]);
+//         //.then(users => {
+//         return sendResponse(
+//           res,
+//           true,
+//           200,
+//           "User fetched successfully ", getPatients
+//         );
+//       } catch (error) { }
+//     };
   
 
+exports.getAllDetails = async (req, res, next) => {
+  try {
+    if(req.query.type == "admin"){
+      let getAllDetails = await UserModel.find({ role: "admin" })
+      .lean()
+      .populate({
+        path: "_id",
+        // select: ["email"]
+      })
+    //.select(["city"]);
+    //.then(users => {
+    return sendResponse(
+      res,
+      true,
+      200,
+      "User fetched successfully ", getAllDetails
+    );
+    }
+    else if(req.query.type == "doctor"){
+      let getAllDetails = await DoctorModel.find({ role: "doctor" })
+      .lean()
+      .populate({
+        path: "userId",
+        // select: ["email"]
+      })
+    //.select(["city"]);
+    //.then(users => {
+    return sendResponse(
+      res,
+      true,
+      200,
+      "User fetched successfully ", getAllDetails
+    );
+    }
+    else if(req.query.type == "patient"){
+      let getAllDetails = await UserModel.find({ role: "patient" })
+      .lean()
+      .populate({
+        path: "_id",
+        // select: ["email"]
+      })
+    //.select(["city"]);
+    //.then(users => {
+    return sendResponse(
+      res,
+      true,
+      200,
+      "User fetched successfully ", getAllDetails
+    );
+    }
+    } catch (error) { }
+  };
 
 
-exports.AddAdmin = async (req, res, next) => {
+exports.addAdmin = async (req, res, next) => {
   try {
     let subject, message, otp;
     const checkUser = await UserModel.findOne({ email: req.body.email });

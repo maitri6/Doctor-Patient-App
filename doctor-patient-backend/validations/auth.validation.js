@@ -19,6 +19,7 @@ const registerValidation = async (req, res, next) => {
         }),
       password: Joi.string().required(),
       phoneNumber: Joi.string()
+        .min(6)
         .required()
         .pattern(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/)
         .messages({
@@ -26,8 +27,7 @@ const registerValidation = async (req, res, next) => {
         }),
       height: Joi.string().required(),
       weight: Joi.string().required(),
-      bloodGroup: Joi.string().required().pattern(/^[A-Z]/),
-      disease: Joi.string().required() 
+      bloodGroup: Joi.string().required().pattern(/^[A-Z]/)
     }).options({ allowUnknown: true });
 
     const { value, error } = schema.validate(req.body);
@@ -52,6 +52,7 @@ const loginValidation = async (req, res, next) => {
         .required()
         .messages({ "string.empty": "Please add an email.", "string.email": "Please add an valid email." }),
       password: Joi.string().required()
+      .min(6)
       //.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)
     });
 
@@ -101,9 +102,11 @@ const changePasswordValidation = async (req, res, next) => {
     const schema = Joi.object({
       oldPassword: Joi.string()
         .required()
+        .min(6)
         .messages({ "string.empty": "Password field cannot be empty." }),
       newPassword: Joi.string()
         .required()
+        .min(6)
         .messages({ "string.empty": "Password field cannot be empty." }),
     }).options({ allowUnknown: true });
 
