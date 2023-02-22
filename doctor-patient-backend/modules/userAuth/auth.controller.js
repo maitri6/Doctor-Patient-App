@@ -1,5 +1,5 @@
 const UserModel = require("./user.model");
-const { BLOOD_GROUP } = require('../../config/constant');
+const DoctorModel = require("../doctor/doctor.model");
 const bcrypt = require("bcrypt");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 const { generateJwt } = require("../../helpers/jwt.helper");
@@ -69,7 +69,7 @@ exports.login = async (req, res, next) => {
       token,
     });
 
-  } catch (error) { }
+  } catch (error) {  }
 };
 
 exports.forgetPassword = async (req, res, next) => {
@@ -243,18 +243,3 @@ exports.updateProfile = async (req, res, next) => {
 };
 
 
-exports.getAllApprovedDoctors = async (req, res, next) => {
-  try {
-      let getDoctors = await UserModel.find({ isApproved: true,role:"doctor"})
-          .lean()
-          .populate({
-            path: "_id",
-          })
-          return sendResponse(
-            res,
-            true,
-            200,
-            "List of doctors",getDoctors
-          ); 
-  } catch (error) {}
-};

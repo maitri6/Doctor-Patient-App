@@ -25,64 +25,7 @@ exports.updateStatus = async (req, res, next) => {
     return sendResponse(res, false, 200, "Status got updated successfully.");
   } catch (error) {}
 };
-
-// exports.getAllAdmins = async (req, res, next) => {
-//   try {
-//       let getAdmins = await UserModel.find({ role: "admin" })
-//         .lean()
-//         .populate({
-//           path: "_id",
-//           // select: ["email"]
-//         })
-//       //.select(["city"]);
-//       //.then(users => {
-//       return sendResponse(
-//         res,
-//         true,
-//         200,
-//         "User fetched successfully ", getAdmins
-//       );
-//     } catch (error) { }
-//   };
-
-// exports.getAllDoctors = async (req, res, next) => {
-//   try {
-//       let getDoctors = await DoctorModel.find({ role: "doctor" })
-//         .lean()
-//         .populate({
-//           path: "userId",
-//           // select: ["email"]
-//         })
-//       //.select(["city"]);
-//       //.then(users => {
-//       return sendResponse(
-//         res,
-//         true,
-//         200,
-//         "User fetched successfully ", getDoctors
-//       );
-//     } catch (error) { }
-//   };
-
-//   exports.getAllPatients = async (req, res, next) => {
-//     try {
-//         let getPatients = await UserModel.find({ role: "patient" })
-//           .lean()
-//           .populate({
-//             path: "_id",
-//             // select: ["email"]
-//           })
-//         //.select(["city"]);
-//         //.then(users => {
-//         return sendResponse(
-//           res,
-//           true,
-//           200,
-//           "User fetched successfully ", getPatients
-//         );
-//       } catch (error) { }
-//     };
-
+  
 exports.getAllDetails = async (req, res, next) => {
   try {
     if (req.query.type == "admin") {
@@ -136,20 +79,12 @@ exports.addAdmin = async (req, res, next) => {
     req.body.password = await bcrypt.hash(req.body.password, 10);
     req.body.role = "admin";
     let saveUser = await UserModel.create(req.body);
-    otp = await generateOTP();
-    subject = "Here is your 6 digit OTP ";
-    message = otp;
-    await UserModel.updateOne({ _id: saveUser._id }, { $set: { otp: otp } });
     sendEmail(saveUser.email, subject, message);
-    return sendResponse(res, true, 200, "OTP sent successfully.", saveUser);
+    return sendResponse(res, true, 200, "Admin added successfully.", saveUser);
   } catch (error) {}
 };
 
-function generateOTP() {
-  let digits = "0123456789";
-  let OTP = "";
-  for (let i = 0; i < 6; i++) {
-    OTP += digits[Math.floor(Math.random() * 10)];
-  }
-  return OTP;
-}
+
+
+
+

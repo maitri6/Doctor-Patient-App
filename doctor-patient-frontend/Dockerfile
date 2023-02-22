@@ -1,4 +1,4 @@
-FROM alpine:3.11 as build-step
+FROM node:16-alpine as build-step
 
 WORKDIR /app
 

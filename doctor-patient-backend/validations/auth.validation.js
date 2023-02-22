@@ -17,7 +17,7 @@ const registerValidation = async (req, res, next) => {
           "string.empty": "Please add an email.",
           "string.email": "Please add an valid email.",
         }),
-      password: Joi.string().required(),
+      password: Joi.number().required(),
       phoneNumber: Joi.string()
         .min(6)
         .required()
