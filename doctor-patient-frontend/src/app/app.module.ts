@@ -14,6 +14,9 @@ import { PageNotFoundComponent } from './Account/account/page-not-found/page-not
 import { ResetPasswordComponent } from './Account/account/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './Account/account/change-password/change-password.component';
 import { DoctorInformationComponent } from './doctor/doctor-information/doctor-information.component';
+import { AdminListComponent } from './admin/admin-list/admin-list.component';
+import { DoctorListComponent } from './admin/doctor-list/doctor-list.component';
+import { PatientListComponent } from './admin/patient-list/patient-list.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -34,7 +37,10 @@ import { DoctorInformationComponent } from './doctor/doctor-information/doctor-i
     PageNotFoundComponent,
     ResetPasswordComponent,
      ChangePasswordComponent,
-    DoctorInformationComponent
+    DoctorInformationComponent,
+    AdminListComponent,
+    DoctorListComponent,
+    PatientListComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

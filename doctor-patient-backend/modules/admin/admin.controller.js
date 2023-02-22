@@ -8,84 +8,67 @@ exports.updateStatus = async (req, res, next) => {
   try {
     let getUser = await UserModel.findById(req.body.userId);
     if (!getUser) {
-      return sendResponse(
-        res,
-        false,
-        400,
-        "User not found."
-      );
+      return sendResponse(res, false, 400, "User not found.");
     }
-    await UserModel.updateOne({ _id: getUser._id }, { $set: { isApproved: req.body.status } })
+    await UserModel.updateOne(
+      { _id: getUser._id },
+      { $set: { isApproved: req.body.status } }
+    );
     if (req.body.status == true) {
       let subject = "Got approved from admin";
-      let html = "Hi,You got approval from admin. Please visit login page to continue.";
+      let html =
+        "Hi,You got approval from admin. Please visit login page to continue.";
       sendEmail(getUser.email, subject, html);
 
       return sendResponse(res, true, 200, "Email sent successfully.");
     }
-    return sendResponse(
-      res,
-      false,
-      200,
-      "Status got updated successfully."
-    );
-
-  } catch (error) { }
+    return sendResponse(res, false, 200, "Status got updated successfully.");
+  } catch (error) {}
 };
   
 exports.getAllDetails = async (req, res, next) => {
   try {
-    if(req.query.type == "admin"){
+    if (req.query.type == "admin") {
       let getAllDetails = await UserModel.find({ role: "admin" })
-      .lean()
-      .populate({
-        path: "_id",
-        // select: ["email"]
-      })
-    //.select(["city"]);
-    //.then(users => {
-    return sendResponse(
-      res,
-      true,
-      200,
-      "User fetched successfully ", getAllDetails
-    );
-    }
-    else if(req.query.type == "doctor"){
+        .lean()
+        .sort({ createdAt: -1 });
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Admins fetched successfully ",
+        getAllDetails
+      );
+    } else if (req.query.type == "doctor") {
       let getAllDetails = await DoctorModel.find({ role: "doctor" })
-      .lean()
-      .populate({
-        path: "userId",
-        // select: ["email"]
-      })
-    //.select(["city"]);
-    //.then(users => {
-    return sendResponse(
-      res,
-      true,
-      200,
-      "User fetched successfully ", getAllDetails
-    );
-    }
-    else if(req.query.type == "patient"){
+        .lean()
+        .select(["title", "specialization", "gender", "degree", "experience","college"])
+        .sort({ createdAt: -1 })
+        .populate({
+          path: "userId",
+          select: ["name"],
+        });
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Doctors fetched successfully ",
+        getAllDetails
+      );
+    } else if (req.query.type == "patient") {
       let getAllDetails = await UserModel.find({ role: "patient" })
-      .lean()
-      .populate({
-        path: "_id",
-        // select: ["email"]
-      })
-    //.select(["city"]);
-    //.then(users => {
-    return sendResponse(
-      res,
-      true,
-      200,
-      "User fetched successfully ", getAllDetails
-    );
+        .lean()
+        .sort({ createdAt: -1 });
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Patients fetched successfully ",
+        getAllDetails
+      );
     }
-    } catch (error) { }
-  };
-
+  } catch (error) {}
+};
 
 exports.addAdmin = async (req, res, next) => {
   try {

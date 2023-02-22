@@ -25,9 +25,9 @@ const registerValidation = async (req, res, next) => {
         .messages({
           "string.pattern.base": "Invalid phone number.",
         }),
-      height: Joi.string().required(),
+      height: Joi.number().required(),
       weight: Joi.number().required(),
-      bloodGroup: Joi.string().required().pattern(/^[A-Z]/)
+      bloodGroup: Joi.string().required().pattern(/^[a-z]/)
     }).options({ allowUnknown: true });
 
     const { value, error } = schema.validate(req.body);

@@ -24,8 +24,29 @@ export class DoctorServiceService {
     params = params.append('type', 'year');
     return this.http.get(this.baseUrl + this.doctorPath+'/getAllCities',{ params: params });
   }
-
   getAllProofs(): Observable<any>{
-    return this.http.get(this.baseUrl + this.doctorPath+'/getAllIdentityProofs');
+    let params = new HttpParams();
+    params = params.append('type', 'identityProof');
+    return this.http.get(this.baseUrl + this.doctorPath+'/getDoctorAndPatientDetails',{ params: params });
+  }
+  getAllTitles(): Observable<any>{
+    let params = new HttpParams();
+    params = params.append('type', 'title');
+    return this.http.get(this.baseUrl + this.doctorPath+'/getDoctorAndPatientDetails',{ params: params });
+  }
+  getAllSpecialization(): Observable<any>{
+    let params = new HttpParams();
+    params = params.append('type', 'speciality');
+    return this.http.get(this.baseUrl + this.doctorPath+'/getDoctorAndPatientDetails',{ params: params });
+  }
+  getAllDegrees(): Observable<any>{
+    let params = new HttpParams();
+    params = params.append('type', 'degree');
+    return this.http.get(this.baseUrl + this.doctorPath+'/getDoctorAndPatientDetails',{ params: params });
+  }
+  getAllColleges(): Observable<any>{
+    let params = new HttpParams();
+    params = params.append('type', 'college');
+    return this.http.get(this.baseUrl + this.doctorPath+'/getDoctorAndPatientDetails',{ params: params });
   }
 }

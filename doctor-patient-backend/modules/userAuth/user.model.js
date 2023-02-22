@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     height: {
-      type: String,
+      type: Number,
     },
     weight: {
       type: Number,

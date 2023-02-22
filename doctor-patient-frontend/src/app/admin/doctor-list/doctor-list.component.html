@@ -1,0 +1,36 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Doctors-List</h4>
+            <p class="card-category">Here admin can approve doctors</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>Title</th>
+                  <th>Name</th>
+                  <th>Degree</th>
+                  <th>Specialization</th>
+                  <th>Experience</th>
+                  <th>College</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of DoctorsData">
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.userId?.name }}</td>
+                        <td>{{ item.degree }}</td>
+                        <td>{{ item.specialization }}</td>
+                        <td>{{ item.experience }}</td>
+                        <td>{{ item.college }}</td>
+                      </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+     

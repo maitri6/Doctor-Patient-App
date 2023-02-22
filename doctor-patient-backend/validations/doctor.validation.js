@@ -2,13 +2,12 @@ const Joi = require("joi");
 const { sendResponse } = require("../helpers/requestHandler.helper");
 const doctorValidation = async (req, res, next) => {
   try {
-
     const schema = Joi.object({
       title: Joi.string().required(),
       name: Joi.string().
-      required()
-      .messages( {"string.empty": "Name field cannot be empty."})
-      .pattern(/^[a-zA-Z\\s]*$/),
+      required(),
+      // .messages( {"string.empty": "Name field cannot be empty."})
+      // .pattern(/^[a-zA-Z\\s]*$/),
 
       phoneNumber: Joi.string()
       .required()
@@ -17,7 +16,7 @@ const doctorValidation = async (req, res, next) => {
         "string.pattern.base": "Invalid phone number."
       }),
       specialization: Joi.string().required(),
-      gender: Joi.string().required(),
+      // gender: Joi.string(),
       identityProof: Joi.string().required(),
       identityProofValue: Joi.required(),
       registrationNumber: Joi.number().required(),
