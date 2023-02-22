@@ -17,7 +17,7 @@ const registerValidation = async (req, res, next) => {
           "string.empty": "Please add an email.",
           "string.email": "Please add an valid email.",
         }),
-      password: Joi.string().required(),
+      password: Joi.number().required(),
       phoneNumber: Joi.string()
         .min(6)
         .required()
@@ -26,7 +26,7 @@ const registerValidation = async (req, res, next) => {
           "string.pattern.base": "Invalid phone number.",
         }),
       height: Joi.string().required(),
-      weight: Joi.string().required(),
+      weight: Joi.number().required(),
       bloodGroup: Joi.string().required().pattern(/^[A-Z]/)
     }).options({ allowUnknown: true });
 

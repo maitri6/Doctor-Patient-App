@@ -1,6 +1,5 @@
 const Joi = require("joi");
 const { sendResponse } = require("../helpers/requestHandler.helper");
-
 const doctorValidation = async (req, res, next) => {
   try {
 
@@ -73,12 +72,6 @@ function validate(data) {
     if (drivingLicenseRegex.test(data.identityProofValue) == true) 
       return true; 
 }
-
-// function validateSpeciality(data){
-//   if(data.degree=="md")
-//     return data.specialization.
-// }
-
 
 module.exports = {
   doctorValidation

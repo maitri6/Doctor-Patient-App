@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     phoneNumber: {
-      type: String,
+      type: Number,
       default: "",
       trim: true,
     },
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     weight: {
-      type: String,
+      type: Number,
     },
     bloodGroup: {
       type: String,
