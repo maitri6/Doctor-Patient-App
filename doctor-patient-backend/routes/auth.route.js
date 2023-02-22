@@ -17,7 +17,7 @@ router.post("/resetPassword", authController.resetPassword);
 router.post("/sendOtp", authController.sendOtp);
 router.post("/updateProfile",updateProfileValidation,authenticated,authController.updateProfile);
 router.post("/changePassword",changePasswordValidation,authenticated,authController.changePassword);
-router.post("/getAllApprovedDoctors",authController.getAllApprovedDoctors);
+
 
 
 

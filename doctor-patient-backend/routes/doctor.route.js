@@ -9,7 +9,6 @@ const doctorController = require("../modules/doctor/doctor.controller");
 
 router.post("/saveDoctorDetails",  doctorValidation,doctorController.doctorForm);
 router.get("/getAllCities",doctorController.getCityAndYear);
-//router.get("/getAllIdentityProofs",doctorController.getAllIdentityProofs);
 router.get("/getDoctorAndPatientDetails",doctorController.getDoctorAndPatientDetails);
 
 module.exports = router;
