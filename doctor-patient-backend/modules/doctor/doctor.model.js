@@ -52,6 +52,18 @@ const userSchema = new mongoose.Schema(
     degreeCertificate: {
       type: String,
     },
+    clinicNo: {
+      type: Number,
+    },
+    clinicName: {
+      type: String,
+    },
+    clinicAddress: {
+      type: String,
+    },
+    clinicFees: {
+      type: Number,
+    },
     userId: {
       type: mongoose.Types.ObjectId,
       ref: "user",
