@@ -6,6 +6,7 @@ const { DEGREE } = require('../../config/constant');
 const { SPECIALITY } = require('../../config/constant');
 const { BLOOD_GROUP } = require('../../config/constant');
 
+
 let { City } = require("country-state-city");
 
 const bcrypt = require("bcrypt");

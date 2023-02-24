@@ -28,15 +28,16 @@ const DEGREE=[
 ]
 
 const SPECIALITY=[
-{name:"Obstetrics and Gynaecology",key:"Obstetrics and Gynaecology"},
-{name:"Psychiatry",key:"Psychiatry"},
-{name:"General Medicine",key:"General Medicine"},
-{name:"Pathology",key:"Pathology"},    
-{name:"Pharmacology",key:"Pharmacology"},
-{name:"Physician",key:"Physician"},
-{name:"Cardiology",key:"Cardiology"},
-{name:"Orthopaedics",key:"Orthopaedics"},
-{name:"Ear, Nose and Throat",key:"Ear, Nose and Throat"}
+{name:"Obstetrics and Gynaecology",key:"obstetricsAndGynaecology"},
+{name:"Psychiatry",key:"psychiatry"},
+{name:"General Medicine",key:"generalMedicine"},
+{name:"Pathology",key:"pathology"},    
+{name:"Pharmacology",key:"pharmacology"},
+{name:"Physician",key:"physician"},
+{name:"Cardiology",key:"cardiology"},
+{name:"Orthopaedics",key:"orthopaedics"},
+{name:"General Physician",key:"generalPhysician"},
+{name:"Ear, Nose and Throat",key:"earNoseAndThroat"}
 ]
 
 
@@ -52,13 +53,27 @@ const BLOOD_GROUP=[
 ]
 
 
+const COMMON_SYMPTOMS=[
+{name:"fever",key:"generalPhysician"},
+{name:"cold",key:"generalPhysician"},
+{name:"heart",key:"cardiology"},
+//{name:"B-",key:"b-"},    
+//{name:"O+",key:"o+"},
+//{name:"O-",key:"o-"},
+//{name:"AB+",key:"ab+"},
+//{name:"AB-",key:"ab-"}
+]
+
+ 
+
 
 module.exports ={
     IDENTITY_PROOF,
     TITLES,
     DEGREE,
     SPECIALITY,
-    BLOOD_GROUP
+    BLOOD_GROUP,
+    COMMON_SYMPTOMS
 
 }
  

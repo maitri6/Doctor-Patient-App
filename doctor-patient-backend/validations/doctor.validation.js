@@ -35,10 +35,10 @@ const doctorValidation = async (req, res, next) => {
     }
 
     //function call
-    let result = await validate(req.body);
-    if (!result) {
-      return sendResponse(res, false, 422, "Please enter validate identity proof number");
-    }
+    // let result = await validate(req.body);
+    // if (!result) {
+    //   return sendResponse(res, false, 422, "Please enter validate identity proof number");
+    // }
     // set the variable in the request for validated data
     req.validated = value;
     next();
@@ -49,28 +49,28 @@ const doctorValidation = async (req, res, next) => {
 
 // function to validate identity proof values
 
-function validate(data) {
-  var aadharCardRegex = /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/;
-  var panCardRegex = /[A-Z]{5}[0-9]{4}[A-Z]{1}/;
-  var passportRegex = /^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$/;
-  var voterCardRegex = /^[A-Z]{3}[0-9]{7}$/;
-  var drivingLicenseRegex = /^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/;
-  if (data.identityProof == "aadharCard")
-    if (aadharCardRegex.test(data.identityProofValue) == true) 
-      return true;
-  else if (data.identityProof == "panCard") 
-    if (panCardRegex.test(data.identityProofValue) == true) 
-      return true;
-  else if (data.identityProof == "passport") 
-    if (passportRegex.test(data.identityProofValue) == true) 
-      return true;
-  else if (data.identityProof == "voterCard") 
-    if (voterCardRegex.test(data.identityProofValue) == true) 
-      return true;
-  else if (data.identityProof == "drivingLicense") 
-    if (drivingLicenseRegex.test(data.identityProofValue) == true) 
-      return true; 
-}
+// function validate(data) {
+//   var aadharCardRegex = /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/;
+//   var panCardRegex = /[A-Z]{5}[0-9]{4}[A-Z]{1}/;
+//   var passportRegex = /^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$/;
+//   var voterCardRegex = /^[A-Z]{3}[0-9]{7}$/;
+//   var drivingLicenseRegex = /^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/;
+//   if (data.identityProof == "aadharCard")
+//     if (aadharCardRegex.test(data.identityProofValue) == true) 
+//       return true;
+//   else if (data.identityProof == "panCard") 
+//     if (panCardRegex.test(data.identityProofValue) == true) 
+//       return true;
+//   else if (data.identityProof == "passport") 
+//     if (passportRegex.test(data.identityProofValue) == true) 
+//       return true;
+//   else if (data.identityProof == "voterCard") 
+//     if (voterCardRegex.test(data.identityProofValue) == true) 
+//       return true;
+//   else if (data.identityProof == "drivingLicense") 
+//     if (drivingLicenseRegex.test(data.identityProofValue) == true) 
+//       return true; 
+// }
 
 module.exports = {
   doctorValidation

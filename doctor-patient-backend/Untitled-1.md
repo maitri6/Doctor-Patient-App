@@ -87,3 +87,29 @@ appointment day
 appointment slot -- morning/evening/night
 appointment 
 appointment
+
+
+form to be filled by patient upon appointment -- ours
+
+
+FLOW
+ 
+disease wise doctor listing -- in app
+
+list of doctors (name, specialization, experience, location, clinic name, distance)
+
+upon selecting one particular doctor---
+
+1. name, specialization, degree, experience, in clinic appointment fees, clinic name, location, distance
+
+2. filter -- (date and time wise)
+            (video consultant)
+            same things details
+            slots available (count of slots, today , tomorrow, (evening, morning, night))
+            fees
+
+
+
+
+
+
