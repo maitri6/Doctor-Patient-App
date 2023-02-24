@@ -30,14 +30,15 @@ const DEGREE=[
 const SPECIALITY=[
 {name:"Obstetrics and Gynaecology",key:"obstetricsAndGynaecology"},
 {name:"Psychiatry",key:"psychiatry"},
-{name:"General Medicine",key:"generalMedicine"},
-{name:"Pathology",key:"pathology"},    
+{name:"Dermatology",key:"dermatology"},
+{name:"Ophthalmologist",key:"ophthalmologist"},    
 {name:"Pharmacology",key:"pharmacology"},
 {name:"Physician",key:"physician"},
 {name:"Cardiology",key:"cardiology"},
 {name:"Orthopaedics",key:"orthopaedics"},
 {name:"General Physician",key:"generalPhysician"},
-{name:"Ear, Nose and Throat",key:"earNoseAndThroat"}
+{name:"Ear, Nose and Throat",key:"earNoseAndThroat"},
+{name:"Neurology",key:"neurology"}
 ]
 
 
@@ -57,11 +58,25 @@ const COMMON_SYMPTOMS=[
 {name:"fever",key:"generalPhysician"},
 {name:"cold",key:"generalPhysician"},
 {name:"heart",key:"cardiology"},
-//{name:"B-",key:"b-"},    
-//{name:"O+",key:"o+"},
-//{name:"O-",key:"o-"},
-//{name:"AB+",key:"ab+"},
-//{name:"AB-",key:"ab-"}
+{name:"bones",key:"orthopaedics"},    
+{name:"pregnancy",key:"obstetricsAndGynaecology"},
+{name:"brain",key:"neurology"},
+{name:"skin",key:"dermatology"},
+{name:"hair",key:"dermatology"},
+{name:"eyes",key:"ophthalmologist"}
+]
+
+const COLLEGES=[
+"All India Institute of Medical Sciences (AIIMS), New Delhi",
+"Christian Medical College (CMC), Vellore",
+"Armed Forces Medical College (AFMC), Pune",
+"Maulana Azad Medical College (MAMC), New Delhi",
+"Kasturba Medical College (KMC), Manipal",
+"Grant Medical College, Mumbai",
+"JIPMER (Jawaharlal Institute of Postgraduate Medical Education and Research), Puducherry",
+"Lady Hardinge Medical College (LHMC), New Delhi",
+"Madras Medical College (MMC), Chennai",
+"St. John's Medical College, Bangalore",
 ]
 
  
@@ -73,7 +88,8 @@ module.exports ={
     DEGREE,
     SPECIALITY,
     BLOOD_GROUP,
-    COMMON_SYMPTOMS
+    COMMON_SYMPTOMS,
+    COLLEGES
 
 }
  

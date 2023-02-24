@@ -28,5 +28,5 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const doctor = mongoose.model("doctor", userSchema);
-module.exports = doctor;
+const appointment = mongoose.model("appointment", userSchema);
+module.exports = appointment;

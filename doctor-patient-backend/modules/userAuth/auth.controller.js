@@ -151,7 +151,6 @@ function generateOTP() {
 
 exports.getUserById = async (req, res, next) => {
   try {
-    console.log(req.user.userId)
     let getUser = await UserModel.findById(req.user.userId);
     if (!getUser) {
       return sendResponse(
@@ -160,7 +159,6 @@ exports.getUserById = async (req, res, next) => {
         400,
         "User not found "
       );
-
     }
     return sendResponse(
       res,
