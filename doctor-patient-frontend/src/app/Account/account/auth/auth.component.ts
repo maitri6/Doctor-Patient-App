@@ -35,7 +35,8 @@ export class AuthComponent implements OnInit {
      this.authService.userLogin(userLoginObj).subscribe((res : any) => {
    
       if (res.statusCode == 200) {
-        this.router.navigate(['/otp-verification/'+res.data.getUser._id]);
+        // this.router.navigate(['/otp-verification/'+res.data.getUser._id]);
+        this.router.navigate(['/dashboard']);
         // this.notifyService.showToastSuccess(res.statusMessage);
         localStorage.setItem('token', res.data.token);
       }

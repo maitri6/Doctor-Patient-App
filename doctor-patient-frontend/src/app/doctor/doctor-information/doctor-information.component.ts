@@ -52,6 +52,10 @@ export class DoctorInformationComponent implements OnInit {
     year: new FormControl('', []),
     experience: new FormControl('', []),
     college: new FormControl('', []),
+    clinicName: new FormControl('', []),
+    clinicAddress: new FormControl('', []),
+    clinicNo: new FormControl('', []),
+    clinicFees: new FormControl('', []),
   });
 
   get f() {
