@@ -6,7 +6,6 @@ const moment = require('moment');
 
 exports.getAllApprovedDoctors = async (req, res, next) => {
   try {
-    if (req.query.disease == "generalPhysician") {
       let getDoctors = await DoctorModel.find({ isApproved: true, role: "doctor", specialization: req.query.disease })
         .lean()
         .populate({
@@ -20,100 +19,8 @@ exports.getAllApprovedDoctors = async (req, res, next) => {
         "List of doctors", getDoctors
       );
     }
-    else if (req.query.disease == "cardiology") {
-      let getDoctors = await DoctorModel.find({ isApproved: true, role: "doctor", specialization: req.query.disease })
-        .lean()
-        .populate({
-          path: "_id",
-        })
-        .select(["name", "specialization", "experience", "degree", "clinicName", "clinicAddress"]);
-      return sendResponse(
-        res,
-        true,
-        200,
-        "List of doctors", getDoctors
-      );
-    }
-    else if (req.query.disease == "orthopaedics") {
-      let getDoctors = await DoctorModel.find({ isApproved: true, role: "doctor", specialization: req.query.disease })
-        .lean()
-        .populate({
-          path: "_id",
-        })
-        .select(["name", "specialization", "experience", "degree", "clinicName", "clinicAddress"]);
-      return sendResponse(
-        res,
-        true,
-        200,
-        "List of doctors", getDoctors
-      );
-    }
-    else if (req.query.disease == "obstetricsAndGynaecology") {
-      let getDoctors = await DoctorModel.find({ isApproved: true, role: "doctor", specialization: req.query.disease })
-        .lean()
-        .populate({
-          path: "_id",
-        })
-        .select(["name", "specialization", "experience", "degree", "clinicName", "clinicAddress"]);
-      return sendResponse(
-        res,
-        true,
-        200,
-        "List of doctors", getDoctors
-      );
-    }
-    else if (req.query.disease == "neurology") {
-      let getDoctors = await DoctorModel.find({ isApproved: true, role: "doctor", specialization: req.query.disease })
-        .lean()
-        .populate({
-          path: "_id",
-        })
-        .select(["name", "specialization", "experience", "degree", "clinicName", "clinicAddress"]);
-      return sendResponse(
-        res,
-        true,
-        200,
-        "List of doctors", getDoctors
-      );
-    }
-    else if (req.query.disease == "dermatology") {
-      let getDoctors = await DoctorModel.find({ isApproved: true, role: "doctor", specialization: req.query.disease })
-        .lean()
-        .populate({
-          path: "_id",
-        })
-        .select(["name", "specialization", "experience", "degree", "clinicName", "clinicAddress"]);
-      return sendResponse(
-        res,
-        true,
-        200,
-        "List of doctors", getDoctors
-      );
-    }
-    else if (req.query.disease == "ophthalmologist") {
-      let getDoctors = await DoctorModel.find({ isApproved: true, role: "doctor", specialization: req.query.disease })
-        .lean()
-        .populate({
-          path: "_id",
-        })
-        .select(["name", "specialization", "experience", "degree", "clinicName", "clinicAddress"]);
-      return sendResponse(
-        res,
-        true,
-        200,
-        "List of doctors", getDoctors
-      );
-    }
-
-    return sendResponse(
-      res,
-      false,
-      400,
-      "No doctors available"
-    );
-  } catch (error) {
-    console.log(error);
-  }
+  catch (error) {
+ }
 };
 
 
