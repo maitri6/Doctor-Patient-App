@@ -1,10 +1,11 @@
 const DoctorModel = require("../doctor/doctor.model");
 const UserModel = require("../userAuth/user.model");
-const { IDENTITY_PROOF } = require('../../config/constant');
-const { TITLES } = require('../../config/constant');
-const { DEGREE } = require('../../config/constant');
-const { SPECIALITY } = require('../../config/constant');
-const { BLOOD_GROUP } = require('../../config/constant');
+const {IDENTITY_PROOF} = require('../../config/constant');
+const {TITLES} = require('../../config/constant');
+const {DEGREE} = require('../../config/constant');
+const {SPECIALITY} = require('../../config/constant');
+const {BLOOD_GROUP} = require('../../config/constant');
+const {COLLEGES} = require('../../config/constant');
 
 
 let { City } = require("country-state-city");
@@ -107,6 +108,15 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         200,
         "Blood group fetched successfully",
         BLOOD_GROUP
+      );
+    }
+    else if(req.query.type == "colleges"){
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Colleges fetched successfully",
+        COLLEGES
       );
     }
   } catch (error) {
