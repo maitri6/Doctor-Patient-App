@@ -17,6 +17,8 @@ import { DoctorInformationComponent } from './doctor/doctor-information/doctor-i
 import { AdminListComponent } from './admin/admin-list/admin-list.component';
 import { DoctorListComponent } from './admin/doctor-list/doctor-list.component';
 import { PatientListComponent } from './admin/patient-list/patient-list.component';
+import { AuthGuard } from './Account/auth.guard';
+import { RoleGuard } from './gaurds/role.guard';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -42,7 +44,7 @@ import { PatientListComponent } from './admin/patient-list/patient-list.componen
     DoctorListComponent,
     PatientListComponent
   ],
-  providers: [],
+  providers: [AuthGuard, RoleGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

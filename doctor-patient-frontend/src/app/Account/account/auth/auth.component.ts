@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../account.service';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-// import jwt_decode from 'jwt_decode'
-// import * as jwtDecodeNamespace from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -40,9 +39,8 @@ decodeToken:any
         this.router.navigate(['/dashboard']);
         // this.notifyService.showToastSuccess(res.statusMessage);
         localStorage.setItem('token', res.data.token);
-        // this.decodeToken=jwtDecodeNamespace.jwt_decode(res.data.token)
-        console.log(this.decodeToken)
-        localStorage.setItem('role', 'admin');
+         this.decodeToken=jwt_decode(res.data.token)
+        localStorage.setItem('role', this.decodeToken.role);
       }
     
      },(err : any) => {
@@ -60,7 +58,5 @@ decodeToken:any
      })
   }
 }
-function jwt_decode(token: any): any {
-  throw new Error('Function not implemented.');
-}
+
 

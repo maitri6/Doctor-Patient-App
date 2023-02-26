@@ -9,7 +9,6 @@ export class NotficationServiceService {
   constructor(private toast: ToastrService) { }
   
   showToastSuccess(message: string) {
-    console.log("message",message)
     this.toast.success(message)
   }
 

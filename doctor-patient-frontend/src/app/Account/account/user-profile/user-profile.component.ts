@@ -52,7 +52,6 @@ export class UserProfileComponent implements OnInit{
       name: this.UpdateProfile.value.name,
       phoneNumber: this.UpdateProfile.value.phoneNumber,
     };
-    console.log('obj', userUpdateProfileObj);
 
     this.authService.editProfile(userUpdateProfileObj).subscribe(
       (res: any) => {

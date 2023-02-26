@@ -17,6 +17,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthGuard } from '../../Account/auth.guard';
+import { RoleGuard } from '../../gaurds/role.guard';
 
 @NgModule({
   imports: [
@@ -35,12 +37,9 @@ import { ToastrModule } from 'ngx-toastr';
   declarations: [
     DashboardComponent,
     UserProfileComponent,
-    // TableListComponent,
-    // TypographyComponent,
     MapsComponent,
-    // NotificationsComponent,
-    // UpgradeComponent,
-  ]
+  ],
+  providers: [AuthGuard, RoleGuard],
 })
 
 export class AdminLayoutModule {}

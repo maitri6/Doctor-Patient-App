@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -11,7 +12,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RoleGuard implements CanActivate {
-  router: any;
+  constructor(
+    // private notifyService: NotficationServiceService,
+    private router: Router) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -21,6 +24,7 @@ export class RoleGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+   
     const userRole = localStorage.getItem('role');
     const allowedRoles = route.data['allowedRoles'] as string[];
 

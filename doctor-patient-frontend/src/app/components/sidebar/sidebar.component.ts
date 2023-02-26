@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthGuard } from '../../Account/auth.guard';
 import { RoleGuard } from '../../../app/gaurds/role.guard';
 
 declare const $: any;
@@ -15,10 +16,10 @@ declare interface RouteInfo {
 }
 //token role =admin patient //
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '', data: { allowedRoles: ['admin'] }, canActivate: [RoleGuard] },
-    { path: '/adminList', title: 'Admins List',  icon:'content_paste', class: '' ,data: { allowedRoles: ['admin'] }, canActivate: [RoleGuard]},
-    { path: '/doctorList', title: 'Doctors List',  icon:'content_paste', class: '' ,data: { allowedRoles: ['admin','doctor'] }, canActivate: [RoleGuard]},
-    { path: '/patientList', title: 'Patients List',  icon:'content_paste', class: '',data: { allowedRoles: ['admin','patient'] }, canActivate: [RoleGuard] },
+    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '', data: { allowedRoles: ['admin','doctor','patient'] }, canActivate: [AuthGuard,RoleGuard] },
+    { path: '/adminList', title: 'Admins List',  icon:'content_paste', class: '' ,data: { allowedRoles: ['admin'] }, canActivate: [AuthGuard,RoleGuard]},
+    { path: '/doctorList', title: 'Doctors List',  icon:'content_paste', class: '' ,data: { allowedRoles: ['admin','doctor'] }, canActivate: [AuthGuard,RoleGuard]},
+    { path: '/patientList', title: 'Patients List',  icon:'content_paste', class: '',data: { allowedRoles: ['admin','patient'] }, canActivate: [AuthGuard,RoleGuard] },
 ];
 
 @Component({

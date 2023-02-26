@@ -41,7 +41,6 @@ export class AccountService {
     return this.http.post(this.baseUrl + this.authPath+'/changePassword',data,this.httpOptions);
   }
   getSingleUser(): Observable<any>{
-    // console.log("angular token",this.token)
     return this.http.get(this.baseUrl + this.authPath+'/getUserById',this.httpOptions);
   }
   editProfile(data : any): Observable<any>{
