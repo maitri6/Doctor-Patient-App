@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoleGuard } from '../../../app/gaurds/role.guard';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -6,13 +7,18 @@ declare interface RouteInfo {
     title: string;
     icon: string;
     class: string;
+    data?: {
+      allowedRoles?: string[];
+    };
+    canActivate?: any[];
+    
 }
 //token role =admin patient //
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '', },
-    { path: '/adminList', title: 'Admins List',  icon:'content_paste', class: '' },
-    { path: '/doctorList', title: 'Doctors List',  icon:'content_paste', class: '' },
-    { path: '/patientList', title: 'Patients List',  icon:'content_paste', class: '' },
+    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '', data: { allowedRoles: ['admin'] }, canActivate: [RoleGuard] },
+    { path: '/adminList', title: 'Admins List',  icon:'content_paste', class: '' ,data: { allowedRoles: ['admin'] }, canActivate: [RoleGuard]},
+    { path: '/doctorList', title: 'Doctors List',  icon:'content_paste', class: '' ,data: { allowedRoles: ['admin','doctor'] }, canActivate: [RoleGuard]},
+    { path: '/patientList', title: 'Patients List',  icon:'content_paste', class: '',data: { allowedRoles: ['admin','patient'] }, canActivate: [RoleGuard] },
 ];
 
 @Component({
@@ -21,12 +27,18 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
+  userRole:string;
   menuItems: any[];
 
   constructor() { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+   this.userRole=localStorage.getItem('role')
+
+    // this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.menuItems = ROUTES.filter(menuItem => {
+      return menuItem.data.allowedRoles.includes(this.userRole);
+    });
   }
   isMobileMenu() {
       if ($(window).width() > 991) {

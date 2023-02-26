@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../account.service';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-// import { NotficationServiceService } from 'src/app/Notification/notfication-service.service';
+// import jwt_decode from 'jwt_decode'
+// import * as jwtDecodeNamespace from 'jwt-decode';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-
+decodeToken:any
   constructor(
     private authService: AccountService,
     // private notifyService: NotficationServiceService,
@@ -39,6 +40,9 @@ export class AuthComponent implements OnInit {
         this.router.navigate(['/dashboard']);
         // this.notifyService.showToastSuccess(res.statusMessage);
         localStorage.setItem('token', res.data.token);
+        // this.decodeToken=jwtDecodeNamespace.jwt_decode(res.data.token)
+        console.log(this.decodeToken)
+        localStorage.setItem('role', 'admin');
       }
     
      },(err : any) => {
@@ -56,3 +60,7 @@ export class AuthComponent implements OnInit {
      })
   }
 }
+function jwt_decode(token: any): any {
+  throw new Error('Function not implemented.');
+}
+
