@@ -9,6 +9,13 @@ export class AdminService {
   baseUrl = environment.apiBaseUrl;
   adminPath='admin'
   constructor(private http:HttpClient) { }
+  token =localStorage.getItem('token')
+  httpOptions = {
+   headers: new HttpHeaders({
+     'Content-Type': 'application/json',
+     'Authorization': 'Bearer ' + this.token
+   })
+ };
 
   
   getAllDoctorsList(): Observable<any>{
@@ -25,5 +32,8 @@ export class AdminService {
     let params = new HttpParams();
     params = params.append('type', 'patient');
     return this.http.get(this.baseUrl + this.adminPath+'/getAllDetails',{ params: params });
+  }
+  updateStatusToAprroveUser(data : any): Observable<any>{
+    return this.http.post(this.baseUrl + this.adminPath+'/updateStatus',data,this.httpOptions);
   }
 }

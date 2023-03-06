@@ -20,9 +20,9 @@ exports.updateStatus = async (req, res, next) => {
         "Hi,You got approval from admin. Please visit login page to continue.";
       sendEmail(getUser.email, subject, html);
 
-      return sendResponse(res, true, 200, "Email sent successfully.");
+      return sendResponse(res, true, 200, "Status updated successfully.");
     }
-    return sendResponse(res, false, 200, "Status got updated successfully.");
+    return sendResponse(res, false, 200, "Status updated successfully.");
   } catch (error) {}
 };
   
@@ -46,7 +46,7 @@ exports.getAllDetails = async (req, res, next) => {
         .sort({ createdAt: -1 })
         .populate({
           path: "userId",
-          select: ["name"],
+          select: ["name","isApproved"],
         });
       return sendResponse(
         res,

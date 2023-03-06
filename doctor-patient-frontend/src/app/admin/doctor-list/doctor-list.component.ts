@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
  import { NotficationServiceService } from '../../Notification/notfication-service.service';
 import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
@@ -34,5 +35,25 @@ export class DoctorListComponent implements OnInit{
           }
         }
       );
+    }
+    onApprovalChange(item){
+       const status = item.userId.isApproved ? true : false;
+      let updateObj={
+        userId:item.userId._id,
+        status:status
+      }
+      this.adminService.updateStatusToAprroveUser(updateObj).subscribe(
+        (res: any) => {
+          this.router.navigate(['/doctorList']);
+          this.notifyService.showToastSuccess(res.statusMessage);
+        },
+        (err: any) => {
+          if (err.error.statusCode == 500) {
+            this.router.navigate(['/doctorList']);
+             this.notifyService.showToastError(err.error.statusMessage);
+          }
+        }
+      );
+
     }
 }

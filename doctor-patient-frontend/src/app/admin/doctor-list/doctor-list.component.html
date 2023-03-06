@@ -17,6 +17,7 @@
                   <th>Specialization</th>
                   <th>Experience</th>
                   <th>College</th>
+                  <th>Status</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of DoctorsData">
@@ -26,6 +27,11 @@
                         <td>{{ item.specialization }}</td>
                         <td>{{ item.experience }}</td>
                         <td>{{ item.college }}</td>
+                        <td>
+                          <mat-slide-toggle [(ngModel)]="item.userId.isApproved" (change)="onApprovalChange(item)">
+                            {{ item.userId.isApproved ? 'Accepted' : 'Declined' }}
+                          </mat-slide-toggle>
+                        </td>
                       </tr>
                 </tbody>
               </table>

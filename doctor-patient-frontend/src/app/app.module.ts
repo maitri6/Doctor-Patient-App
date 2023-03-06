@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -28,6 +29,7 @@ import { RoleGuard } from './gaurds/role.guard';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    MatSlideToggleModule,
     ToastrModule.forRoot(),
   
   ],

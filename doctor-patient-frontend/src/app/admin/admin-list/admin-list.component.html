@@ -21,6 +21,11 @@
                           <td>{{ item.name }}</td>
                           <td>{{ item.email }}</td>
                           <td>{{ item.phoneNumber }}</td>
+                          <td>
+                            <mat-slide-toggle [(ngModel)]="item.isApproved" (change)="onApprovalChange(item)">
+                              {{ item.isApproved ? 'Accepted' : 'Declined' }}
+                            </mat-slide-toggle>
+                          </td>
                         </tr>
                   </tbody>
                 </table>

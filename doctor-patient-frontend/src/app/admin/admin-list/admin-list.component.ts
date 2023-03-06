@@ -35,4 +35,25 @@ export class AdminListComponent implements OnInit {
       }
     );
   }
+
+  onApprovalChange(item){
+    const status = item.isApproved ? true : false;
+   let updateObj={
+     userId:item._id,
+     status:status
+   }
+   this.adminService.updateStatusToAprroveUser(updateObj).subscribe(
+     (res: any) => {
+       this.router.navigate(['/adminList']);
+       this.notifyService.showToastSuccess(res.statusMessage);
+     },
+     (err: any) => {
+       if (err.error.statusCode == 500) {
+         this.router.navigate(['/adminList']);
+          this.notifyService.showToastError(err.error.statusMessage);
+       }
+     }
+   );
+
+ }
 }
