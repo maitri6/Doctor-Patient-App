@@ -46,7 +46,7 @@ export class DoctorServiceService {
   }
   getAllColleges(): Observable<any>{
     let params = new HttpParams();
-    params = params.append('type', 'college');
+    params = params.append('type', 'colleges');
     return this.http.get(this.baseUrl + this.doctorPath+'/getDoctorAndPatientDetails',{ params: params });
   }
 }

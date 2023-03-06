@@ -22,6 +22,7 @@ export class DoctorInformationComponent implements OnInit {
     this.getAllTitles();
     this.getAllSpecialization();
     this.getAllDegrees();
+    this.getAllColleges();
   }
   City: any;
   Year: any;
@@ -62,6 +63,7 @@ export class DoctorInformationComponent implements OnInit {
     return this.DoctorForm.controls;
   }
 
+  // get all citites
   getAllCities() {
     this.doctorService.getAllCities().subscribe(
       (res: any) => {
@@ -76,6 +78,7 @@ export class DoctorInformationComponent implements OnInit {
     );
   }
 
+  // get all titles
   getAllTitles() {
     this.doctorService.getAllTitles().subscribe(
       (res: any) => {
@@ -89,7 +92,7 @@ export class DoctorInformationComponent implements OnInit {
       }
     );
   }
-
+// get all years
   getAllYear() {
     this.doctorService.getAllYears().subscribe(
       (res: any) => {
@@ -150,6 +153,7 @@ export class DoctorInformationComponent implements OnInit {
     this.doctorService.getAllColleges().subscribe(
       (res: any) => {
         this.College = res.data;
+        console.log(this.College);
       },
       (err: any) => {
         if (err.error.statusCode == 500) {

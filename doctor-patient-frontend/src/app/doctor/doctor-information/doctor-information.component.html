@@ -176,19 +176,27 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-md-6 mb-4">
+                    <!-- <div class="col-md-6 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="form3Example1m1">College</label>
                         <input type="text" id="form3Example1m1" class="form-control form-control-lg" formControlName="college"/>
                       </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
+                    </div> -->
+                    <div class="col-md-5 mb-4">
                       <h6 class="">Select Year </h6>
                     <select class="select"  formControlName="year" >
                       <option value="">Select Year </option>
                       <option *ngFor="let year of Year" [ngValue]="year">{{year}}</option>
                     </select>
                   </div> 
+                  <div class="col-md-7 mb-4">
+                    <label class="form-label" for="form3Example1n1">College</label>
+                    <br>
+                  <select class="select"  formControlName="college">
+                    <option value="">Select College </option>
+                    <option *ngFor="let college of College" [ngValue]="college">{{college}}</option>
+                  </select>
+                </div>
                   </div>
                   <h4>Clinic Details</h4>
 

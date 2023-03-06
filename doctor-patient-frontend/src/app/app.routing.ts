@@ -14,12 +14,12 @@ import { AuthGuard } from './Account/auth.guard';
 
 const routes: Routes =[
   { path: "", component:  AuthComponent },
-  { path: "login", component:  AuthComponent },
-  { path: "register", component:  AuthRegisterComponent },
-  { path: "forget-password", component: ForgetPasswordComponent  },
-  { path: "reset-password/:token", component: ResetPasswordComponent  },
-  { path: "otp-verification/:id", component: OtpVerificationComponent  },
-   { path: "saveDoctorForm", component: DoctorInformationComponent  , canActivate: [AuthGuard]},
+  { path: "login", component:  AuthComponent ,canActivate: [AuthGuard]},
+  { path: "register", component:  AuthRegisterComponent ,canActivate: [AuthGuard] },
+  { path: "forget-password", component: ForgetPasswordComponent ,canActivate: [AuthGuard] },
+  { path: "reset-password/:token", component: ResetPasswordComponent ,canActivate: [AuthGuard] },
+  { path: "otp-verification/:id", component: OtpVerificationComponent ,canActivate: [AuthGuard] },
+   { path: "saveDoctorForm", component: DoctorInformationComponent ,canActivate: [AuthGuard]},
   {
     path: '',
     component: AdminLayoutComponent,
