@@ -1,21 +1,20 @@
 const DoctorModel = require("../doctor/doctor.model");
 const UserModel = require("../userAuth/user.model");
-const {IDENTITY_PROOF} = require('../../config/constant');
-const {TITLES} = require('../../config/constant');
-const {DEGREE} = require('../../config/constant');
-const {SPECIALITY} = require('../../config/constant');
-const {BLOOD_GROUP} = require('../../config/constant');
-const {COLLEGES} = require('../../config/constant');
-
-
+const AppointmentModel = require("../patient/bookAppointment.model");
+const { IDENTITY_PROOF, BOOKED_SLOTS } = require('../../config/constant');
+const { TITLES } = require('../../config/constant');
+const { DEGREE } = require('../../config/constant');
+const { SPECIALITY } = require('../../config/constant');
+const { BLOOD_GROUP } = require('../../config/constant');
+const { COLLEGES } = require('../../config/constant');
 let { City } = require("country-state-city");
-
 const bcrypt = require("bcrypt");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 
+
+
 exports.doctorForm = async (req, res, next) => {
   try {
-
     const checkEmail = await UserModel.findOne({
       email: req.body.email,
     }).lean();
@@ -30,8 +29,6 @@ exports.doctorForm = async (req, res, next) => {
     req.body.isApproved = false;
     req.body.role = "doctor";
     let saveUser = await UserModel.create(req.body);
-
-
     let saveDoctor = await DoctorModel.create({
       ...req.body,
       userId: saveUser._id,
@@ -66,7 +63,7 @@ exports.getCityAndYear = async (req, res, next) => {
 
 exports.getDoctorAndPatientDetails = async (req, res, next) => {
   try {
-    if(req.query.type == "identityProof"){
+    if (req.query.type == "identityProof") {
       return sendResponse(
         res,
         true,
@@ -74,7 +71,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         "Identity Proofs fetched successfully",
         IDENTITY_PROOF
       );
-    }else if(req.query.type == "degree"){
+    } else if (req.query.type == "degree") {
       return sendResponse(
         res,
         true,
@@ -83,16 +80,16 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         DEGREE
       );
     }
-    else if(req.query.type == "speciality"){
+    else if (req.query.type == "speciality") {
       return sendResponse(
         res,
         true,
         200,
         "Speciality fetched successfully",
-         SPECIALITY
+        SPECIALITY
       );
-    } 
-    else if(req.query.type == "title"){
+    }
+    else if (req.query.type == "title") {
       return sendResponse(
         res,
         true,
@@ -101,7 +98,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         TITLES
       );
     }
-    else if(req.query.type == "bloodGroup"){
+    else if (req.query.type == "bloodGroup") {
       return sendResponse(
         res,
         true,
@@ -110,7 +107,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         BLOOD_GROUP
       );
     }
-    else if(req.query.type == "colleges"){
+    else if (req.query.type == "colleges") {
       return sendResponse(
         res,
         true,
@@ -123,3 +120,101 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
     console.log(error);
   }
 };
+
+
+exports.getAllAppointments = async (req, res, next) => {
+  try {
+    let findDoctor = await AppointmentModel.find({ doctorId: req.query.doctorId, isAppointment: "pending" })
+      .lean()
+      .populate({
+        path:'patientId',
+        select: 'name height weight bloodGroup'})
+      .select(["date", "time", "description","appointmentType"]);
+      console.log(findDoctor)
+    return sendResponse(
+      res,
+      true,
+      200,
+      "Form submitted successfully",
+      findDoctor
+    );
+  } catch (error) {  }
+};
+
+
+
+exports.updateProfile = async (req, res, next) => {
+  try {
+    let findDoctor = await DoctorModel.findById(req.user.userId);
+    console.log(findDoctor)
+    if (!findDoctor) {
+      return sendResponse(
+        res,
+        false,
+        400,
+        "Doctor not found "
+      );
+    }
+    await DoctorModel.updateOne({ _id: findDoctor._id }, { $set: { ...req.body} });
+    //console.log(findDoctor.degree)
+
+    return sendResponse(
+      res,
+      true,
+      200,
+      "Doctor profile updated successfully"
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+exports.updatePatientStatus = async (req, res, next) => {
+  try {
+    let getAppointments = await AppointmentModel.findById({ _id: req.query._id });
+    console.log(getAppointments)
+    //console.log()
+    if (!getAppointments) {
+      return sendResponse(
+        res,
+        false,
+        400,
+        "Appointment not found"
+      );
+    }
+    console.log(getAppointments.time)
+
+    const appointmentTime = moment(getAppointments.time,'HH:mm');
+     console.log(appointmentTime)
+     const scheduledTime = appointmentTime.clone().add(30, 'minutes');
+     console.log(scheduledTime)
+      if (appointmentTime < scheduledTime && getAppointments.isAppointment !== 'Completed') {
+        await AppointmentModel.updateOne({ _id: getAppointments._id }, { $set: { isAppointment: "completed" } });
+        //getAppointments.isAppointment = 'Completed';
+        //getAppointments.save();
+        console.log("status updated !!")
+      }
+      else{
+        console.log("not done");
+      }
+
+
+  } catch (error) {
+    console.log(error);
+   }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,14 +2,17 @@ const Joi = require("joi");
 const { sendResponse } = require("../helpers/requestHandler.helper");
 
 
-const updateStatusValidation = async (req, res, next) => {
+const patientFormValidation = async (req, res, next) => {
     try {
       const schema = Joi.object({
-        userId:Joi.string()
+        doctorId:Joi.string()
         .required()
         .max(24)
-        .messages( {"string.empty": "UserId field cannot be empty."}),
-        status:Joi.required().messages( {"string.empty": "Status field cannot be empty."})
+        .messages( {"string.empty": "Doctor Id field cannot be empty."}),
+        description:Joi.required().string(),
+        date:Joi.required().string(),
+        time:Joi.required().string(),
+        appointmentType:Joi.required().string()
     
       }).options({ allowUnknown: true });
   
@@ -26,7 +29,12 @@ const updateStatusValidation = async (req, res, next) => {
       next(error);
     }
   };
+  
+
+
+
+  
   module.exports = {
-    updateStatusValidation
+    patientFormValidation
  
 }

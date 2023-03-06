@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
         type: mongoose.Types.ObjectId,
         ref: "user",
     },
-    diseaseDescription: {
+    description: {
         type: String,
     },
     date: {
@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema(
     isAppointment: {
         type: String,
         default: "pending",
+    },
+    appointmentType: {
+      type: String
+    },
+    fees: {
+      type: Number
     },
   },
   {
