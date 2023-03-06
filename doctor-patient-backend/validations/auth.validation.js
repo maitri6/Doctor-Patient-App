@@ -128,7 +128,7 @@ const updateProfileValidation = async (req, res, next) => {
       name: Joi.string()
         .required()
         .messages({ "string.empty": "Name field cannot be empty." }),
-      // .pattern(/^[a-zA-Z\\s]*$/),
+        //.pattern(/^[a-zA-Z\\s]*$/),
       phoneNumber: Joi.string()
         .required()
         .pattern(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/)

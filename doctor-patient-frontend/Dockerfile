@@ -1,4 +1,4 @@
-FROM node:16-alpine as build-step
+FROM node:6.11.1 as build-step
 
 WORKDIR /app
 
@@ -16,6 +16,7 @@ COPY  ./ /app
 
 # Bundle app source
 #RUN npm i -g node@6.11.1 && npm i -g npm@3.10.9
+#RUN npm install -g npm@3.10.9
 
 RUN npm i
 

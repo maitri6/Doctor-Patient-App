@@ -1,5 +1,4 @@
 const UserModel = require("./user.model");
-const DoctorModel = require("../doctor/doctor.model");
 const bcrypt = require("bcrypt");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 const { generateJwt } = require("../../helpers/jwt.helper");
@@ -219,7 +218,6 @@ exports.changePassword = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
   try {
-
     let getUser = await UserModel.findById(req.user.userId);
     if (!getUser) {
       return sendResponse(
@@ -230,7 +228,6 @@ exports.updateProfile = async (req, res, next) => {
       );
     }
     await UserModel.updateOne({ _id: getUser._id }, { $set: { ...req.body } });
-
     return sendResponse(
       res,
       true,

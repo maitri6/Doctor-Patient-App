@@ -55,15 +55,15 @@ const BLOOD_GROUP=[
 
 
 const COMMON_SYMPTOMS=[
-{name:"fever",key:"generalPhysician"},
-{name:"cold",key:"generalPhysician"},
-{name:"heart",key:"cardiology"},
-{name:"bones",key:"orthopaedics"},    
-{name:"pregnancy",key:"obstetricsAndGynaecology"},
-{name:"brain",key:"neurology"},
-{name:"skin",key:"dermatology"},
-{name:"hair",key:"dermatology"},
-{name:"eyes",key:"ophthalmologist"}
+{name:"fever",key:"generalPhysician",image:"fever.png"},
+{name:"cold",key:"generalPhysician",image:"cold.png"},
+{name:"heart",key:"cardiology",image:"heart.png"},
+{name:"bones",key:"orthopaedics",image:"bones.png"},    
+{name:"pregnancy",key:"obstetricsAndGynaecology",image:"preganacy.png"},
+{name:"brain",key:"neurology",image:"brain.png"},
+{name:"skin",key:"dermatology",image:"skin.png"},
+{name:"hair",key:"dermatology",image:"hair.png"},
+{name:"eyes",key:"ophthalmologist",image:"eyes.png"}
 ]
 
 const COLLEGES=[
@@ -79,6 +79,12 @@ const COLLEGES=[
 "St. John's Medical College, Bangalore",
 ]
 
+const VISTING_SLOTS=[
+"10:00","10:30","11:00","11:30","12:00","01:00","01:30","05:30"
+]
+
+
+
  
 
 
@@ -89,7 +95,7 @@ module.exports ={
     SPECIALITY,
     BLOOD_GROUP,
     COMMON_SYMPTOMS,
-    COLLEGES
-
+    COLLEGES,
+    VISTING_SLOTS
 }
  
