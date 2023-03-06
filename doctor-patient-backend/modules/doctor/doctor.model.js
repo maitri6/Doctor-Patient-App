@@ -64,6 +64,10 @@ const userSchema = new mongoose.Schema(
     clinicFees: {
       type: Number,
     },
+    notAvailable: {
+      type: String,
+      default: ""
+    },
     userId: {
       type: mongoose.Types.ObjectId,
       ref: "user",
