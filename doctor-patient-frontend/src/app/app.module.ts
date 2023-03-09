@@ -4,6 +4,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -20,6 +21,9 @@ import { DoctorListComponent } from './admin/doctor-list/doctor-list.component';
 import { PatientListComponent } from './admin/patient-list/patient-list.component';
 import { AuthGuard } from './Account/auth.guard';
 import { RoleGuard } from './gaurds/role.guard';
+import { DiseaseComponent } from './patient/disease/disease.component';
+import { SpecificDoctorsComponent } from './patient/specific-doctors/specific-doctors.component';
+import { MyAppointmentsComponent } from './doctor/my-appointments/my-appointments.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -30,6 +34,7 @@ import { RoleGuard } from './gaurds/role.guard';
     RouterModule,
     AppRoutingModule,
     MatSlideToggleModule,
+    MatCardModule,
     ToastrModule.forRoot(),
   
   ],
@@ -44,7 +49,10 @@ import { RoleGuard } from './gaurds/role.guard';
     DoctorInformationComponent,
     AdminListComponent,
     DoctorListComponent,
-    PatientListComponent
+    PatientListComponent,
+    DiseaseComponent,
+    SpecificDoctorsComponent,
+    MyAppointmentsComponent
   ],
   providers: [AuthGuard, RoleGuard],
   bootstrap: [AppComponent]
