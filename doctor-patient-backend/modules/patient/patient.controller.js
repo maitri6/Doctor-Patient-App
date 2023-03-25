@@ -22,8 +22,12 @@ exports.getAllApprovedDoctors = async (req, res, next) => {
   } catch (error) { }
 };
 
+<<<<<<< HEAD
 
 exports.getAllDisease = async (req, res, next) => {
+=======
+exports.getAllDiseases = async (req, res, next) => {
+>>>>>>> 1aa3a26155b12456ff40773b8f0d63836a67a3f3
   try {
     return sendResponse(
       res,

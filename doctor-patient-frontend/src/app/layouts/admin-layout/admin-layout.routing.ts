@@ -8,14 +8,13 @@ import { ChangePasswordComponent } from '../../Account/account/change-password/c
 import { AdminListComponent } from '../../admin/admin-list/admin-list.component';
 import { DoctorListComponent } from '../../admin/doctor-list/doctor-list.component';
 import { PatientListComponent } from '../../admin/patient-list/patient-list.component'; 
-
+import { DiseaseComponent } from '../../patient/disease/disease.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
-    // { path: 'table-list',     component: TableListComponent },
-    // { path: 'typography',     component: TypographyComponent },
     { path: 'changePassword', component: ChangePasswordComponent },
     { path: 'editProfile',    component:UserProfileComponent  }, 
     { path: 'doctorList',    component:DoctorListComponent  },  
     { path: 'adminList',    component:AdminListComponent  },  
     { path: 'patientList',    component:PatientListComponent  },   
+    { path: 'diseaseList',    component:DiseaseComponent  },   
 ];
