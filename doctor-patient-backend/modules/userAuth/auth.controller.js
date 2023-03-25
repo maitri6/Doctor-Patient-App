@@ -38,7 +38,7 @@ exports.login = async (req, res, next) => {
     let subject, message, otp;
     const getUser = await UserModel.findOne({ email: req.body.email });
     if (!getUser) return sendResponse(res, true, 400, "User not found.");
-    if (getUser.role == "doctor" && !(getUser.isApproved)) {
+    if ((getUser.role == "doctor" && !(getUser.isApproved)) || !(getUser.isApproved)) {
       return sendResponse(res, true, 400, "Please wait for admin's approval.");
     }
     if (!(await bcrypt.compare(req.body.password, getUser.password)))
@@ -68,7 +68,7 @@ exports.login = async (req, res, next) => {
       token,
     });
 
-  } catch (error) {  }
+  } catch (error) { }
 };
 
 exports.forgetPassword = async (req, res, next) => {

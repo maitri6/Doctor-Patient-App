@@ -5,6 +5,7 @@ const schedule = require('node-schedule');
 const { sendResponse } = require("../../helpers/requestHandler.helper");
 const AppointmentModel = require("../patient/bookAppointment.model");
 const { VISTING_SLOTS } = require('../../config/constant');
+const { COMMON_SYMPTOMS } = require('../../config/constant');
 
 
 exports.getAllApprovedDoctors = async (req, res, next) => {
@@ -30,7 +31,9 @@ exports.getAllDiseases = async (req, res, next) => {
       "Disease fetched successfully",
       COMMON_SYMPTOMS
     );
-  } catch (error) { }
+  } catch (error) { 
+    console.log(error);
+  }
 };
 
 
@@ -89,6 +92,7 @@ exports.patientForm = async (req, res, next) => {
         "You cannot take appointment today"
       );
     }
+    console.log(req.body.date)
     req.body.patientId = req.user.userId;
     let doctorAvailable = await DoctorModel.findById({_id: req.body.doctorId})
      if(req.body.date==doctorAvailable.notAvailable)

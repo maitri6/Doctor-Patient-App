@@ -1,0 +1,10 @@
+FROM nginx:latest
+
+# Copy the Angular app build output to the Nginx web root
+COPY --from=angular /app/dist /app/share/nginx/html
+
+# Copy the Nginx configuration file
+COPY /nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80
+EXPOSE 80
