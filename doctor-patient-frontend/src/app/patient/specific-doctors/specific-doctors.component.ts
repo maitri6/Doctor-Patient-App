@@ -24,12 +24,12 @@ export class SpecificDoctorsComponent {
     this.patientService.getAllApprovedDoctorsList().subscribe(
       (res: any) => {
         this.DoctorsData = res.data;
-        console.log("this.DiseaseList",this.DoctorsData)
+        console.log("doctorsList",this.DoctorsData)
         this.notifyService.showToastSuccess(res.statusMessage);
       },
       (err: any) => {
         if (err.error.statusCode == 500) {
-          this.router.navigate(['/diseaseList']);
+          this.router.navigate(['/diseaseSpecificDoctors']);
           this.notifyService.showToastError(err.error.statusMessage);
         }
       }

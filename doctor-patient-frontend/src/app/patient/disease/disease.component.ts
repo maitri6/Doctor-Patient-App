@@ -24,7 +24,6 @@ export class DiseaseComponent implements OnInit{
     this.patientService.getAllDiseasesList().subscribe(
       (res: any) => {
         this.DiseaseList = res.data;
-        console.log("this.DiseaseList",this.DiseaseList)
         this.notifyService.showToastSuccess(res.statusMessage);
       },
       (err: any) => {
@@ -34,6 +33,11 @@ export class DiseaseComponent implements OnInit{
         }
       }
     );
+  }
+
+  onCardClicked(disease:any) {
+    console.log(disease);
+     this.router.navigate(['/diseaseSpecificDoctors', disease.key]);
   }
 
 }

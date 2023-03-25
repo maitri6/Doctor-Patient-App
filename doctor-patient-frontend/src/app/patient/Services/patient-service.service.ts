@@ -18,14 +18,12 @@ export class PatientServiceService {
  };
 
   getAllDiseasesList(): Observable<any>{
-    // let params = new HttpParams();
-    // params = params.append('type', 'doctor');
-    return this.http.get(this.baseUrl + this.patientPath+'/getAllDieases');
+    return this.http.get(this.baseUrl + this.patientPath+'/getAllDiseases',this.httpOptions);
   }
 
   getAllApprovedDoctorsList(): Observable<any>{
     let params = new HttpParams();
-    params = params.append('disease', 'card');
-    return this.http.get(this.baseUrl + this.patientPath+'/getAllApprovedDoctors');
+    params = params.append('disease', 'cardiology');
+    return this.http.get(this.baseUrl + this.patientPath + '/getAllApprovedDoctors' ,{params:params,...this.httpOptions});
   }
 }

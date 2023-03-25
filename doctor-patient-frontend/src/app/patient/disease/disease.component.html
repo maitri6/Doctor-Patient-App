@@ -1,19 +1,16 @@
 <div class="main-content">
-    <div class="container-fluid">
-      <div class="row">
-<mat-card>
-    <mat-card-header>
-        <div mat-card-avatar>
-            <img src="path/to/image.jpg">
+  <div class="container-fluid">
+    <div class="row">
+      <mat-card *ngFor="let disease of DiseaseList" (click)="onCardClicked(disease)">
+        <mat-card-header>
+       
+          <div mat-card-avatar>
+            <img [src]="'http://localhost:3003/files/' + disease.image" />
           </div>
-      <mat-card-title>
-        Card Title
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      Card Content
-    </mat-card-content>
-  </mat-card>
+          <mat-card-title> {{ disease.name }} </mat-card-title>
+        </mat-card-header>
+        <!-- <mat-card-content> {{ disease.name }} </mat-card-content> -->
+      </mat-card>
+    </div>
   </div>
-  </div>
-  </div>
+</div>
