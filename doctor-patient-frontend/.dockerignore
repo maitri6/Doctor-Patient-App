@@ -1,6 +1,6 @@
 node_modules
 npm-debug.log
 .gitignore
-Dockerfile.dev
+Dockerfile.new
+Dockerfile.nginx
 env
-Dockerfile

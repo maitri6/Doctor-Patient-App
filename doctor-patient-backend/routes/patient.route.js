@@ -10,7 +10,7 @@ const patientController = require("../modules/patient/patient.controller");
 
 
 router.get("/getAllApprovedDoctors",patientController.getAllApprovedDoctors);
-router.get("/getAllDieases",patientController.getAllDieases);
+router.get("/getAllDisease",patientController.getAllDisease);
 router.post("/patientForm",authenticated,patientController.patientForm);
 router.get("/getAllDate",patientController.getAllDate);
 router.get("/getTimeSlots",patientController.getTimeSlots);

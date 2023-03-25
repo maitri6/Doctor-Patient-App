@@ -145,17 +145,19 @@ exports.getAllAppointments = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
   try {
-    let findDoctor = await DoctorModel.findById(req.user.userId);
-    console.log(findDoctor)
-    if (!findDoctor) {
-      return sendResponse(
-        res,
-        false,
-        400,
-        "Doctor not found "
-      );
-    }
-    await DoctorModel.updateOne({ _id: findDoctor._id }, { $set: { ...req.body} });
+    let findDoctor = await UserModel.findById(req.user.userId);
+    console.log(findDoctor._id)
+    // if (!findDoctor) {
+    //   return sendResponse(
+    //     res,
+    //     false,
+    //     400,
+    //     "Doctor not found "
+    //   );
+    // }
+     // let doctor = await DoctorModel.find({userId: })
+    //  console.log(doctor)
+    //await DoctorModel.updateOne({ userId: findDoctor._id }, { $set: { ...req.body} });
     //console.log(findDoctor.degree)
 
     return sendResponse(
