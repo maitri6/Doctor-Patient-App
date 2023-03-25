@@ -22,4 +22,10 @@ export class PatientServiceService {
     // params = params.append('type', 'doctor');
     return this.http.get(this.baseUrl + this.patientPath+'/getAllDieases');
   }
+
+  getAllApprovedDoctorsList(): Observable<any>{
+    let params = new HttpParams();
+    params = params.append('disease', 'card');
+    return this.http.get(this.baseUrl + this.patientPath+'/getAllApprovedDoctors');
+  }
 }
