@@ -10,7 +10,7 @@ const patientFormValidation = async (req, res, next) => {
         .max(24)
         .messages( {"string.empty": "Doctor Id field cannot be empty."}),
         description:Joi.required().string(),
-        date:Joi.required().string(),
+        date:Joi.required().date(),
         time:Joi.required().string(),
         appointmentType:Joi.required().string()
     
