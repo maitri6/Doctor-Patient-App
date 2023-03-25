@@ -7,14 +7,10 @@ const {authenticated} = require ("../middlewares/authenticated.middleware")
 
 const patientController = require("../modules/patient/patient.controller");
 
-
-
-router.get("/getAllApprovedDoctors",patientController.getAllApprovedDoctors);
-router.get("/getAllDieases",patientController.getAllDieases);
+router.get("/getAllApprovedDoctors",authenticated,patientController.getAllApprovedDoctors);
+router.get("/getAllDiseases",authenticated,patientController.getAllDiseases);
 router.post("/patientForm",authenticated,patientController.patientForm);
-router.get("/getAllDate",patientController.getAllDate);
-router.get("/getTimeSlots",patientController.getTimeSlots);
-
-
+router.get("/getAllDate",authenticated,patientController.getAllDate);
+router.get("/getTimeSlots",authenticated,patientController.getTimeSlots);
 
 module.exports = router;

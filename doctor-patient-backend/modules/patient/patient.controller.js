@@ -21,8 +21,7 @@ exports.getAllApprovedDoctors = async (req, res, next) => {
   } catch (error) { }
 };
 
-
-exports.getAllDieases = async (req, res, next) => {
+exports.getAllDiseases = async (req, res, next) => {
   try {
     return sendResponse(
       res,

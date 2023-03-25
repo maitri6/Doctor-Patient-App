@@ -45,7 +45,7 @@ import { MyAppointmentsComponent } from './doctor/my-appointments/my-appointment
     OtpVerificationComponent,
     PageNotFoundComponent,
     ResetPasswordComponent,
-     ChangePasswordComponent,
+    ChangePasswordComponent,
     DoctorInformationComponent,
     AdminListComponent,
     DoctorListComponent,

@@ -20,7 +20,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/adminList', title: 'Admins List',  icon:'content_paste', class: '' ,data: { allowedRoles: ['admin'] }, canActivate: [AuthGuard,RoleGuard]},
     { path: '/doctorList', title: 'Doctors List',  icon:'content_paste', class: '' ,data: { allowedRoles: ['admin'] }, canActivate: [AuthGuard,RoleGuard]},
     { path: '/patientList', title: 'Patients List',  icon:'content_paste', class: '',data: { allowedRoles: ['admin'] }, canActivate: [AuthGuard,RoleGuard] },
-    { path: '/diseaseList', title: 'Patients List',  icon:'content_paste', class: '',data: { allowedRoles: ['admin','patient'] }, canActivate: [AuthGuard,RoleGuard] },
+    { path: '/diseaseList', title: 'Disease List',  icon:'content_paste', class: '',data: { allowedRoles: ['admin','patient'] }, canActivate: [AuthGuard,RoleGuard] },
 ];
 
 @Component({
