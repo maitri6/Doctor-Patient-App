@@ -56,14 +56,14 @@ const BLOOD_GROUP=[
 
 const COMMON_SYMPTOMS=[
 {name:"fever",key:"generalPhysician",image:"fever.png"},
-{name:"cold",key:"generalPhysician",image:"cold.png"},
-{name:"heart",key:"cardiology",image:"heart.png"},
+{name:"cold",key:"generalPhysician",image:"cold.jpeg"},
+{name:"heart",key:"cardiology",image:"heart.jpeg"},
 {name:"bones",key:"orthopaedics",image:"bones.png"},    
-{name:"pregnancy",key:"obstetricsAndGynaecology",image:"preganacy.png"},
+{name:"pregnancy",key:"obstetricsAndGynaecology",image:"preganacy.jpeg"},
 {name:"brain",key:"neurology",image:"brain.png"},
 {name:"skin",key:"dermatology",image:"skin.png"},
 {name:"hair",key:"dermatology",image:"hair.png"},
-{name:"eyes",key:"ophthalmologist",image:"eyes.png"}
+{name:"eyes",key:"ophthalmologist",image:"eyes.jpg"}
 ]
 
 const COLLEGES=[
