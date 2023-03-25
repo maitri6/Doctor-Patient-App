@@ -24,6 +24,7 @@ import { RoleGuard } from './gaurds/role.guard';
 import { DiseaseComponent } from './patient/disease/disease.component';
 import { SpecificDoctorsComponent } from './patient/specific-doctors/specific-doctors.component';
 import { MyAppointmentsComponent } from './doctor/my-appointments/my-appointments.component';
+import { PatientAppointmentComponent } from './patient/patient-appointment/patient-appointment.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -52,7 +53,8 @@ import { MyAppointmentsComponent } from './doctor/my-appointments/my-appointment
     PatientListComponent,
     DiseaseComponent,
     SpecificDoctorsComponent,
-    MyAppointmentsComponent
+    MyAppointmentsComponent,
+    PatientAppointmentComponent
   ],
   providers: [AuthGuard, RoleGuard],
   bootstrap: [AppComponent]

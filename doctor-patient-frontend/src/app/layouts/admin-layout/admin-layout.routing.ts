@@ -10,6 +10,8 @@ import { DoctorListComponent } from '../../admin/doctor-list/doctor-list.compone
 import { PatientListComponent } from '../../admin/patient-list/patient-list.component'; 
 import { DiseaseComponent } from '../../patient/disease/disease.component';
 import { SpecificDoctorsComponent } from '../../patient/specific-doctors/specific-doctors.component';
+import { MyAppointmentsComponent } from '../../doctor/my-appointments/my-appointments.component';
+
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'changePassword', component: ChangePasswordComponent },
@@ -18,5 +20,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'adminList',    component:AdminListComponent  },  
     { path: 'patientList',    component:PatientListComponent  },   
     { path: 'diseaseList',    component:DiseaseComponent  },   
-    { path: 'diseaseSpecificDoctors',    component: SpecificDoctorsComponent },   
+    { path: 'diseaseSpecificDoctors/:disease',    component: SpecificDoctorsComponent },   
+    { path: 'doctorAppointmentLists',    component: MyAppointmentsComponent },   
 ];

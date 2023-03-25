@@ -21,9 +21,9 @@ export class PatientServiceService {
     return this.http.get(this.baseUrl + this.patientPath+'/getAllDiseases',this.httpOptions);
   }
 
-  getAllApprovedDoctorsList(): Observable<any>{
-    let params = new HttpParams();
-    params = params.append('disease', 'cardiology');
-    return this.http.get(this.baseUrl + this.patientPath + '/getAllApprovedDoctors' ,{params:params,...this.httpOptions});
+  getAllApprovedDoctorsList(disease:any): Observable<any>{
+    // let params = new HttpParams();
+    // params = params.append('disease', 'cardiology');
+    return this.http.get(this.baseUrl + this.patientPath + '/getAllApprovedDoctors/'+disease ,{...this.httpOptions});
   }
 }

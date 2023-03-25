@@ -1,6 +1,6 @@
 import { Component ,OnInit} from '@angular/core';
 import { NotficationServiceService } from '../../Notification/notfication-service.service';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { PatientServiceService } from '../Services/patient-service.service';
 
 @Component({
@@ -8,20 +8,27 @@ import { PatientServiceService } from '../Services/patient-service.service';
   templateUrl: './specific-doctors.component.html',
   styleUrls: ['./specific-doctors.component.css']
 })
-export class SpecificDoctorsComponent {
+export class SpecificDoctorsComponent implements OnInit{
+  disease=""
   constructor(
     private notifyService: NotficationServiceService,
     private router: Router,
-    private patientService: PatientServiceService
+    private patientService: PatientServiceService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-     this.getAllApprovedDoctors();
+     this.activatedRoute.params.subscribe(params => {
+      this.disease = params['disease'];
+  });
+  this.getAllApprovedDoctors(this.disease);
+
   }
   DoctorsData:any;
   // get all Doctors
-  getAllApprovedDoctors() {
-    this.patientService.getAllApprovedDoctorsList().subscribe(
+  getAllApprovedDoctors(disease:any) {
+    console.log(this.disease)
+    this.patientService.getAllApprovedDoctorsList(this.disease).subscribe(
       (res: any) => {
         this.DoctorsData = res.data;
         console.log("doctorsList",this.DoctorsData)
