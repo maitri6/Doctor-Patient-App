@@ -1,0 +1,19 @@
+mat-card {
+    width: 300px;  
+    height: 300px;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+   /* Add margin to create space between cards */
+  mat-card {
+    margin-bottom: 20px; 
+  }
+  /*  Add some margin to the left to create space between the title and image */
+  mat-card-title {
+    /* margin-right: 200px;  */
+    margin-bottom: 200px; 
+  }

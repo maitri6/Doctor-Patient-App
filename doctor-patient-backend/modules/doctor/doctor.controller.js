@@ -124,19 +124,19 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
 
 exports.getAllAppointments = async (req, res, next) => {
   try {
-    let findDoctor = await AppointmentModel.find({ doctorId: req.query.doctorId, isAppointment: "pending" })
+    let getAllAppointments = await AppointmentModel.find({ doctorId: req.user.userId })
       .lean()
+      .sort({createdAt: -1})
       .populate({
         path:'patientId',
         select: 'name height weight bloodGroup'})
-      .select(["date", "time", "description","appointmentType"]);
-      console.log(findDoctor)
+      .select(["date", "time", "description","appointmentType","isAppointment"]);
     return sendResponse(
       res,
       true,
       200,
-      "Form submitted successfully",
-      findDoctor
+      "Appointments fetched successfully",
+      getAllAppointments
     );
   } catch (error) {  }
 };

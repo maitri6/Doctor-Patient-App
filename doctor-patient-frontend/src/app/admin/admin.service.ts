@@ -21,17 +21,17 @@ export class AdminService {
   getAllDoctorsList(): Observable<any>{
     let params = new HttpParams();
     params = params.append('type', 'doctor');
-    return this.http.get(this.baseUrl + this.adminPath+'/getAllDetails',{ params: params });
+    return this.http.get(this.baseUrl + this.adminPath+'/getAllDetails',{ params: params,...this.httpOptions});
   }
   getAllAdminsList(): Observable<any>{
     let params = new HttpParams();
     params = params.append('type', 'admin');
-    return this.http.get(this.baseUrl + this.adminPath+'/getAllDetails',{ params: params });
+    return this.http.get(this.baseUrl + this.adminPath+'/getAllDetails',{ params: params,...this.httpOptions });
   }
   getAllPatientsList(): Observable<any>{
     let params = new HttpParams();
     params = params.append('type', 'patient');
-    return this.http.get(this.baseUrl + this.adminPath+'/getAllDetails',{ params: params });
+    return this.http.get(this.baseUrl + this.adminPath+'/getAllDetails',{ params: params,...this.httpOptions });
   }
   updateStatusToAprroveUser(data : any): Observable<any>{
     return this.http.post(this.baseUrl + this.adminPath+'/updateStatus',data,this.httpOptions);

@@ -10,7 +10,7 @@ const { COMMON_SYMPTOMS } = require('../../config/constant');
 
 exports.getAllApprovedDoctors = async (req, res, next) => {
   try {
-    let getDoctors = await DoctorModel.find({ isApproved: true, role: "doctor", specialization: req.query.disease })
+    let getDoctors = await DoctorModel.find({ isApproved: true, role: "doctor", specialization: req.params.disease })
       .lean()
       .select(["name", "specialization", "experience", "degree", "clinicName", "clinicAddress"]);
     return sendResponse(
