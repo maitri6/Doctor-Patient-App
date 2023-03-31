@@ -124,7 +124,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
 
 exports.getAllAppointments = async (req, res, next) => {
   try {
-    let getAllAppointments = await AppointmentModel.find({ doctorId: req.user.userId })
+    let getAllAppointments = await AppointmentModel.find({ doctorId: req.query.doctorId })
       .lean()
       .sort({createdAt: -1})
       .populate({
@@ -138,7 +138,9 @@ exports.getAllAppointments = async (req, res, next) => {
       "Appointments fetched successfully",
       getAllAppointments
     );
-  } catch (error) {  }
+  } catch (error) {  
+    console.log(error);
+  }
 };
 
 

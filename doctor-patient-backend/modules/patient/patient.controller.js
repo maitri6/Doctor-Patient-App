@@ -77,14 +77,17 @@ exports.getTimeSlots = async (req, res, next) => {
       400,
       "No slots available"
     );
-  } catch (error) { }
+  } catch (error) { 
+    console.log(error);
+  }
 };
 
 
 exports.patientForm = async (req, res, next) => {
   try {
     let existingAppointments = await AppointmentModel.find({ patientId: req.user.userId, date: req.query.date, doctorId: req.body.doctorId });
-    if (existingAppointments.length > 0) {
+    console.log(existingAppointments.date);
+    if (existingAppointments.length > 0 && req.body.date==existingAppointments.date && req.body.time==existingAppointments.time) {
       return sendResponse(
         res,
         false,
@@ -107,10 +110,12 @@ exports.patientForm = async (req, res, next) => {
       res,
       true,
       200,
-      "You can take appointment for today",
+      "Your appointment is booked for today",
       saveForm
     );
-  } catch (error) {}   
+  } catch (error) {
+    console.log(error);
+  }   
 };
 
 
