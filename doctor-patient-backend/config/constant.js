@@ -38,7 +38,10 @@ const SPECIALITY=[
 {name:"Orthopaedics",key:"orthopaedics"},
 {name:"General Physician",key:"generalPhysician"},
 {name:"Ear, Nose and Throat",key:"earNoseAndThroat"},
-{name:"Neurology",key:"neurology"}
+{name:"Neurology",key:"neurology"},
+{name:"Dentist",key:"dentist"},
+{name:"Paediatrician",key:"paediatrician"}
+
 ]
 
 
@@ -55,15 +58,19 @@ const BLOOD_GROUP=[
 
 
 const COMMON_SYMPTOMS=[
-{name:"fever",key:"generalPhysician",image:"fever.png"},
-{name:"cold",key:"generalPhysician",image:"cold.jpeg"},
-{name:"heart",key:"cardiology",image:"heart.jpeg"},
-{name:"bones",key:"orthopaedics",image:"bones.png"},    
-{name:"pregnancy",key:"obstetricsAndGynaecology",image:"preganacy.jpeg"},
-{name:"brain",key:"neurology",image:"brain.png"},
-{name:"skin",key:"dermatology",image:"skin.png"},
-{name:"hair",key:"dermatology",image:"hair.png"},
-{name:"eyes",key:"ophthalmologist",image:"eyes.jpg"}
+{name:"Fever",key:"generalPhysician",image:"fever.png"},
+{name:"Cold",key:"generalPhysician",image:"cold.jpeg"},
+{name:"Heart",key:"cardiology",image:"heart.jpeg"},
+{name:"Bones",key:"orthopaedics",image:"bones.png"},    
+{name:"Pregnancy",key:"obstetricsAndGynaecology",image:"pregnancy.jpeg"},
+{name:"Brain",key:"neurology",image:"brain.png"},
+{name:"Skin",key:"dermatology",image:"skin.png"},
+{name:"Hair",key:"dermatology",image:"hair.png"},
+{name:"Eyes",key:"ophthalmologist",image:"eyes.jpg"},
+{name:"Ear",key:"otolaryngologist",image:"ear.jpeg"},
+{name:"Nose",key:"otolaryngologist",image:"nose.jpeg"},
+{name:"Teeth",key:"dentist",image:"teeth.png"},
+//{name:"Child",key:"paediatrician",image:"child.jpeg"}
 ]
 
 const COLLEGES=[

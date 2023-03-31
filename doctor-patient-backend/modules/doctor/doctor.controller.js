@@ -37,7 +37,7 @@ exports.doctorForm = async (req, res, next) => {
       res,
       true,
       200,
-      "Form submitted successfully",
+      "Doctor form submitted successfully",
       saveDoctor
     );
   } catch (error) { }
@@ -138,7 +138,9 @@ exports.getAllAppointments = async (req, res, next) => {
       "Appointments fetched successfully",
       getAllAppointments
     );
-  } catch (error) {  }
+  } catch (error) {  
+    console.log(error);
+  }
 };
 
 
