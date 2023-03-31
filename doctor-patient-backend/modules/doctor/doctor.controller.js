@@ -124,7 +124,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
 
 exports.getAllAppointments = async (req, res, next) => {
   try {
-    let getAllAppointments = await AppointmentModel.find({ doctorId: req.query.doctorId })
+    let getAllAppointments = await AppointmentModel.find({ doctorId: req.user.userId })
       .lean()
       .sort({createdAt: -1})
       .populate({
