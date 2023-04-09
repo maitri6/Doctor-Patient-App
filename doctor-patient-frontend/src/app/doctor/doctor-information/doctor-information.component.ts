@@ -189,24 +189,28 @@ export class DoctorInformationComponent implements OnInit {
   }
   //save doctor form
   saveForm() {
-    // this.DoctorForm.profileImage=this.selectedFile
+    //to update fields use set if complete form group update
+    this.DoctorForm.patchValue({
+      profileImage: this.selectedFile.name
+    });
+
     this.doctorService.saveForm(this.DoctorForm.value).subscribe(
       (res: any) => {
         if (res.statusCode == 200) {
           this.router.navigate(['/login']);
-          // this.notifyService.showToastSuccess(res.statusMessage);
+           this.notifyService.showToastSuccess(res.statusMessage);
         }
       },
       (err: any) => {
         if (err.error.statusCode == 400) {
           this.router.navigate(['/saveDoctorForm']);
-          // this.notifyService.showToastError(err.error.statusMessage);
+           this.notifyService.showToastError(err.error.statusMessage);
         } else if (err.error.statusCode == 422) {
           this.router.navigate(['/saveDoctorForm']);
-          // this.notifyService.showToastError(err.error.statusMessage);
+           this.notifyService.showToastError(err.error.statusMessage);
         } else {
           this.router.navigate(['/saveDoctorForm']);
-          // this.notifyService.showToastError(err.error.statusMessage);
+           this.notifyService.showToastError(err.error.statusMessage);
         }
       }
     );
