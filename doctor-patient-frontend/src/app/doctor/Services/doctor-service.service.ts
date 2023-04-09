@@ -60,4 +60,8 @@ export class DoctorServiceService {
   getAllAppointments(): Observable<any>{
     return this.http.get(this.baseUrl + this.doctorPath+'/getAllAppointments',this.httpOptions);
   }
+
+  uploadProfile(formData:any): Observable<any>{
+    return this.http.post(this.baseUrl +'/uploadImage',formData);
+  }
 }

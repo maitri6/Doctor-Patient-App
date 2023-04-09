@@ -1,17 +1,15 @@
 const DoctorModel = require("../doctor/doctor.model");
 const UserModel = require("../userAuth/user.model");
 const AppointmentModel = require("../patient/bookAppointment.model");
-const { IDENTITY_PROOF, BOOKED_SLOTS } = require('../../config/constant');
-const { TITLES } = require('../../config/constant');
-const { DEGREE } = require('../../config/constant');
-const { SPECIALITY } = require('../../config/constant');
-const { BLOOD_GROUP } = require('../../config/constant');
-const { COLLEGES } = require('../../config/constant');
+const { IDENTITY_PROOF, BOOKED_SLOTS } = require("../../config/constant");
+const { TITLES } = require("../../config/constant");
+const { DEGREE } = require("../../config/constant");
+const { SPECIALITY } = require("../../config/constant");
+const { BLOOD_GROUP } = require("../../config/constant");
+const { COLLEGES } = require("../../config/constant");
 let { City } = require("country-state-city");
 const bcrypt = require("bcrypt");
 const { sendResponse } = require("../../helpers/requestHandler.helper");
-
-
 
 exports.doctorForm = async (req, res, next) => {
   try {
@@ -40,7 +38,7 @@ exports.doctorForm = async (req, res, next) => {
       "Doctor form submitted successfully",
       saveDoctor
     );
-  } catch (error) { }
+  } catch (error) {}
 };
 
 exports.getCityAndYear = async (req, res, next) => {
@@ -57,9 +55,8 @@ exports.getCityAndYear = async (req, res, next) => {
     } else {
       return sendResponse(res, false, 400, "Please enter the valid type");
     }
-  } catch (error) { }
+  } catch (error) {}
 };
-
 
 exports.getDoctorAndPatientDetails = async (req, res, next) => {
   try {
@@ -79,8 +76,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         "Degree fetched successfully",
         DEGREE
       );
-    }
-    else if (req.query.type == "speciality") {
+    } else if (req.query.type == "speciality") {
       return sendResponse(
         res,
         true,
@@ -88,8 +84,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         "Speciality fetched successfully",
         SPECIALITY
       );
-    }
-    else if (req.query.type == "title") {
+    } else if (req.query.type == "title") {
       return sendResponse(
         res,
         true,
@@ -97,8 +92,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         "Titles fetched successfully",
         TITLES
       );
-    }
-    else if (req.query.type == "bloodGroup") {
+    } else if (req.query.type == "bloodGroup") {
       return sendResponse(
         res,
         true,
@@ -106,8 +100,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         "Blood group fetched successfully",
         BLOOD_GROUP
       );
-    }
-    else if (req.query.type == "colleges") {
+    } else if (req.query.type == "colleges") {
       return sendResponse(
         res,
         true,
@@ -121,16 +114,24 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
   }
 };
 
-
 exports.getAllAppointments = async (req, res, next) => {
   try {
-    let getAllAppointments = await AppointmentModel.find({ doctorId: req.user.userId })
+    let getAllAppointments = await AppointmentModel.find({
+      doctorId: req.user.userId,
+    })
       .lean()
-      .sort({createdAt: -1})
+      .sort({ createdAt: -1 })
       .populate({
-        path:'patientId',
-        select: 'name height weight bloodGroup'})
-      .select(["date", "time", "description","appointmentType","isAppointment"]);
+        path: "patientId",
+        select: "name height weight bloodGroup",
+      })
+      .select([
+        "date",
+        "time",
+        "description",
+        "appointmentType",
+        "isAppointment",
+      ]);
     return sendResponse(
       res,
       true,
@@ -138,17 +139,12 @@ exports.getAllAppointments = async (req, res, next) => {
       "Appointments fetched successfully",
       getAllAppointments
     );
-  } catch (error) {  
-    console.log(error);
-  }
+  } catch (error) {}
 };
-
-
 
 exports.updateProfile = async (req, res, next) => {
   try {
     let findDoctor = await UserModel.findById(req.user.userId);
-    console.log(findDoctor._id)
     // if (!findDoctor) {
     //   return sendResponse(
     //     res,
@@ -157,68 +153,48 @@ exports.updateProfile = async (req, res, next) => {
     //     "Doctor not found "
     //   );
     // }
-     // let doctor = await DoctorModel.find({userId: })
+    // let doctor = await DoctorModel.find({userId: })
     //  console.log(doctor)
     //await DoctorModel.updateOne({ userId: findDoctor._id }, { $set: { ...req.body} });
     //console.log(findDoctor.degree)
 
-    return sendResponse(
-      res,
-      true,
-      200,
-      "Doctor profile updated successfully"
-    );
+    return sendResponse(res, true, 200, "Doctor profile updated successfully");
   } catch (error) {
     console.log(error);
   }
 };
 
-
-
 exports.updatePatientStatus = async (req, res, next) => {
   try {
-    let getAppointments = await AppointmentModel.findById({ _id: req.query._id });
-    console.log(getAppointments)
+    let getAppointments = await AppointmentModel.findById({
+      _id: req.query._id,
+    });
+    console.log(getAppointments);
     //console.log()
     if (!getAppointments) {
-      return sendResponse(
-        res,
-        false,
-        400,
-        "Appointment not found"
-      );
+      return sendResponse(res, false, 400, "Appointment not found");
     }
-    console.log(getAppointments.time)
+    console.log(getAppointments.time);
 
-    const appointmentTime = moment(getAppointments.time,'HH:mm');
-     console.log(appointmentTime)
-     const scheduledTime = appointmentTime.clone().add(30, 'minutes');
-     console.log(scheduledTime)
-      if (appointmentTime < scheduledTime && getAppointments.isAppointment !== 'Completed') {
-        await AppointmentModel.updateOne({ _id: getAppointments._id }, { $set: { isAppointment: "completed" } });
-        //getAppointments.isAppointment = 'Completed';
-        //getAppointments.save();
-        console.log("status updated !!")
-      }
-      else{
-        console.log("not done");
-      }
-
-
+    const appointmentTime = moment(getAppointments.time, "HH:mm");
+    console.log(appointmentTime);
+    const scheduledTime = appointmentTime.clone().add(30, "minutes");
+    console.log(scheduledTime);
+    if (
+      appointmentTime < scheduledTime &&
+      getAppointments.isAppointment !== "Completed"
+    ) {
+      await AppointmentModel.updateOne(
+        { _id: getAppointments._id },
+        { $set: { isAppointment: "completed" } }
+      );
+      //getAppointments.isAppointment = 'Completed';
+      //getAppointments.save();
+      console.log("status updated !!");
+    } else {
+      console.log("not done");
+    }
   } catch (error) {
     console.log(error);
-   }
+  }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-

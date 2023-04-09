@@ -1,4 +1,4 @@
-<form [formGroup]="DoctorForm">
+<form [formGroup]="DoctorForm" >
 <section class="h-100 bg-dark">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -37,9 +37,12 @@
                   <!-- file -->
                   <div class="row">
                     <div class="col-md-12 mb-4">
-                      <label for="file">My Profile</label>
+                      <label for="file">Upload Profile Image</label>
                       <br>
-                      <input type="file" id="file" formControlName="myFile">
+                      <input type="file" id="file" formControlName="myFile" (change)="onFileSelected($event)">
+                      <br>
+                      <br>
+                      <button (click)="uploadProfile()">Upload</button>
                   </div>     
                   </div>
 
@@ -173,7 +176,7 @@
                       <option value="">Select Year </option>
                       <option *ngFor="let year of Year" [ngValue]="year">{{year}}</option>
                     </select>
-                  </div> 
+                  </div>
                     <div class="col-md-6 mb-4">
                       <label class="form-label" for="form3Example1n1">Degree</label>
                       <br>
