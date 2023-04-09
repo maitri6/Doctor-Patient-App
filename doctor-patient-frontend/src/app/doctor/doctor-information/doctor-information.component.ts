@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-// import { NotficationServiceService } from '../../Notification/notfication-service.service';
+ import { NotficationServiceService } from '../../Notification/notfication-service.service';
 import { Router } from '@angular/router';
 import { DoctorServiceService } from '../Services/doctor-service.service';
 @Component({
@@ -10,7 +10,7 @@ import { DoctorServiceService } from '../Services/doctor-service.service';
 })
 export class DoctorInformationComponent implements OnInit {
   constructor(
-    // private notifyService: NotficationServiceService,
+     private notifyService: NotficationServiceService,
     private router: Router,
     private doctorService: DoctorServiceService
   ) {}
@@ -31,6 +31,13 @@ export class DoctorInformationComponent implements OnInit {
   Specialization: any;
   Degree: any;
   College:any;
+  FormData:any;
+  selectedFile:any;
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile = file;
+  }
 
   DoctorForm = new FormGroup({
     title: new FormControl('', []),
@@ -57,10 +64,28 @@ export class DoctorInformationComponent implements OnInit {
     clinicAddress: new FormControl('', []),
     clinicNo: new FormControl('', []),
     clinicFees: new FormControl('', []),
+    profileImage:new FormControl('', [])
   });
 
   get f() {
     return this.DoctorForm.controls;
+  }
+
+
+  uploadProfile() {
+    let formData = new FormData();
+    formData.append('image', this.selectedFile, this.selectedFile.name);
+    this.doctorService.uploadProfile(formData).subscribe(
+      (res: any) => {
+      this.notifyService.showToastSuccess(res.statusMessage);
+      },
+      (err: any) => {
+        if (err.error.statusCode == 500) {
+          this.router.navigate(['/saveDoctorForm']);
+           this.notifyService.showToastError(err.error.statusMessage);
+        }
+      }
+    );
   }
 
   // get all citites
@@ -153,7 +178,6 @@ export class DoctorInformationComponent implements OnInit {
     this.doctorService.getAllColleges().subscribe(
       (res: any) => {
         this.College = res.data;
-        console.log(this.College);
       },
       (err: any) => {
         if (err.error.statusCode == 500) {
@@ -165,23 +189,28 @@ export class DoctorInformationComponent implements OnInit {
   }
   //save doctor form
   saveForm() {
+    //to update fields use set if complete form group update
+    this.DoctorForm.patchValue({
+      profileImage: this.selectedFile.name
+    });
+
     this.doctorService.saveForm(this.DoctorForm.value).subscribe(
       (res: any) => {
         if (res.statusCode == 200) {
           this.router.navigate(['/login']);
-          // this.notifyService.showToastSuccess(res.statusMessage);
+           this.notifyService.showToastSuccess(res.statusMessage);
         }
       },
       (err: any) => {
         if (err.error.statusCode == 400) {
           this.router.navigate(['/saveDoctorForm']);
-          // this.notifyService.showToastError(err.error.statusMessage);
+           this.notifyService.showToastError(err.error.statusMessage);
         } else if (err.error.statusCode == 422) {
           this.router.navigate(['/saveDoctorForm']);
-          // this.notifyService.showToastError(err.error.statusMessage);
+           this.notifyService.showToastError(err.error.statusMessage);
         } else {
           this.router.navigate(['/saveDoctorForm']);
-          // this.notifyService.showToastError(err.error.statusMessage);
+           this.notifyService.showToastError(err.error.statusMessage);
         }
       }
     );

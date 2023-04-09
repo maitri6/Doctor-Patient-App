@@ -16,10 +16,10 @@ const routes: Routes =[
   { path: "", component:  AuthComponent },
   { path: "login", component:  AuthComponent},
   { path: "register", component:  AuthRegisterComponent },
-  { path: "forget-password", component: ForgetPasswordComponent ,canActivate: [AuthGuard] },
-  { path: "reset-password/:token", component: ResetPasswordComponent ,canActivate: [AuthGuard] },
+  { path: "forget-password", component: ForgetPasswordComponent  },
+  { path: "reset-password/:token", component: ResetPasswordComponent  },
   { path: "otp-verification/:id", component: OtpVerificationComponent ,canActivate: [AuthGuard] },
-   { path: "saveDoctorForm", component: DoctorInformationComponent ,canActivate: [AuthGuard]},
+   { path: "saveDoctorForm", component: DoctorInformationComponent },
   {
     path: '',
     component: AdminLayoutComponent,

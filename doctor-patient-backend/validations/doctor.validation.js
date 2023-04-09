@@ -27,6 +27,7 @@ const doctorValidation = async (req, res, next) => {
       college: Joi.string().required(),
       year: Joi.number().required(),
       experience: Joi.number().required(),
+      profileImage: Joi.string().required(),
 
     }).options({ allowUnknown: true });
     const { value, error } = schema.validate(req.body);
