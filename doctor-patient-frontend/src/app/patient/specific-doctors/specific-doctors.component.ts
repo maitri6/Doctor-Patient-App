@@ -27,11 +27,9 @@ export class SpecificDoctorsComponent implements OnInit{
   DoctorsData:any;
   // get all Doctors
   getAllApprovedDoctors(disease:any) {
-    console.log(this.disease)
     this.patientService.getAllApprovedDoctorsList(this.disease).subscribe(
       (res: any) => {
         this.DoctorsData = res.data;
-        console.log("doctorsList",this.DoctorsData)
         this.notifyService.showToastSuccess(res.statusMessage);
       },
       (err: any) => {

@@ -33,7 +33,7 @@ const SPECIALITY=[
 {name:"Dermatology",key:"dermatology"},
 {name:"Ophthalmologist",key:"ophthalmologist"},    
 {name:"Pharmacology",key:"pharmacology"},
-{name:"Physician",key:"physician"},
+// {name:"Physician",key:"physician"},
 {name:"Cardiology",key:"cardiology"},
 {name:"Orthopaedics",key:"orthopaedics"},
 {name:"General Physician",key:"generalPhysician"},
