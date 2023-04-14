@@ -131,6 +131,14 @@ exports.getAllAppointments = async (req, res, next) => {
         path:'patientId',
         select: 'name height weight bloodGroup'})
       .select(["date", "time", "description","appointmentType","isAppointment"]);
+      if(getAllAppointments.length==0){
+        return sendResponse(
+          res,
+          false,
+          400,
+          "No appointments available for today",
+        );
+      }
     return sendResponse(
       res,
       true,
@@ -138,6 +146,7 @@ exports.getAllAppointments = async (req, res, next) => {
       "Appointments fetched successfully",
       getAllAppointments
     );
+  
   } catch (error) {  
     console.log(error);
   }
