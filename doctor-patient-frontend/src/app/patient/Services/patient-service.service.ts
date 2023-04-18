@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class PatientServiceService {
   baseUrl = environment.apiBaseUrl;
-  patientPath='patient'
   constructor(private http:HttpClient) { }
   token =localStorage.getItem('token')
   httpOptions = {
@@ -18,12 +17,20 @@ export class PatientServiceService {
  };
 
   getAllDiseasesList(): Observable<any>{
-    return this.http.get(this.baseUrl + this.patientPath+'/getAllDiseases',this.httpOptions);
+    return this.http.get(this.baseUrl + 'patient'+'/getAllDiseases',this.httpOptions);
   }
 
   getAllApprovedDoctorsList(disease:any): Observable<any>{
     // let params = new HttpParams();
     // params = params.append('disease', 'cardiology');
-    return this.http.get(this.baseUrl + this.patientPath + '/getAllApprovedDoctors/'+disease ,{...this.httpOptions});
+    return this.http.get(this.baseUrl + 'patient' + '/getAllApprovedDoctors/'+disease ,{...this.httpOptions});
+  }
+
+  getAllAppointmentDates(): Observable<any>{
+    return this.http.get(this.baseUrl + 'patient' + '/getAllAppointmentDates'+{...this.httpOptions});
+  }
+
+  getAllAppointmentTimeslotes(): Observable<any>{
+    return this.http.get(this.baseUrl + 'patient' + '/getAllAppointmentTimeSlots'+{...this.httpOptions});
   }
 }

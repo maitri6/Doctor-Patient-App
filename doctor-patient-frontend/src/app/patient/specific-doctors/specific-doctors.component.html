@@ -1,7 +1,7 @@
 <div class="main-content">
     <div class="container-fluid">
       <div class="row">
-        <mat-card *ngFor="let doctor of DoctorsData" >
+        <mat-card *ngFor="let doctor of DoctorsData"  (click)="onDoctorCardClicked(doctor)">
           <mat-card-header>
          
             <div mat-card-avatar>

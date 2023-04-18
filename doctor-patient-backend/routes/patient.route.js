@@ -9,8 +9,8 @@ const patientController = require("../modules/patient/patient.controller");
 
 router.get("/getAllApprovedDoctors/:disease",authenticated,patientController.getAllApprovedDoctors);
 router.get("/getAllDiseases",authenticated,patientController.getAllDiseases);
-router.post("/patientForm",authenticated,patientController.patientForm);
-router.get("/getAllDate",authenticated,patientController.getAllDate);
-router.get("/getTimeSlots",authenticated,patientController.getTimeSlots);
+router.post("/bookPatientAppointment",authenticated,patientController.patientForm);
+router.get("/getAllAppointmentDates",authenticated,patientController.getAllDate);
+router.get("/getAllAppointmentTimeSlots",authenticated,patientController.getTimeSlots);
 
 module.exports = router;
