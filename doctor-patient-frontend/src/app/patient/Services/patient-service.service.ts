@@ -36,4 +36,9 @@ export class PatientServiceService {
     params = params.append('date', '18-04-2023');
     return this.http.get(this.baseUrl + 'patient' + '/getAllAppointmentTimeSlots',{ params: params,...this.httpOptions });
   }
+
+  bookPatientAppointment(data : any): Observable<any>{
+    return this.http.post(this.baseUrl + 'patient'+'/bookPatientAppointment', data,{...this.httpOptions});
+  }
+
 }
