@@ -11,15 +11,31 @@ const { COMMON_SYMPTOMS } = require('../../config/constant');
 exports.getAllApprovedDoctors = async (req, res, next) => {
   try {
     let getDoctors = await DoctorModel.find({ isApproved: true, role: "doctor", specialization: req.params.disease })
+    //.lean()
+    //.select(["profileImage","name", "specialization", "experience", "degree", "clinicName", "clinicAddress"]);
       .lean()
-      .select(["name", "specialization", "experience", "degree", "clinicName", "clinicAddress"]);
+      .sort({ createdAt: -1 })
+      .populate({
+        path: "userId",
+        select: "profileImage",
+      })
+      .select([
+        "name",
+        "specialization",
+        "experience",
+        "degree",
+        "clinicName",
+        "clinicAddress"
+      ]);
     return sendResponse(
       res,
       true,
       200,
       "List of doctors", getDoctors
     );
-  } catch (error) { }
+  } catch (error) {
+    console.log(error);
+   }
 };
 
 exports.getAllDiseases = async (req, res, next) => {
@@ -31,7 +47,7 @@ exports.getAllDiseases = async (req, res, next) => {
       "Disease fetched successfully",
       COMMON_SYMPTOMS
     );
-  } catch (error) { 
+  } catch (error) {
     console.log(error);
   }
 };
@@ -77,7 +93,7 @@ exports.getTimeSlots = async (req, res, next) => {
       400,
       "No slots available"
     );
-  } catch (error) { 
+  } catch (error) {
     console.log(error);
   }
 };
@@ -87,7 +103,7 @@ exports.patientForm = async (req, res, next) => {
   try {
     let existingAppointments = await AppointmentModel.find({ patientId: req.user.userId, date: req.query.date, doctorId: req.body.doctorId });
     console.log(existingAppointments.date);
-    if (existingAppointments.length > 0 && req.body.date==existingAppointments.date && req.body.time==existingAppointments.time) {
+    if (existingAppointments.length > 0 && req.body.date == existingAppointments.date && req.body.time == existingAppointments.time) {
       return sendResponse(
         res,
         false,
@@ -97,14 +113,14 @@ exports.patientForm = async (req, res, next) => {
     }
     console.log(req.body.date)
     req.body.patientId = req.user.userId;
-    let doctorAvailable = await DoctorModel.findById({_id: req.body.doctorId})
-     if(req.body.date==doctorAvailable.notAvailable)
-     return sendResponse(
-      res,
-      false,
-      400,
-      "Doctor is not available today"
-    );
+    let doctorAvailable = await DoctorModel.findById({ _id: req.body.doctorId })
+    if (req.body.date == doctorAvailable.notAvailable)
+      return sendResponse(
+        res,
+        false,
+        400,
+        "Doctor is not available today"
+      );
     let saveForm = await AppointmentModel.create(req.body);
     return sendResponse(
       res,
@@ -115,7 +131,7 @@ exports.patientForm = async (req, res, next) => {
     );
   } catch (error) {
     console.log(error);
-  }   
+  }
 };
 
 
