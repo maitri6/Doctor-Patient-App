@@ -6,10 +6,10 @@ const userSchema = new mongoose.Schema(
       default: "",
       trim: true,
     },
-    name: {
-      type: String,
-      trim: true,
-    },
+    // name: {
+    //   type: String,
+    //   trim: true,
+    // },
     specialization: {
       type: String,
     },
