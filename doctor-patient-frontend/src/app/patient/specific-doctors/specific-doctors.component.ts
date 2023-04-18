@@ -40,4 +40,9 @@ export class SpecificDoctorsComponent implements OnInit{
       }
     );
   }
+
+  onDoctorCardClicked(doctor:any) {
+    console.log(doctor)
+     this.router.navigate(['/bookPatientAppointment', doctor._id]);
+  }
 }
