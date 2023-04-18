@@ -1,4 +1,4 @@
-import { Component ,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NotficationServiceService } from '../../Notification/notfication-service.service';
 import { Router } from '@angular/router';
 import { PatientServiceService } from '../Services/patient-service.service';
@@ -6,9 +6,9 @@ import { PatientServiceService } from '../Services/patient-service.service';
 @Component({
   selector: 'app-disease',
   templateUrl: './disease.component.html',
-  styleUrls: ['./disease.component.css']
+  styleUrls: ['./disease.component.css'],
 })
-export class DiseaseComponent implements OnInit{
+export class DiseaseComponent implements OnInit {
   constructor(
     private notifyService: NotficationServiceService,
     private router: Router,
@@ -16,7 +16,7 @@ export class DiseaseComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-     this.getAllDisease();
+    this.getAllDisease();
   }
   DiseaseList: any;
   // get all Disease
@@ -35,9 +35,7 @@ export class DiseaseComponent implements OnInit{
     );
   }
 
-  onCardClicked(disease:any) {
-    console.log(disease);
-     this.router.navigate(['/diseaseSpecificDoctors', disease.key]);
+  onCardClicked(disease: any) {
+    this.router.navigate(['/diseaseSpecificDoctors', disease.key]);
   }
-
 }

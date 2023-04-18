@@ -25,6 +25,7 @@ import { DiseaseComponent } from './patient/disease/disease.component';
 import { SpecificDoctorsComponent } from './patient/specific-doctors/specific-doctors.component';
 import { MyAppointmentsComponent } from './doctor/my-appointments/my-appointments.component';
 import { PatientAppointmentComponent } from './patient/patient-appointment/patient-appointment.component';
+import { BookPatientAppointmentComponent } from './patient/book-patient-appointment/book-patient-appointment.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -54,7 +55,8 @@ import { PatientAppointmentComponent } from './patient/patient-appointment/patie
     DiseaseComponent,
     SpecificDoctorsComponent,
     MyAppointmentsComponent,
-    PatientAppointmentComponent
+    PatientAppointmentComponent,
+    BookPatientAppointmentComponent
   ],
   providers: [AuthGuard, RoleGuard],
   bootstrap: [AppComponent]
