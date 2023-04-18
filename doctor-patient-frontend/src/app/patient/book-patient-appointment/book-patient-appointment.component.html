@@ -6,12 +6,34 @@
       </div>
       <div class="card-body">
         <form class="form" [formGroup]="">
-            <div>
-                <label for="doctor"></label>
-                <select class="form-control" id="doctor" formControlName="doctor" required>
-                  <option *ngFor="let doctor of Dates" [ngValue]="">{{ "" }}</option>
-                </select>
-              </div>
+          <div>
+            <label for="date">Appointment Date</label>
+            <select
+              class="form-control"
+              id="date"
+              formControlName="date"
+              required
+            >
+              <option *ngFor="let date of appointmentDates" [ngValue]="date">
+                {{ date }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label for="date">Appointment Time</label>
+            <select
+              class="form-control"
+              id="time"
+              formControlName="time"
+              required
+            >
+              <option *ngFor="let time of appointmentTimeslotes" [ngValue]="time">
+                {{ time }}
+              </option>
+            </select>
+          </div>
+
           <div>
             <label for="description">Description</label>
             <textarea
@@ -20,10 +42,7 @@
               id="description"
               formControlName="description"
               required=""
-              ></textarea>
-           
-           
-            
+            ></textarea>
           </div>
           <div>
             <button
