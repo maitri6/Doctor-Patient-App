@@ -9,6 +9,7 @@ export class PatientServiceService {
   baseUrl = environment.apiBaseUrl;
   constructor(private http:HttpClient) { }
   token =localStorage.getItem('token')
+
   httpOptions = {
    headers: new HttpHeaders({
      'Content-Type': 'application/json',
@@ -27,10 +28,12 @@ export class PatientServiceService {
   }
 
   getAllAppointmentDates(): Observable<any>{
-    return this.http.get(this.baseUrl + 'patient' + '/getAllAppointmentDates'+{...this.httpOptions});
+    return this.http.get(this.baseUrl + 'patient' + '/getAllAppointmentDates',{...this.httpOptions});
   }
 
-  getAllAppointmentTimeslotes(): Observable<any>{
-    return this.http.get(this.baseUrl + 'patient' + '/getAllAppointmentTimeSlots'+{...this.httpOptions});
+  getAllAppointmentTimeslotes(date:any): Observable<any>{
+     let params = new HttpParams();
+    params = params.append('date', '18-04-2023');
+    return this.http.get(this.baseUrl + 'patient' + '/getAllAppointmentTimeSlots',{ params: params,...this.httpOptions });
   }
 }
