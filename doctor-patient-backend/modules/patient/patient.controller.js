@@ -59,9 +59,17 @@ exports.getAllDate = async (req, res, next) => {
 
 exports.getTimeSlots = async (req, res, next) => {
   try {
-    let doctorSlot = await AppointmentModel.find({ date: req.query.date });
-    if (doctorSlot) {
-      const BOOKED_SLOTS = doctorSlot.map(obj => obj.time);
+    let getPatientAppointment = await AppointmentModel.find({ date: req.query.date });
+    if(!getPatientAppointment.length>0){
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Available slots fetched successfully",
+        VISTING_SLOTS
+      );
+    }
+      const BOOKED_SLOTS = getPatientAppointment.map(obj => obj.time);
       const AVAILABLE_SLOTS = VISTING_SLOTS.filter(element => !BOOKED_SLOTS.includes(element));
       return sendResponse(
         res,
@@ -70,13 +78,7 @@ exports.getTimeSlots = async (req, res, next) => {
         "Available slots fetched successfully",
         AVAILABLE_SLOTS
       );
-    }
-    return sendResponse(
-      res,
-      false,
-      400,
-      "No slots available"
-    );
+
   } catch (error) { 
     console.log(error);
   }
