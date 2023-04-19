@@ -32,9 +32,9 @@ export class PatientServiceService {
   }
 
   getAllAppointmentTimeslotes(date:any): Observable<any>{
-     let params = new HttpParams();
-    params = params.append('date', '18-04-2023');
-    return this.http.get(this.baseUrl + 'patient' + '/getAllAppointmentTimeSlots',{ params: params,...this.httpOptions });
+    //  let params = new HttpParams();
+    // params = params.append('date', new Date('')); params: params,
+    return this.http.get(this.baseUrl + 'patient' + '/getAllAppointmentTimeSlots',{ ...this.httpOptions });
   }
 
   bookPatientAppointment(data : any): Observable<any>{
