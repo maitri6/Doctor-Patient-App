@@ -12,5 +12,6 @@ router.get("/getAllDiseases",authenticated,patientController.getAllDiseases);
 router.post("/bookPatientAppointment",authenticated,patientController.patientForm);
 router.get("/getAllAppointmentDates",authenticated,patientController.getAllDate);
 router.get("/getAllAppointmentTimeSlots",authenticated,patientController.getTimeSlots);
+router.get("/getPatientAppointment",authenticated,patientController.getPatientAppointment);
 
 module.exports = router;
