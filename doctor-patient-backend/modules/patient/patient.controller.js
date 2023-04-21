@@ -138,7 +138,7 @@ exports.patientForm = async (req, res, next) => {
 
 exports.getPatientAppointment = async (req, res, next) => {
   try {
-    const getAppointment = await AppointmentModel.find({ isAppointment: "pending" })
+    const getAppointment = await AppointmentModel.find({ patientId:req.user.userId})
       .lean()
       .sort({ createdAt: -1 })
       .populate({
