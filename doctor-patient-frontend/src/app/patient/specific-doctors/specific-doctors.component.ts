@@ -30,6 +30,7 @@ export class SpecificDoctorsComponent implements OnInit{
     this.patientService.getAllApprovedDoctorsList(this.disease).subscribe(
       (res: any) => {
         this.DoctorsData = res.data;
+        console.log( this.DoctorsData)
         this.notifyService.showToastSuccess(res.statusMessage);
       },
       (err: any) => {
@@ -42,7 +43,6 @@ export class SpecificDoctorsComponent implements OnInit{
   }
 
   onDoctorCardClicked(doctor:any) {
-    console.log(doctor)
      this.router.navigate(['/bookPatientAppointment', doctor._id]);
   }
 }

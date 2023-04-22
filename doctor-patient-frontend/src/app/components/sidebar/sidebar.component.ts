@@ -20,8 +20,9 @@ export const ROUTES: RouteInfo[] = [
     { path: '/adminList', title: 'Admins List',  icon:'content_paste', class: '' ,data: { allowedRoles: ['admin'] }, canActivate: [AuthGuard,RoleGuard]},
     { path: '/doctorList', title: 'Doctors List',  icon:'content_paste', class: '' ,data: { allowedRoles: ['admin'] }, canActivate: [AuthGuard,RoleGuard]},
     { path: '/patientList', title: 'Patients List',  icon:'content_paste', class: '',data: { allowedRoles: ['admin'] }, canActivate: [AuthGuard,RoleGuard] },
-    { path: '/diseaseList', title: 'Disease List',  icon:'content_paste', class: '',data: { allowedRoles: ['admin','patient'] }, canActivate: [AuthGuard,RoleGuard] },
-    { path: '/doctorAppointmentLists', title: 'Appointment List',  icon:'content_paste', class: '',data: { allowedRoles: ['admin','doctor'] }, canActivate: [AuthGuard,RoleGuard] },
+    { path: '/diseaseList', title: 'Disease List',  icon:'content_paste', class: '',data: { allowedRoles: ['patient'] }, canActivate: [AuthGuard,RoleGuard] },
+    { path: '/doctorAppointmentLists', title: 'My Appointments',  icon:'content_paste', class: '',data: { allowedRoles: ['doctor'] }, canActivate: [AuthGuard,RoleGuard] },
+    { path: '/patientAppointmentLists', title: 'My Appointments',  icon:'content_paste', class: '',data: { allowedRoles: ['patient'] }, canActivate: [AuthGuard,RoleGuard] },
 ];
 
 @Component({
