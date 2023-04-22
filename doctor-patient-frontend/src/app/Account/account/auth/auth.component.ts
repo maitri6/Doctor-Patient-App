@@ -3,6 +3,7 @@ import { AccountService } from '../../account.service';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { NotficationServiceService } from '../../../Notification/notfication-service.service';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -12,7 +13,7 @@ export class AuthComponent implements OnInit {
 decodeToken:any
   constructor(
     private authService: AccountService,
-    // private notifyService: NotficationServiceService,
+     private notifyService: NotficationServiceService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -37,7 +38,7 @@ decodeToken:any
       if (res.statusCode == 200) {
         // this.router.navigate(['/otp-verification/'+res.data.getUser._id]);
         this.router.navigate(['/dashboard']);
-        // this.notifyService.showToastSuccess(res.statusMessage);
+         this.notifyService.showToastSuccess(res.statusMessage);
         localStorage.setItem('token', res.data.token);
          this.decodeToken=jwt_decode(res.data.token)
         localStorage.setItem('role', this.decodeToken.role);
@@ -46,14 +47,14 @@ decodeToken:any
      },(err : any) => {
       if (err.error.statusCode == 404) {
         this.router.navigate(['/login']);
-        // this.notifyService.showToastError(err.error.statusMessage);
+         this.notifyService.showToastError(err.error.statusMessage);
       } else if (err.error.statusCode == 422) {
         this.router.navigate(['/login']);
-        // this.notifyService.showToastError(err.error.statusMessage);
+         this.notifyService.showToastError(err.error.statusMessage);
       }
       else{
         this.router.navigate(['/login']);
-        // this.notifyService.showToastError(err.error.statusMessage);
+         this.notifyService.showToastError(err.error.statusMessage);
       }
      })
   }

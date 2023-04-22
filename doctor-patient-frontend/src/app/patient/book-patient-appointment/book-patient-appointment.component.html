@@ -5,7 +5,7 @@
         <h3 class="mb-0">Book Appointment</h3>
       </div>
       <div class="card-body">
-        <form class="form" [formGroup]="">
+        <form class="form" [formGroup]="BookAppointment">
           <div>
             <label for="date">Appointment Date</label>
             <select
@@ -21,7 +21,7 @@
           </div>
 
           <div>
-            <label for="date">Appointment Time</label>
+            <label for="time">Appointment Time</label>
             <select
               class="form-control"
               id="time"
@@ -30,6 +30,24 @@
             >
               <option *ngFor="let time of appointmentTimeslotes" [ngValue]="time">
                 {{ time }}
+              </option>
+            </select>
+            <div *ngIf="appointmentTimeslotes.length === 0">No appointment times available.</div>
+          </div>
+
+          <div>
+            <label for="type">Appointment Type</label>
+            <select
+              class="form-control"
+              id="time"
+              formControlName="appointmentType"
+              required
+            >
+              <option  [ngValue]="'Clinic'">
+               Clinic
+              </option>
+              <option  [ngValue]="'Online Video'">
+               Online Video
               </option>
             </select>
           </div>

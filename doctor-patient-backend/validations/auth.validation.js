@@ -10,14 +10,11 @@ const registerValidation = async (req, res, next) => {
         .required()
         .messages({ "string.empty": "Name field cannot be empty." })
         .pattern(/^[a-zA-Z\\s]*$/),
-      email: Joi.string()
-        .email()
-        .required()
-        .messages({
-          "string.empty": "Please add an email.",
-          "string.email": "Please add an valid email.",
-        }),
-      password: Joi.number().required(),
+      email: Joi.string().email().required().messages({
+        "string.empty": "Please add an email.",
+        "string.email": "Please add an valid email.",
+      }),
+      password: Joi.string().required(),
       phoneNumber: Joi.string()
         .min(6)
         .required()
@@ -27,7 +24,9 @@ const registerValidation = async (req, res, next) => {
         }),
       height: Joi.number().required(),
       weight: Joi.number().required(),
-      bloodGroup: Joi.string().required().pattern(/^[a-z]/)
+      bloodGroup: Joi.string()
+        .required()
+        .pattern(/^[a-z]/),
     }).options({ allowUnknown: true });
 
     const { value, error } = schema.validate(req.body);
@@ -50,9 +49,11 @@ const loginValidation = async (req, res, next) => {
       email: Joi.string()
         .email()
         .required()
-        .messages({ "string.empty": "Please add an email.", "string.email": "Please add an valid email." }),
-      password: Joi.string().required()
-      .min(6)
+        .messages({
+          "string.empty": "Please add an email.",
+          "string.email": "Please add an valid email.",
+        }),
+      password: Joi.string().required().min(6),
       //.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)
     });
 
@@ -68,19 +69,15 @@ const loginValidation = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
 };
 
 const forgetValidation = async (req, res, next) => {
   try {
     const schema = Joi.object({
-      email: Joi.string()
-        .email()
-        .required()
-        .messages({
-          "string.empty": "Please add an email.",
-          "string.email": "Please add an valid email.",
-        }),
+      email: Joi.string().email().required().messages({
+        "string.empty": "Please add an email.",
+        "string.email": "Please add an valid email.",
+      }),
     });
 
     const { value, error } = schema.validate(req.body);
@@ -128,7 +125,7 @@ const updateProfileValidation = async (req, res, next) => {
       name: Joi.string()
         .required()
         .messages({ "string.empty": "Name field cannot be empty." }),
-        //.pattern(/^[a-zA-Z\\s]*$/),
+      //.pattern(/^[a-zA-Z\\s]*$/),
       phoneNumber: Joi.string()
         .required()
         .pattern(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/)
