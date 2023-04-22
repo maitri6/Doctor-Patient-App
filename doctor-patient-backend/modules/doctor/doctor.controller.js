@@ -38,7 +38,7 @@ exports.doctorForm = async (req, res, next) => {
       "Doctor form submitted successfully",
       saveDoctor
     );
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.getCityAndYear = async (req, res, next) => {
@@ -55,7 +55,7 @@ exports.getCityAndYear = async (req, res, next) => {
     } else {
       return sendResponse(res, false, 400, "Please enter the valid type");
     }
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.getDoctorAndPatientDetails = async (req, res, next) => {
@@ -109,9 +109,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         COLLEGES
       );
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) { }
 };
 
 exports.getAllAppointments = async (req, res, next) => {
@@ -139,7 +137,7 @@ exports.getAllAppointments = async (req, res, next) => {
       "Appointments fetched successfully",
       getAllAppointments
     );
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.updateProfile = async (req, res, next) => {
