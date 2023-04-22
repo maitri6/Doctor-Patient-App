@@ -1,4 +1,5 @@
 const DoctorModel = require("../doctor/doctor.model");
+const UserModel = require("../userAuth/user.model");
 const moment = require("moment");
 const cron = require("node-cron");
 const schedule = require("node-schedule");
@@ -105,7 +106,12 @@ exports.patientForm = async (req, res, next) => {
       doctorId: req.body.doctorId,
     });
     if (existingAppointments.length > 0)
-      return sendResponse(res, false, 400, "Appointment already booked for today ");
+      return sendResponse(
+        res,
+        false,
+        400,
+        "Appointment already booked for today "
+      );
 
     req.body.patientId = req.user.userId;
     await AppointmentModel.create(req.body);
@@ -115,22 +121,28 @@ exports.patientForm = async (req, res, next) => {
 
 exports.getPatientAppointment = async (req, res, next) => {
   try {
-    const getAppointment = await AppointmentModel.find({
+    const getPatientAppointments = await AppointmentModel.find({
       patientId: req.user.userId,
     })
       .lean()
       .sort({ createdAt: -1 })
-      .populate({
-        path: "doctorId",
-        select: "name",
-      })
-      .select(["description", "date", "time", "appointmentType"]);
+      .select([
+        "description",
+        "date",
+        "time",
+        "appointmentType",
+        "isAppointment",
+      ]);
+
+    if (!getPatientAppointments.length > 0)
+      return sendResponse(res, false, 400, "No Appointments Booked");
+   // get userId in doctor table & then with userId in user table find only name 
     return sendResponse(
       res,
       true,
       200,
       "Patient appointments fetched successfully",
-      getAppointment
+      getPatientAppointments
     );
   } catch (error) {}
 };

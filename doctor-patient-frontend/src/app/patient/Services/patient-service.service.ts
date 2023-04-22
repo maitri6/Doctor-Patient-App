@@ -41,4 +41,7 @@ export class PatientServiceService {
     return this.http.post(this.baseUrl + 'patient'+'/bookPatientAppointment', data,{...this.httpOptions});
   }
 
+  getAllPatientAppointments(): Observable<any>{
+    return this.http.get(this.baseUrl + 'patient'+'/getPatientAppointment',this.httpOptions);
+  }
 }
