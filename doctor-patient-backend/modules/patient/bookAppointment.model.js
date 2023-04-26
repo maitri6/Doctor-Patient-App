@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema(
     fees: {
       type: Number
     },
+    disease: {
+      type: String
+    },
   },
   {
     timestamps: true,
