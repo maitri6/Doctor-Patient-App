@@ -145,6 +145,10 @@ exports.getPatientAppointment = async (req, res, next) => {
       .select(["name"]);
       // added name field in appointment using the below statement
       appointment.name=doctor.name;
+      const doctorDetail=await DoctorModel.findOne({userId:appointment.doctorId})
+      .lean()
+      .select(["clinicFees"]);
+      appointment.fees=doctorDetail.clinicFees;
       return appointment;
     }));
     return sendResponse(
@@ -154,5 +158,7 @@ exports.getPatientAppointment = async (req, res, next) => {
       "Patient appointments fetched successfully",
       doctorid
     );
-  } catch (error) {} 
+  } catch (error) {
+    console.log(error);
+  } 
 };
