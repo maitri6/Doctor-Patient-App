@@ -128,6 +128,8 @@ exports.getPatientAppointment = async (req, res, next) => {
       .sort({ createdAt: -1 })
       .select([
         "description",
+        "disease",
+        "doctorId",
         "date",
         "time",
         "appointmentType",
@@ -136,13 +138,27 @@ exports.getPatientAppointment = async (req, res, next) => {
 
     if (!getPatientAppointments.length > 0)
       return sendResponse(res, false, 400, "No Appointments Booked");
-   // get userId in doctor table & then with userId in user table find only name 
+
+    let doctorid =await Promise.all(getPatientAppointments.map(async(appointment)=>{
+      const doctor=await UserModel.findOne({_id:appointment.doctorId})
+      .lean()
+      .select(["name"]);
+      // added name field in appointment using the below statement
+      appointment.name=doctor.name;
+      const doctorDetail=await DoctorModel.findOne({userId:appointment.doctorId})
+      .lean()
+      .select(["clinicFees"]);
+      appointment.fees=doctorDetail.clinicFees;
+      return appointment;
+    }));
     return sendResponse(
       res,
       true,
       200,
       "Patient appointments fetched successfully",
-      getPatientAppointments
+      doctorid
     );
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  } 
 };

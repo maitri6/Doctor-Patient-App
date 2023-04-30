@@ -38,7 +38,7 @@ exports.doctorForm = async (req, res, next) => {
       "Doctor form submitted successfully",
       saveDoctor
     );
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.getCityAndYear = async (req, res, next) => {
@@ -55,7 +55,7 @@ exports.getCityAndYear = async (req, res, next) => {
     } else {
       return sendResponse(res, false, 400, "Please enter the valid type");
     }
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.getDoctorAndPatientDetails = async (req, res, next) => {
@@ -109,7 +109,7 @@ exports.getDoctorAndPatientDetails = async (req, res, next) => {
         COLLEGES
       );
     }
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.getAllAppointments = async (req, res, next) => {
@@ -139,7 +139,7 @@ exports.getAllAppointments = async (req, res, next) => {
       "Appointments fetched successfully",
       getAllAppointments
     );
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.updateProfile = async (req, res, next) => {
@@ -166,34 +166,23 @@ exports.updateProfile = async (req, res, next) => {
 
 exports.updatePatientStatus = async (req, res, next) => {
   try {
-    let getAppointments = await AppointmentModel.findById({
-      _id: req.query._id,
-    });
-    console.log(getAppointments);
-    //console.log()
-    if (!getAppointments) {
+    let getPatient = await AppointmentModel.findOne({ patientId: req.query.patientId, doctorId: req.user.userId });
+    if (!getPatient)
       return sendResponse(res, false, 400, "Appointment not found");
-    }
-    console.log(getAppointments.time);
-
-    const appointmentTime = moment(getAppointments.time, "HH:mm");
-    console.log(appointmentTime);
-    const scheduledTime = appointmentTime.clone().add(30, "minutes");
-    console.log(scheduledTime);
-    if (
-      appointmentTime < scheduledTime &&
-      getAppointments.isAppointment !== "Completed"
-    ) {
-      await AppointmentModel.updateOne(
-        { _id: getAppointments._id },
-        { $set: { isAppointment: "completed" } }
+    getPatient.isAppointment = 'completed'; 
+    getPatient.save(function (err) {
+      if (err) throw err;
+      console.log("Appointment status updated");
+      return sendResponse(
+        res,
+        true,
+        200,
+        "Patient status updated successfully",
+        getPatient
       );
-      //getAppointments.isAppointment = 'Completed';
-      //getAppointments.save();
-      console.log("status updated !!");
-    } else {
-      console.log("not done");
-    }
+    });
+   
   } catch (error) {
+    console.log(error);
   }
 };
