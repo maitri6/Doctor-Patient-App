@@ -43,6 +43,6 @@ export class SpecificDoctorsComponent implements OnInit{
   }
 
   onDoctorCardClicked(doctor:any) {
-     this.router.navigate(['/bookPatientAppointment', doctor._id]);
+     this.router.navigate(['/bookPatientAppointment', doctor.userId._id]);
   }
 }

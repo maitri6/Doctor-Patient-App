@@ -16,15 +16,17 @@
                     <th>Time</th>
                     <th>Disease</th>
                     <th>Appointment Type</th>
+                    <th>Fees</th>
                     <th>Status</th>
                   </thead>
                   <tbody>
                       <tr *ngFor="let item of AppointmentList">
-                          <td>{{ item.doctorId?.name }}</td>
+                          <td>{{ item.name }}</td>
                           <td>{{ item.date }}</td>
                           <td>{{ item.time }}</td>
                           <td>{{ item.time }}</td>
                           <td>{{ item.appointmentType }}</td>
+                          <td>{{ item.fees }}</td>
                           <td>{{ item.isAppointment }}</td>
                         </tr>
                   </tbody>

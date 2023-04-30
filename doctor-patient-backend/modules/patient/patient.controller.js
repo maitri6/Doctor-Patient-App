@@ -143,6 +143,7 @@ exports.getPatientAppointment = async (req, res, next) => {
       const doctor=await UserModel.findOne({_id:appointment.doctorId})
       .lean()
       .select(["name"]);
+      console.log("doctor",doctor)
       // added name field in appointment using the below statement
       appointment.name=doctor.name;
       const doctorDetail=await DoctorModel.findOne({userId:appointment.doctorId})
