@@ -2,12 +2,27 @@ const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const cors = require("cors");
 const fileupload = require('express-fileupload');
 const path = require('path')
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
+
+app.use(session({
+    secret: 'mySecretKey', // Replace with your own secret key
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 600000,
+        
+    }
+}));
+
+
 
 app.use(fileupload({
     createParentPath: true,
@@ -36,14 +51,14 @@ dbConn.on("error", () => {
     console.log("Mongodb connection error");
 });
 
-dbConn.once("open", function() {
+dbConn.once("open", function () {
     console.log("Mongodb connected successfully!!");
 });
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.send("Doctor Patient App Runs!!")
 });
 
-server.listen(3003, function() {
+server.listen(3003, function () {
     console.log("Server is running at 3003");
 })

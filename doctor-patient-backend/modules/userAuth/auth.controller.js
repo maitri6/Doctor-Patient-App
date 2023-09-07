@@ -63,6 +63,13 @@ exports.login = async (req, res, next) => {
     message = otp;
     await UserModel.updateOne({ _id: getUser._id }, { $set: { otp: otp } });
     sendEmail(getUser.email, subject, message);
+
+    // cookie 
+    req.session.isAuth = true;
+    req.session.userId = getUser._id;
+    req.session.role = getUser.role;
+    req.session.save();
+    console.log(req.session);
     return sendResponse(res, true, 200, "OTP sent successfully.", {
       getUser,
       token,
@@ -135,7 +142,7 @@ exports.sendOtp = async (req, res) => {
       return sendResponse(res, true, 400, "Invalid OTP");
     await UserModel.updateOne({ _id: checkOtp._id }, { $set: { status: true } });
     return sendResponse(res, true, 200, "User verified successfully");
-  } catch (error) {}
+  } catch (error) { }
 };
 
 function generateOTP() {
@@ -218,6 +225,7 @@ exports.changePassword = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
   try {
+    cosole.log(req.user.userId)
     let getUser = await UserModel.findById(req.user.userId);
     if (!getUser) {
       return sendResponse(
@@ -237,4 +245,26 @@ exports.updateProfile = async (req, res, next) => {
   } catch (error) { }
 };
 
+exports.logout = async(req,res,next) =>{
+  try{
+      
+      const getUser = await UserModel.aggregate([{
+          
+          $match: {_id:req.session.userId}
+      }]);
+      req.session.destroy((err) =>{
+          if(err){
+              cosole.log(err);
+              return sendResponse(res,true,400,"Failed to destroy session");
+          }else{
+              console.log("session destroyed",req.session);
+              return sendResponse(res,true,200,"User logged out successfully");
+          }
+
+      });
+
+  }catch(err){
+      console.log(err);
+  }
+};
 
